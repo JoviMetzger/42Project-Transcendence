@@ -1,0 +1,39 @@
+services:
+  # frontend written in typescript/.js with tailwind CSS
+  frontend:
+    depends_on:
+      - backend
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend.Dockerfile
+    container_name: frontend
+    ports:
+      - "5173:5173" # might be able to remove this later, could be useful for now in the development env to be able to directly go to frontend port
+    volumes:
+      - ./frontend:/app #mounting the /frontend so live edits update the docker container
+      - /app/node_modules # Ensures node_modules are not overwritten by the host, allowing container to manage dependencies
+    command: [ "pnpm", "run", "dev" ] # Hot-reload mode for frontend
+    # backend written with Fastify and .ts/js
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend.Dockerfile
+    container_name: backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app # mounting the /backend so live edits update the docker container
+      - /app/node_modules # Ensures node_modules are not overwritten by the host, allowing container to manage dependencies
+      - db_data:/app/database # Dedicated volume for SQLite ; only one that will also be in dev docker-compose
+    environment:
+      - NODE_ENV=development
+    command: [ "pnpm", "run", "dev" ]
+
+networks:
+  transcendence:
+    driver: bridge
+    external: false
+
+volumes:
+  db_data:
+    driver: local
