@@ -7,14 +7,14 @@ WORKDIR /app
 #install pnpm
 RUN npm install -g pnpm
 
-# Copy package.json and install dependencies
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
+RUN pnpm install fastify
 
-# Copy the backend source code
-COPY . .
+# Copy the backend source code, comments back in when running the non-dev docker-compose
+#COPY . .
 
 # Expose backend port
 EXPOSE 3000
 
 # CMD is defined in dockerfile to differentiate between dev and non-dev env
+
+CMD ["tail", "-f", "/dev/null"]

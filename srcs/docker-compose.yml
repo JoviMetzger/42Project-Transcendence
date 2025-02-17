@@ -1,0 +1,30 @@
+services:
+  frontend:
+    depends_on:
+      - backend
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend.Dockerfile
+    container_name: ft_frontend
+    command: [ "pnpm", "run" ]
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend.Dockerfile
+    container_name: ft_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    volume:
+      - db_data:/app/database # Dedicated volume for SQLite
+    command: [ "pnpm", "run" ]
+
+networks:
+  transcendence:
+    driver: bridge
+    external: false
+
+volumes:
+  db_data:
+    driver: local
