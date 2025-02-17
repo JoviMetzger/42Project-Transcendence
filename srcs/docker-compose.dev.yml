@@ -7,6 +7,7 @@ services:
       context: ./frontend
       dockerfile: ../docker/frontend.Dockerfile
     container_name: frontend
+    restart: on-failure
     ports:
       - "5173:5173" # might be able to remove this later, could be useful for now in the development env to be able to directly go to frontend port
     volumes:
@@ -19,6 +20,7 @@ services:
       context: ./backend
       dockerfile: ../docker/backend.Dockerfile
     container_name: backend
+    restart: on-failure
     ports:
       - "3000:3000"
     volumes:

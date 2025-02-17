@@ -6,12 +6,14 @@ services:
       context: ./frontend
       dockerfile: ../docker/frontend.Dockerfile
     container_name: ft_frontend
+    restart: unless-stopped
     command: [ "pnpm", "run" ]
   backend:
     build:
       context: ./backend
       dockerfile: ../docker/backend.Dockerfile
     container_name: ft_backend
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
