@@ -1,5 +1,6 @@
 # ignore .env in any dir
 **/.env
 
-/srcs/frontend/.pnpm-store
-/srcs/frontend/node_modules
+# installed dependencies etc
+*/.pnpm-store
+*/node_modules
