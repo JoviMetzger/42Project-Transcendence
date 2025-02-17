@@ -14,10 +14,6 @@ RUN pnpm install tailwindcss @tailwindcss/vite
 
 RUN pnpm install postcss --save-dev
 
-
-# Copy frontend source code, comment in when not in dev mode as files wont be mounted
-#COPY . .
-
 # Build the frontend
 #RUN pnpm run build
 

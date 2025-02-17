@@ -29,13 +29,17 @@ dev-build:
 dev-down:
 	$(DOCKER_COMPOSE_DEV) down
 
-dev-rebuild: dev-down dev-build dev
+dev-rebuild: 
+	rm -rf ./srcs/backend/.pnpm-store
+	make dev-down
+	make dev-build
+	make dev
 
 build:
 	$(DOCKER_COMPOSE) build
 
 logs:
-	$(DOCKER_COMPOSE_DEV) logs -f
+	$(DOCKER_COMPOSE_DEV) logs
 
 clean:
 	$(DOCKER_COMPOSE_DEV) down -v
