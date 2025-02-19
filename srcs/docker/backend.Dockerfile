@@ -11,6 +11,8 @@ RUN npm install -g pnpm
 
 RUN pnpm install fastify
 
+RUN pnpm install tsx
+
 RUN pnpm install --force
 
 # Copy the backend source code, comments back in when running the non-dev docker-compose
