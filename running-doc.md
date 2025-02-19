@@ -27,6 +27,10 @@ Fastify is a web framework for Node.js, designed for building fast and efficient
 
 https://fastify.dev/docs/latest/Guides/Getting-Started/
 
+https://betterstack.com/community/guides/scaling-nodejs/introduction-to-fastify/
+
+
+
 ## Frontend:
 
 Frontend will be developed with tailwind css and using typescript additionally only.
