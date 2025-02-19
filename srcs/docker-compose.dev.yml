@@ -13,8 +13,10 @@ services:
     volumes:
       - ./frontend:/app #mounting the /frontend so live edits update the docker container
       - /app/node_modules # Ensures node_modules are not overwritten by the host, allowing container to manage dependencies
+    env_file:
+      - ./.env
     command: [ "pnpm", "run", "dev" ] # Hot-reload mode for frontend
-    # backend written with Fastify and .ts/js
+  # backend written with Fastify and .ts/js
   backend:
     build:
       context: ./backend
@@ -29,6 +31,8 @@ services:
       - db_data:/app/database # Dedicated volume for SQLite ; only one that will also be in dev docker-compose
     environment:
       - NODE_ENV=development
+    env_file:
+      - ./.env
     command: [ "pnpm", "run", "dev" ]
 
 networks:
