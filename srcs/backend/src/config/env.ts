@@ -1,8 +1,9 @@
 import path from "node:path";
+import { fileURLToPath } from "url";
 import envSchema from "env-schema";
 
 // variables set to be used in .js files, can be imported
-schema = {
+const schema = {
 	type: "object",
 	required: ["PORT", "LOG_LEVEL"],
 	properties: {
@@ -26,12 +27,12 @@ schema = {
 const config = envSchema({
 	schema: schema,
 	dotenv: {
-		path: path.join(import.meta.dirname, "../../.env"),
+		path: path.join(path.dirname(fileURLToPath(import.meta.url)), "../../.env"),
 	},
 });
 
 const envConfig = {
-	port: config.PORT,
+	port: Number(config.PORT),
 	logLevel: config.LOG_LEVEL,
 	nodeEnv: config.NODE_ENV,
 	// can add DB_file

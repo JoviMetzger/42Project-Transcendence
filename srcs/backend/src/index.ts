@@ -1,22 +1,30 @@
-// Require the framework and instantiate it
-
+import envConfig from './config/env.ts';
 import Fastify from 'fastify'
-//import logger from "./config/logger.js"
 
+
+console.log("reading from index.ts backend")
 
 const fastify = Fastify({
 	logger: true
 })
 
+// defining a function in TS
+const start = async () => {
+	try {
+		const address = await fastify.listen({ port: envConfig.port, host: '0.0.0.0' });
+		fastify.log.info(`server listening on ${address}`);
+	} catch (error) {
+		fastify.log.error(error);
+		process.exit(1);
+	}
+}
 
-// Declare a route
-// fastify.get('/', function (request, reply) {
-// 	reply.send({ hello: 'world' }) // automatically turns into a json
-// })
+start()
+
 
 // Declare a route
 fastify.get('/', function (request, reply) {
-	reply.send("hello gerjkngerger world") //automatically generates text
+	reply.send("hello this is transendence world") //automatically generates text
 })
 
 // Run the server!
@@ -27,8 +35,3 @@ fastify.listen({ port: 3000, host: '0.0.0.0' }, function (err, address) {
 	}
 	fastify.log.info(`server listening on ${address}`)
 })
-
-
-// app.register(function plugin(app, opts, next) {
-// 	next()
-// })
