@@ -1,12 +1,17 @@
 import envConfig from './config/env.ts';
-import Fastify from 'fastify'
+import Fastify from 'fastify';
+import userRoutes from './routes/users.ts';
 
 
 console.log("reading from index.ts backend")
 
 const fastify = Fastify({
 	logger: true
-})
+}) // making the fastify instance out of the imported Fastify
+
+
+fastify.register(userRoutes);
+
 
 // defining a function in TS
 const start = async () => {
@@ -22,16 +27,18 @@ const start = async () => {
 start()
 
 
-// Declare a route
+//default route
 fastify.get('/', function (request, reply) {
 	reply.send("hello this is transendence world") //automatically generates text
 })
 
-// Run the server!
-fastify.listen({ port: 3000, host: '0.0.0.0' }, function (err, address) {
-	if (err) {
-		fastify.log.error(err)
-		process.exit(1)
-	}
-	fastify.log.info(`server listening on ${address}`)
-})
+
+
+// // Run the server!
+// fastify.listen({ port: 3000, host: '0.0.0.0' }, function (err, address) {
+// 	if (err) {
+// 		fastify.log.error(err)
+// 		process.exit(1)
+// 	}
+// 	fastify.log.info(`server listening on ${address}`)
+// })

@@ -36,7 +36,10 @@ https://www.youtube.com/watch?v=Lk-uVEVGxOA
 
 
 
-For the database can chose an sql plugin
+For the database can chose an sql plugin from the fastify ecosystem
+
+
+For testing routes i am using the REST vscode plugin which uses the file test.http. Here you can write any request and it will show you the http response.
 
 
 
