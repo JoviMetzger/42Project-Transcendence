@@ -1,24 +1,25 @@
 
+export const VALID_ROLES = ['admin', 'user', 'guest'] as const;
+export type Role = typeof VALID_ROLES[number];
+
+export interface User {
+	id: number;
+	name: string;
+	role: Role;
+}
+
 // will be replaced with database interactoins
-export const users = [
-	{ id: 1, name: 'jovi' },
-	{ id: 2, name: 'Acco' },
-	{ id: 3, name: 'Julius' }
-]
-
-export const admins = [
-	{ id: 1, name: 'adjovi' },
-	{ id: 2, name: 'adAcco' },
-	{ id: 3, name: 'adJulius' }
+export const Users = [
+	{ id: 1, name: 'jovi', role: 'admin' },
+	{ id: 2, name: 'Acco', role: 'admin' },
+	{ id: 3, name: 'Julius', role: 'admin' },
+	{ id: 4, name: 'player', role: 'user' },
+	{ id: 5, name: 'failure', role: 'guest' },
+	{ id: 6, name: 'person', role: 'guest' }
 ]
 
 
-const allUsers = {
-	users,
-	admins
-};
-
-export default allUsers;
+export default Users;
 
 
 /*
