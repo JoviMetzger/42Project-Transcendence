@@ -25,9 +25,29 @@ development will be in `Fastify`
 
 Fastify is a web framework for Node.js, designed for building fast and efficient server-side applications. It is known for its low overhead, high performance, and extensibility, making it a popular choice for developers who need to create scalable and maintainable backend services. Fastify provides a robust plugin architecture, allowing developers to easily add functionality and customize their applications.
 
+Fastify plugins:
+https://fastify.dev/ecosystem/
+
 https://fastify.dev/docs/latest/Guides/Getting-Started/
 
 https://betterstack.com/community/guides/scaling-nodejs/introduction-to-fastify/
+
+https://www.youtube.com/watch?v=Lk-uVEVGxOA
+
+
+
+For the database can chose an sql plugin from the fastify ecosystem
+
+
+For testing routes i am using the REST vscode plugin which uses the file test.http. Here you can write any request and it will show you the http response.
+
+
+By going to:
+http://localhost:3000/docs 
+you can view all of the possible GET requests
+
+
+
 
 
 

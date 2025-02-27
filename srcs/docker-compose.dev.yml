@@ -6,6 +6,7 @@ services:
     build:
       context: ./frontend
       dockerfile: ../docker/frontend.Dockerfile
+    image: img_frontend
     container_name: frontend
     restart: on-failure
     ports:
@@ -22,6 +23,7 @@ services:
       context: ./backend
       dockerfile: ../docker/backend.Dockerfile
     container_name: backend
+    image: img_backend
     restart: on-failure
     ports:
       - "3000:3000"
@@ -37,6 +39,7 @@ services:
 
 networks:
   transcendence:
+    name: transcendence_net
     driver: bridge
     external: false
 

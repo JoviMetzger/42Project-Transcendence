@@ -1,6 +1,9 @@
+# the .vscode
+.vscode
+
 # ignore .env in any dir
 **/.env
 
 # installed dependencies etc
-*/.pnpm-store
-*/node_modules
+**/.pnpm-store
+**/node_modules

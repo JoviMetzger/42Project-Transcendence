@@ -1,13 +1,16 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
-		"module": "commonjs",
+		"target": "ESNEXT",
+		"module": "NodeNext",
+		"moduleResolution": "nodenext", // Add this line
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"allowImportingTsExtensions": true,
+		"noEmit": true
 	},
 	"include": [
 		"src"
