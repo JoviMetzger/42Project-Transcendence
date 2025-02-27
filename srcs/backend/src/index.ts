@@ -1,7 +1,8 @@
 import envConfig from './config/env.ts';
 import Fastify from 'fastify';
 import userRoutes from './routes/users.ts';
-
+import swagger from '@fastify/swagger';
+import swaggerUi from '@fastify/swagger-ui';
 
 console.log("reading from index.ts backend")
 
@@ -9,6 +10,21 @@ const fastify = Fastify({
 	logger: true
 }) // making the fastify instance out of the imported Fastify
 
+await fastify.register(swagger, {
+	swagger: {
+		info: {
+			title: 'fastify-api',
+			description: 'Testing the Fastify swagger API',
+			version: '0.1.0',
+			routePrefix: '/docs'
+		},
+	}
+})
+
+await fastify.register(swaggerUi, {
+	routePrefix: '/docs',
+	exposeRoute: true
+})
 
 fastify.register(userRoutes);
 
