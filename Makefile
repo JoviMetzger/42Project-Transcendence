@@ -17,7 +17,7 @@ help:
 	@echo "  make clean       - Remove all containers and volumes"
 	@echo "  make install     - Install dependencies for both frontend and backend"
 	@echo "  make prod        - Start production environment"
-	@echo "  copy env		  - copies env stored on local machine from ~/.transcendence.env to the right directory"
+	@echo "  copy env         - copies env stored on local machine from ~/.transcendence.env to the right directory"
 
 # Development commands
 dev:
