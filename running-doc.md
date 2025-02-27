@@ -42,6 +42,10 @@ For the database can chose an sql plugin from the fastify ecosystem
 For testing routes i am using the REST vscode plugin which uses the file test.http. Here you can write any request and it will show you the http response.
 
 
+By going to:
+http://localhost:3000/docs 
+you can view all of the possible GET requests
+
 
 
 
