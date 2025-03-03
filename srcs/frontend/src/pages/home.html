@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home Page</title>
+    <style>
+        body {
+            background: url('https://i.pinimg.com/originals/38/38/d2/3838d2b254ff4a03f41dca4f90735e02.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* justify-content: space-evenly;  Distributes elements evenly */
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+        
+        /* Dark overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;  /* Pushes it behind content */
+        }
+        
+        /* Header */
+        .header {
+            position: absolute;
+            top: 20px;  /* Moved down slightly */
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 2;
+        }
+        
+        .dropdown {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: black;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        
+        /* Profile section */
+        .profile {
+            margin-top: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+        
+        .profile img {
+            width: 280px;   /* Increased size */
+            height: 280px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+        
+        .welcome {
+            margin-top: 20px;
+            font-size: 4rem;  /* Bigger text */
+            color: white;
+            font-weight: bold;
+        }
+        
+        /* Scores layout */
+        .scores-container {
+            display: flex;
+            justify-content: center;
+            gap: 150px;  /* More space between scores */
+            margin-top: 40px;
+        }
+        
+        .score-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .score-icon {
+            width: 180px;  /* Bigger circles */
+            height: 180px;
+            background: url('https://static.vecteezy.com/system/resources/thumbnails/019/062/493/small_2x/star-icon-in-gradient-colors-favourite-signs-illustration-png.png');
+            /*background: rgba(255, 255, 255, 0.2);*/
+            background-size: cover;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5.5rem;
+            /*border: 1px solid white;*/
+        }
+        
+        .score-text {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .score-number {
+            font-size: 2.5rem;  /* Bigger numbers */
+            font-weight: bold;
+            color: #ffd700;
+        }
+        
+        /* Buttons */
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 90%;
+            max-width: 350px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px 25px;  /* Bigger buttons */
+            font-size: 1.2rem;   /* Increased font size */
+            font-weight: bold;
+            color: white;
+            background: #dd0185;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #b86a8a;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .scores-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+        
+            .score-icon {
+                width: 100px;
+                height: 100px;
+                font-size: 2rem;
+            }
+        
+            .buttons {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <div class="header">
+        <div class="dropdown">🏳️ Language</div>
+        <div class="dropdown">⚙️ Settings</div>
+    </div>
+
+    <div class="profile">
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt="Profile Picture">
+        <div class="welcome">Welcome, $user</div>
+    </div>
+
+    <div class="scores-container">
+        <div class="score-box">
+            <div class="score-icon">
+                <i class="fas fa-table-tennis"></i>  <!-- Different icon for Pong -->
+            </div>
+            <div class="score-text">Pong</div>
+            <div class="score-number">1200</div>
+        </div>
+        <div class="score-box">
+            <div class="score-icon">
+                <i class="fas fa-gamepad"></i> <!-- Different icon for OtherGame -->
+            </div>
+            <div class="score-text">OtherGame</div>
+            <div class="score-number">900</div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="btn" onclick="location.href='pongMenu.html'">Play Pong</button>
+        <button class="btn" onclick="location.href='otherGameMenu.html'">Play OtherGame</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+    "welcome": "Welcome",
+    "profile": "Profile",
+    "settings": "Settings",
+    "play_pong": "Play Pong",
+    "play_other_game": "Play Other Game",
+    "edit_profile": "Edit Profile",
+    "edit_name": "Edit Name",
+    "chat": "Chat",
+    "friends": "Friends"
+
+	// And so on ....
+}

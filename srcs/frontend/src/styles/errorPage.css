@@ -1,0 +1,42 @@
+/* errorPage.css */
+
+/* Body style */
+body {
+	font-family: Arial, sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	background-color: #fff;
+}
+
+/* Container for forms */
+.container {
+	text-align: center;
+	padding: 20px;
+	background-color: #fff;
+}
+
+/* Error title styling*/
+.error-code {
+	font-size: 9em;
+	font-weight: bold;
+	margin-bottom: -0.1em;
+	color: #333;
+}
+
+/* Title styling */
+h1 {
+	font-size: 2em;
+	margin-bottom: 0.1em;
+	color: #333;
+}
+
+/* Paragraph styling (for links) */
+p {
+	font-size: 1em;
+	margin-bottom: 1em;
+	color: #666;
+}
+
