@@ -1,6 +1,6 @@
 // controllers - users.ts
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { Users, User, VALID_ROLES, Role } from '../models/users.ts';
+import { Users, addUserBody } from '../models/users.ts';
 
 export const getAllUsers = (request: FastifyRequest, reply: FastifyReply) => {
 	reply.send(Users);
@@ -16,18 +16,6 @@ export const getUserById = (request: FastifyRequest, reply: FastifyReply) => {
 	}
 
 	reply.send(user);
-};
-
-export const getUsersByRole = (request: FastifyRequest, reply: FastifyReply) => {
-	const { role } = request.params as { role: string };
-
-	if (!VALID_ROLES.includes(role as Role)) {
-		reply.code(400).send({ error: 'Invalid role' });
-		return;
-	}
-
-	const filteredUsers = Users.filter(user => user.role === (role as Role));
-	reply.send(filteredUsers);
 };
 
 export const getUserByAlias = (request: FastifyRequest, reply: FastifyReply) => {
@@ -87,4 +75,44 @@ export const getLeaderboard = (request: FastifyRequest, reply: FastifyReply) => 
 		}));
 
 	reply.send(leaderboard);
+};
+
+// POSTS
+export const AddUser = (request: FastifyRequest, reply: FastifyReply) => {
+	const body = request.body as addUserBody;
+
+	// Check if alias is already taken
+	const existingUser = Users.find(user =>
+		user.alias.toLowerCase() === body.alias.toLowerCase() ||
+		user.username.toLowerCase() === body.username.toLowerCase()
+	);
+
+	if (existingUser) {
+		reply.code(400).send({
+			error: 'Username or alias already taken'
+		});
+		return;
+	}
+
+	// Hash the password
+	// const saltRounds = 10;
+	// const hashedPassword = await bcrypt.hash(body.password, saltRounds);
+
+	// Create new user
+	const newUser = {
+		id: Users.length + 1,
+		uuid: `user-uuid-${Users.length + 1}`, // In production, use proper UUID generation
+		username: body.username,
+		alias: body.alias,
+		password: body.password,
+		profilePic: body.profilePic || null,
+		wins: 0,
+		losses: 0
+	};
+
+	Users.push(newUser);
+
+	// Return user data without password
+	const { password, ...userWithoutPassword } = newUser;
+	reply.code(201).send(userWithoutPassword);
 };
