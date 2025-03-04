@@ -55,17 +55,17 @@ export const getLeaderboard = (request: FastifyRequest, reply: FastifyReply) => 
 		const winRate = totalGames > 0 ? (user.wins / totalGames) : 0;
 
 		return {
-			...user,
+			alias: user.alias,
+			wins: user.wins,
+			losses: user.losses,
 			totalGames,
 			winRate
 		};
 	})
 		.sort((a, b) => {
-			// Sort by win rate first
 			if (b.winRate !== a.winRate) {
 				return b.winRate - a.winRate;
 			}
-			// If win rates are equal, sort by total games
 			return b.totalGames - a.totalGames;
 		})
 		.map((entry, index) => ({
