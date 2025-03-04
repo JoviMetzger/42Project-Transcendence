@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Transcendence</title>
+	<link rel="stylesheet" href="../styles/signUp.css"> <!-- Link to the CSS file -->
+	<script type="module" src="/src/script/language.js"></script> <!-- Link to the Typescript file -->
+</head>
+<body>
+	<div class="overlay"></div>
+    <div class="container">
+        <h1 class="header" data-i18n="SignUp_Header"></h1>
+		
+		<p class="p1" data-i18n="SignUp_Avatar"></p>
+		<div class="profile-picture">
+			<img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png">
+		</div>
+
+		<p class="p1" data-i18n="LogIn_Name"></p>
+		<input type="Login_Name" class="input-field" data-i18n-placeholder="SignUp_placeholder1">
+
+		<p class="p1" data-i18n="SignUp_Alias"></p>
+		<input type="Alias_Name" class="input-field" data-i18n-placeholder="SignUp_placeholder2">
+
+		<p class="p1" data-i18n="Password"></p>
+		<input type="Password" class="input-field">
+
+		<p class="p1" data-i18n="ConfirmPassword"></p>
+		<input type="Confirm_Password" class="input-field">
+		
+		<div class="buttons">
+			<button class="btn" onclick="location.href='/src/pages/userHomePage.html'">Sign Up</button>
+		</div>
+        <p data-i18n="SignUp_P"><a href="logIn.html" style="color: #a00361;">Log In</a></p>
+    </div>
+</body>
+</html>

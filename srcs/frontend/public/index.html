@@ -1,16 +1,21 @@
-<!-- <!doctype html>
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="/src/styles.css" rel="stylesheet">
+	<title>Welcome to Transcendence</title>
+	<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->
+    <script type="module" src="/src/script/language.js"></script> <!-- Link to the Typescript file -->
 </head>
-
 <body>
-	<h1 class="text-3xl font-bold underline">
-		Hello jovi!
-	</h1>
+	<div class="overlay"></div>
+	<div class="container">
+		<h1 class="header" data-i18n="Index_Header"></h1>
+		<p data-i18n="Index_P"></p>
+		<div class="buttons">
+			<button class="btn" onclick="location.href='/src/pages/logIn.html'" data-i18n="btn_LogIn"></button>
+			<button class="btn" onclick="location.href='/src/pages/signUp.html'" data-i18n="btn_SignUp"></button>
+		</div>
+	</div>
 </body>
-
-</html> -->
+</html> 

@@ -1,0 +1,25 @@
+{
+    "btn_LogIn": "Log In",
+	"btn_SignUp": "Sign Up",
+
+    "Password": "Password",
+    "ConfirmPassword": "Confirm Password",
+    "LogIn_Name": "LogIn Name",
+    
+    "Index_Header": "Welcome to Transcendence",
+    "LogIn_Header": "Sign In",
+    "SignUp_Header": "Create Account",
+    
+    "Index_P": "Play classic Pong with your friends!",
+    "LogIn_P": "Don't have an account? {link}",
+    "SignUp_P": "Already have an account? {link}",
+    
+    "LogIn_placeholder1": "Intra Name",
+    "SignUp_placeholder1": "Only used for Log In (Intra Name)",
+    "SignUp_placeholder2": "Visibale for other users",
+    
+    
+    "SignUp_Avatar": "Add your Avatar",
+    "SignUp_Alias": "Alias Name"
+
+}

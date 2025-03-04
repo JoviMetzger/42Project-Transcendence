@@ -1,5 +1,9 @@
 /* errorPage.css */
 
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 /* Body style */
 body {
 	font-family: Arial, sans-serif;

@@ -27,13 +27,13 @@ TO DO LIST:
 			- Name
 			- Password
 		- user home page
-			- Profile (left)
-			- User name (left)
-			- Settings: drop down (right)
+			- Profile
+			- User name
+			- Settings: drop down
 				- Log out
 				- friends
 				- Personal Information
-			- langauge (right)
+				- langauge
 			- stats (wins and losses)
 			- Totall user score?
 			- Best score?
@@ -58,4 +58,4 @@ TO DO LIST:
 		- Start Game 
 			- play matches
 			- play solo
-			- play 
+			- play friend
