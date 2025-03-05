@@ -12,7 +12,7 @@ interface LangData {
 function switchLanguage(lang: string) {
     let langData: LangData;
 
-	console.log("language.ts TEST");
+    console.log("language.ts TEST");
 
     // Determine which language data to use
     switch (lang) {
@@ -49,8 +49,8 @@ function updateContent(langData: LangData): void {
         }
     });
 
-     // Input placeholders
-     document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+    // Input placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
         if (element instanceof HTMLInputElement) {
             const key = element.getAttribute('data-i18n-placeholder');
             if (key && langData[key]) {

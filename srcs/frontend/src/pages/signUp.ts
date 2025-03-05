@@ -1,13 +1,18 @@
 import { renderPage } from './index';
 import { setupLogIn } from './logIn';
-// import { setupUserHome } from './home';
+import { setupUserHome } from './home';
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupLogIn();
+	setupUserHome();
+});
 
 export function setupSignUp() {
 	const root = document.getElementById('app');
 	if (root) {
-		// if (window.location.pathname === '/home') {
-		// 	setupUserHome();
-		if (window.location.pathname === '/logIn') {
+		if (window.location.pathname === '/home') {
+			setupUserHome();
+		}else if (window.location.pathname === '/logIn') {
 			setupLogIn();
 		} else {
 			root.innerHTML = `
@@ -34,21 +39,21 @@ export function setupSignUp() {
 				<input type="Confirm_Password" class="input-field">
 					
 				<div class="buttons">
-					<button class="btn" id=Home" data-i18n="btn_SignUp">Sign Up</button>
+					<button class="btn" id="Home" data-i18n="btn_SignUp">Sign Up</button>
 				</div>
 				<p data-i18n="SignUp_P">Already have an account? <a id="LogIn" style="color: rgb(209, 7, 128); "><u>Log In</u></p>
 			</div>
-      `;
+	`;
 
 			document.getElementById('LogIn')?.addEventListener('click', () => {
 				window.history.pushState({}, '', '/logIn');
-				renderPage();
+				setupLogIn();
 			});
 
-			// document.getElementById('Home')?.addEventListener('click', () => {
-			// 	window.history.pushState({}, '', '/home');
-			// 	renderPage();
-			// });
+			document.getElementById('Home')?.addEventListener('click', () => {
+				window.history.pushState({}, '', '/home');
+				setupUserHome();
+			});
 		}
 	}
 }

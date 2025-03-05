@@ -1,31 +1,52 @@
 import { renderPage } from './index';
-import { setupSignUp } from './signUp';
-// import { setupUserHome } from './home';
+// import { setupFriends } from './friends';
+// import { setupSetting } from './setting';
+// import { setupStartGame } from './startGame';
+import { setupError404 } from './404';
+// import { setupMatchHistory } from './history';
 
-export function setupLogIn() {
+document.addEventListener('DOMContentLoaded', () => {
+    setupUserHome();
+    setupFriends();
+    setupSetting();
+    setupStartGame();
+    setupError404();
+    setupMatchHistory();
+});
+
+export function setupUserHome () {
     const root = document.getElementById('app');
     if (root) {
-        // if (window.location.pathname === '/home') {
-        // 	setupUserHome();
-        if (window.location.pathname === '/signUp') {
-            setupSignUp();
+        // if (window.location.pathname === '/friends') {
+        // 	setupFriends();
+        // } else if (window.location.pathname === '/setting') {
+        //     setupSetting();
+        // } else if (window.location.pathname === '/index') {
+        //     setupLogOut();
+        // } else if (window.location.pathname === '/startGame') {
+        //     setupStartGame();
+        // } else if (window.location.pathname === '/history') {
+        //     setupMatchHistory();
+        if (window.location.pathname === '/404') {
+            setupError404();
         } else {
             root.innerHTML = `
-            <link rel="stylesheet" href="src//styles/home.css"> <!-- Link to the CSS file -->
+            <link rel="stylesheet" href="src/styles/home.css"> <!-- Link to the CSS file -->
             <div class="overlay"></div>
             <div class='leftBar'>
                 <div class="dropdown">
                     <button class="dropdown-btn" onclick="">
-                        <img class='settingIcon' src='../component/Pictures/setting-btn.png'/></img>
+                        <img class='settingIcon' src='src/component/Pictures/setting-btn.png'/></img>
                     </button>
                     <div class="dropdown-content">
                         <div class="dropdown-item">Langauge
-                            <select onchange="switchLanguage(this.value)">
-                                <option value="en">🇬🇧 </option>
-                                <option value="de">🇩🇪 </option>
-                                <option value="nl">🇳🇱 </option>
-                            </select>
+                            // <select onchange="switchLanguage(this.value)">
+                            //     <option value="en">🇬🇧 </option>
+                            //     <option value="de">🇩🇪 </option>
+                            //     <option value="nl">🇳🇱 </option>
+                            // </select>
                         </div>
+                        <div class="dropdown-item">Home</div>
                         <div class="dropdown-item">Settings</div>
                         <div class="dropdown-item">Friends</div>
                         <div class="dropdown-item">Match History</div>
@@ -37,7 +58,7 @@ export function setupLogIn() {
                 <div class='topBarFrame'>
                     <div class='aliasName'>cool alias</div>
                     <div class="profile-picture">
-                        <img src="../component/Pictures/defaultPP.avif" alt="Profile Picture">
+                        <img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
                     </div>
                 </div>
             </div>
@@ -45,7 +66,7 @@ export function setupLogIn() {
             <div class="middle">
                 <div class="Total score">
                     <div class="imgTotalScore">
-                        <img src="../component/Pictures/totalScore.png" alt="Total Score">
+                        <img src="src/component/Pictures/totalScore.png" alt="Total Score">
                     </div>
                     <div class="score-text">Wins</div>
                     <div class="score-number">1200</div>
@@ -53,7 +74,7 @@ export function setupLogIn() {
 
                 <div class="wins">
                     <div class="imgWins">
-                        <img src="../component/Pictures/wins.png" alt="Wins">
+                        <img src="src/component/Pictures/wins.png" alt="Wins">
                     </div>
                     <div class="score-text">Wins</div>
                     <div class="score-number">1200</div>
@@ -61,7 +82,7 @@ export function setupLogIn() {
 
                 <div class="Losses">
                     <div class="imgLosses">
-                        <img src="../component/Pictures/losses.png" alt="Losses">
+                        <img src="src/component/Pictures/losses.png" alt="Losses">
                     </div>
                     <div class="score-text">Losses</div>
                     <div class="score-number">900</div>
@@ -70,21 +91,21 @@ export function setupLogIn() {
                 <div class="leaderboard">
                     <div class="1">
                         <div class="img1">
-                            <img src="../component/Pictures/1.jpg" alt="1st.">
+                            <img src="src/component/Pictures/1.jpg" alt="1st.">
                         </div>
                         <div class="score-text">Losses</div>
                         <div class="score-number">900</div>
                     </div>
                     <div class="2">
                         <div class="img2">
-                            <img src="../component/Pictures/2.jpg" alt="2nd.">
+                            <img src="src/component/Pictures/2.jpg" alt="2nd.">
                         </div>
                         <div class="score-text">Losses</div>
                         <div class="score-number">900</div>
                     </div>
                     <div class="3">
                         <div class="img3">
-                            <img src="../component/Pictures/3.jpg" alt="3rd.">
+                            <img src="src/component/Pictures/3.jpg" alt="3rd.">
                         </div>
                         <div class="score-text">Losses</div>
                         <div class="score-number">900</div>
@@ -95,17 +116,42 @@ export function setupLogIn() {
                     <button class="btn">Play Game</button>
                 </div>
             </div>
-      `;
+    `;
 
-            document.getElementById('SignUp')?.addEventListener('click', () => {
-                window.history.pushState({}, '', '/signUp');
+            document.getElementById('Friends')?.addEventListener('click', () => {
+                window.history.pushState({}, '', '/friends');
+                setupFriends();
+            });
+
+            document.getElementById('Settings')?.addEventListener('click', () => {
+                window.history.pushState({}, '', '/setting');
+                setupSetting();
+            });
+
+            document.getElementById('LogOut')?.addEventListener('click', () => {
+                window.history.pushState({}, '', '/index');
                 renderPage();
             });
 
-            // document.getElementById('Home')?.addEventListener('click', () => {
-            // 	window.history.pushState({}, '', '/home');
-            // 	renderPage();
-            // });
+            document.getElementById('StartGame')?.addEventListener('click', () => {
+                window.history.pushState({}, '', '/startGame');
+                setupStartGame();
+            });
+
+            document.getElementById('Home')?.addEventListener('click', () => {
+                window.history.pushState({}, '', '/home');
+                setupUserHome();
+            });
+
+            document.getElementById('History')?.addEventListener('click', () => {
+                window.history.pushState({}, '', '/history');
+                setupMatchHistory();
+            });
+
+            document.getElementById('Error')?.addEventListener('click', () => {
+                window.history.pushState({}, '', '/404');
+                setupError404();
+            });
         }
     }
 }

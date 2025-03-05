@@ -1,13 +1,18 @@
 import { renderPage } from './index';
 import { setupSignUp } from './signUp';
-// import { setupUserHome } from './home';
+import { setupUserHome } from './home';
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupSignUp();
+	setupUserHome();
+});
 
 export function setupLogIn() {
 	const root = document.getElementById('app');
 	if (root) {
-		// if (window.location.pathname === '/home') {
-		// 	setupUserHome();
-		if (window.location.pathname === '/signUp') {
+		if (window.location.pathname === '/home') {
+			setupUserHome();
+		} else if (window.location.pathname === '/signUp') {
 			setupSignUp();
 		} else {
 			root.innerHTML = `
@@ -27,17 +32,17 @@ export function setupLogIn() {
 				</div>
 				<p data-i18n="LogIn_P">Don't have an account? <a id="SignUp" style="color:rgb(209, 7, 128);"><u>Sign Up</u></p>
 			</div>
-      `;
+	`;
 
 			document.getElementById('SignUp')?.addEventListener('click', () => {
 				window.history.pushState({}, '', '/signUp');
-				renderPage();
+				setupSignUp();
 			});
 
-			// document.getElementById('Home')?.addEventListener('click', () => {
-			// 	window.history.pushState({}, '', '/home');
-			// 	renderPage();
-			// });
+			document.getElementById('Home')?.addEventListener('click', () => {
+				window.history.pushState({}, '', '/home');
+				setupUserHome();
+			});
 		}
 	}
 }
