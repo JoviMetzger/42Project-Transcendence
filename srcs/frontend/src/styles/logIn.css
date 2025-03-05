@@ -6,7 +6,7 @@
 
 /* Background/Body style */
 body {
-	background: url('https://i.pinimg.com/originals/38/38/d2/3838d2b254ff4a03f41dca4f90735e02.jpg') no-repeat center center/cover;
+	background: url('../component/Pictures/background.jpg') no-repeat center center/cover;
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -1,18 +1,8 @@
-/* signUp.css */
+/* index.css */
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
-/* Background/Body style */
-body {
-	background: url('https://i.pinimg.com/originals/38/38/d2/3838d2b254ff4a03f41dca4f90735e02.jpg') no-repeat center center/cover;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	position: relative; 
-}
 
 /* Dark overlay -> for background */
 .overlay {
@@ -30,15 +20,21 @@ body {
 	background: rgba(0, 0, 0, 0.8);
 	padding: 40px;
 	border-radius: 15px;
-	width: 400px;
+	width: 570px;
+	height: 250px;
 	position: relative;
-	z-index: 1; 
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-width: fit-content;
 }
 
 /* Title styling */
 .header {
 	font-size: 2.5rem;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 	margin: 0;
 	box-sizing: border-box;
 	font-family: Arial, sans-serif;
@@ -48,9 +44,9 @@ body {
 
 /* Paragraph styling */
 p {
-	font-size: 1rem;
-	margin-bottom: 5px;
-	margin-top: 5px;
+	font-size: 1.5rem;
+	margin-bottom: 25px;
+	margin-top: 10px;
 	box-sizing: border-box;
 	font-family: Arial, sans-serif;
 	color: white;
@@ -88,26 +84,68 @@ p {
 
 /* Button styling */
 .buttons {
-	display: flex;
-	gap: 10px;
+	/* gap: 10px; */
 	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 .btn {
 	width: 400px;
 	padding: 12px;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	color: white;
 	background: #a00361;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	margin-top: 10px;
+	margin-top: 20px;
 	transition: 0.3s;
 	box-sizing: border-box;
 	font-family: Arial, sans-serif;
 }
 .btn:hover {
 	background: #b86a8a;
+}
+
+/* Dropdown styling */
+.dropdown {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+}
+.dropdown-btn {
+	width: 100%;
+	padding: 10px;
+	background: #ffffff;
+	color:  #000000 ;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1rem;
+	transition: 0.3s;
+	text-align: left;
+}
+.dropdown-content {
+	/* Dropdown content (hidden by default) */
+	display: none;
+	position: absolute;
+	background:  #ffffff;
+	width: 100%;
+	border-radius: 5px;
+}
+.dropdown-item {
+	padding: 10px;
+	cursor: pointer;
+	color: rgb(28, 28, 28);
+	text-align: left;
+}
+.dropdown-item:hover {
+	background: #fff4fd;
+	border-radius: 5px;
+}
+.dropdown:hover .dropdown-content {
+	display: block;
 }
 
 /* Picture */

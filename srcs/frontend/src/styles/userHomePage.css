@@ -6,12 +6,12 @@
 
 /* background */
 body {
-background: url('https://i.pinimg.com/originals/38/38/d2/3838d2b254ff4a03f41dca4f90735e02.jpg') no-repeat center center/cover;
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
-position: relative; 
+	background: url('../component/Pictures/background.jpg') no-repeat center center/cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	position: relative; 
 }
 
 /* Dark overlay -> for background */
@@ -36,8 +36,8 @@ position: relative;
 	left: 150px;
 	margin-right: 10px;
 	border-radius: 15px;
-	width: 50%;
-	height: 65%;
+	width: 70%;
+	height: 70%;
 	z-index: 1; 
 }
 .score-box {
@@ -74,6 +74,53 @@ position: relative;
 	font-size: 2.5rem; 
 	font-weight: bold;
 	color: #ffd700;
+}
+.imgTotalScore {
+	display: flex;
+	justify-content: center;
+	width: 340px;
+	height: 340px;
+	top: 0px;
+	left: 20px;
+}
+.imgWins {
+	display: flex;
+	justify-content: center;
+	width: 50px;
+	height: 50px;
+}
+.imgLosses {
+	display: flex;
+	justify-content: center;
+	width: 50px;
+	height: 50px;
+}
+.img1 {
+	display: flex;
+	justify-content: center;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1px solid rgb(255, 255, 255);
+}
+.img2 {
+	display: flex;
+	justify-content: center;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 3px solid white;
+}
+.img3 {
+	display: flex;
+	justify-content: center;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 3px solid white;
 }
 
 /* All for the Left Bar */

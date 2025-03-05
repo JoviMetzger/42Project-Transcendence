@@ -12,6 +12,8 @@ interface LangData {
 function switchLanguage(lang: string) {
     let langData: LangData;
 
+	console.log("language.ts TEST");
+
     // Determine which language data to use
     switch (lang) {
         case 'de':
@@ -74,3 +76,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Expose function globally (for use in HTML select onchange)
 (window as any).switchLanguage = switchLanguage;
+
