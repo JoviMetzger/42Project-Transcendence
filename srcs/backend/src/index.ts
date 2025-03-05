@@ -3,6 +3,7 @@ import Fastify from 'fastify';
 import userRoutes from './routes/users.ts';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
+import matchesRoutes from './routes/matches.ts';
 
 console.log("reading from index.ts backend")
 
@@ -34,6 +35,7 @@ await fastify.register(swaggerUi, {
 })
 
 fastify.register(userRoutes);
+fastify.register(matchesRoutes);
 
 
 // defining a function in TS
