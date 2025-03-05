@@ -4,16 +4,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* Background/Body style */
-body {
-	background: url('../component/Pictures/background.jpg') no-repeat center center/cover;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	position: relative; 
-}
-
 /* Dark overlay -> for background */
 .overlay {
 	position: fixed; 
@@ -59,7 +49,7 @@ p {
 
 /* Paragraph styling */
 .p1 {
-	font-size: 1.2rem;
+	font-size: 1rem;
 	margin-bottom: 2px;
 	margin-top: 20px;
 	box-sizing: border-box;
@@ -95,7 +85,7 @@ p {
 .btn {
 	width: 400px;
 	padding: 12px;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	color: white;
 	background: #a00361;
 	border: none;

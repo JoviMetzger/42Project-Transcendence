@@ -4,16 +4,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* background */
-body {
-	background: url('../component/Pictures/background.jpg') no-repeat center center/cover;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	position: relative; 
-}
-
 /* Dark overlay -> for background */
 .overlay {
 	position: fixed; 

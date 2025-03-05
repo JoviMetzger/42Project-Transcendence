@@ -1,6 +1,5 @@
-import { setupCounter } from './counter';
-import { setupAboutPage } from './about';
-// import { translate } from '../script/language.ts';
+import { setupLogIn } from './logIn';
+import { setupSignUp } from './signUp';
 
 document.addEventListener('DOMContentLoaded', () => {
 	renderPage();
@@ -9,36 +8,33 @@ document.addEventListener('DOMContentLoaded', () => {
 export function renderPage() {
 	const root = document.getElementById('app');
 	if (root) {
-		if (window.location.pathname === '/counter') {
-			setupCounter();
-		} else if (window.location.pathname === '/about') {
-			setupAboutPage();
+		if (window.location.pathname === '/logIn') {
+			setupLogIn();
+		} else if (window.location.pathname === '/signUp') {
+			setupSignUp();
 		} else {
 			root.innerHTML = `
-<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->
-<div class="overlay"></div>
-	<div class="container">
-		<h1 class="header" data-i18n="Index_Header">ffff</h1>
-		<p data-i18n="Index_P"></p>
-		<div class="buttons">
-			<button class="btn" id="toCounter" data-i18n="btn_LogIn"></button>
-			<button class="btn" id="toAbout" data-i18n="btn_SignUp"></button>
-		</div>
-	</div>
+			<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->
+			<div class="overlay"></div>
+			<div class="container">
+				<h1 class="header" data-i18n="Index_Header">Welcome to Transcendence</h1>
+				<p data-i18n="Index_P">Play classic Pong with your friends!</p>
+				<div class="buttons">
+					<button class="btn" id="LogIn" data-i18n="btn_LogIn">Log In</button>
+					<button class="btn" id="SignUp" data-i18n="btn_SignUp">Sign Up</button>
+				</div>
+			</div>
       `;
 
-			document.getElementById('toCounter')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/counter');
+			document.getElementById('LogIn')?.addEventListener('click', () => {
+				window.history.pushState({}, '', '/logIn');
 				renderPage();
 			});
 
-			document.getElementById('toAbout')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/about');
+			document.getElementById('SignUp')?.addEventListener('click', () => {
+				window.history.pushState({}, '', '/signUp');
 				renderPage();
 			});
-
-			// // Call translate after rendering the page
-            // translate();
 		}
 	}
 }
