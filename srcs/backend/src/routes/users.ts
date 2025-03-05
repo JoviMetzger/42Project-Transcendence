@@ -167,10 +167,10 @@ const authenticateAdmin = async (request: FastifyRequest, reply: FastifyReply) =
 		: envConfig.user_api;
 
 
-	console.log('env key:', envConfig.user_api);
-	console.log('Received token:', token);           // Add this for debugging
-	console.log('Expected token:', validToken);      // Add this for debugging
-	console.log('Request method:', request.method);
+	// console.log('env key:', envConfig.user_api);
+	// console.log('Received token:', token);
+	// console.log('Expected token:', validToken);
+	// console.log('Request method:', request.method);
 	// For your dummy data implementation, you could use a simple check
 	if (token !== validToken) {
 		reply.code(403).send({ error: 'Invalid authentication token' });
