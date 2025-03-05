@@ -18,7 +18,10 @@
     "SignUp_placeholder1": "Only used for Log In (Intra Name)",
     "SignUp_placeholder2": "Visibale for other users",
     
-    
+    "English": "🇬🇧 English",
+    "German": "🇩🇪 German",
+    "Dutch": "🇳🇱 Netherlands",
+
     "SignUp_Avatar": "Add your Avatar",
     "SignUp_Alias": "Alias Name"
 

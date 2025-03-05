@@ -3,3 +3,207 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* background */
+body {
+background: url('https://i.pinimg.com/originals/38/38/d2/3838d2b254ff4a03f41dca4f90735e02.jpg') no-repeat center center/cover;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+position: relative; 
+}
+
+/* Dark overlay -> for background */
+.overlay {
+	position: fixed; 
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.4); 
+	z-index: -1;
+}
+
+/* All for the Middle */
+.middle {
+	background: rgba(0, 0, 0, 0.8);
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 40px;
+	top: 90px;
+	left: 150px;
+	margin-right: 10px;
+	border-radius: 15px;
+	width: 50%;
+	height: 65%;
+	z-index: 1; 
+}
+.score-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	color: white;
+}
+.score-icon {
+	width: 180px;
+	height: 180px;
+	background: url('https://static.vecteezy.com/system/resources/thumbnails/019/062/493/small_2x/star-icon-in-gradient-colors-favourite-signs-illustration-png.png');
+	/*background: rgba(255, 255, 255, 0.2);*/
+	background-size: cover;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 5.5rem;
+	/*border: 1px solid white;*/
+}
+.score-icon {
+		width: 100px;
+		height: 100px;
+		font-size: 2rem;
+}
+.score-text {
+	margin-top: 10px;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+.score-number {
+	font-size: 2.5rem; 
+	font-weight: bold;
+	color: #ffd700;
+}
+
+/* All for the Left Bar */
+.leftBar {
+	background: #a00361;
+	position: fixed;
+	display: flex;
+	height: 100%;
+	width: 220px;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+}
+.settingIcon {
+	background: #a00361;
+	height: 35px;
+	width: 50px;
+	margin-left: 200px;
+	position: absolute;
+	margin-top: 190px;
+	transform: translateY(-50%);
+	z-index: 1;
+}
+.settingIcon:hover  {
+	display: block;
+	background-color: #b86a8a 
+}
+/* Dropdown */
+.dropdown {
+	position: relative;
+	text-align: center;
+}
+.dropdown-btn {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+.dropdown-content {
+	display: none;
+	position: fixed;
+	top: 120px; 
+	left: 0px;
+	width: 220px; 
+	background: #a00361;
+	border-radius: 5px;
+}
+.dropdown-item {
+	padding: 10px;
+	cursor: pointer;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	font-size: 20px;
+	font-family: Arial, sans-serif;
+}
+.dropdown-item:hover {
+	background: #b86a8a;
+}
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/* All for the Top Bar */
+.topBar {
+	background: #a00361;
+	position: fixed;
+	width: 100%;
+	height: 120px;
+	display: flex;
+	top: 0px;
+	left: 0px;
+	align-items: center;
+	padding: 0 30px;
+}
+.topBarFrame {
+	background: #b86a8a;
+	position: absolute;
+	display: flex;
+	height: 90px; 
+	right: 90px;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 50px;
+	padding: 10px;
+	align-items: center;
+	gap: 15px;
+	min-width: fit-content;
+}
+.aliasName {
+	color: white;
+	font-size: 20px;
+	font-family: Arial, sans-serif;
+	white-space: nowrap;
+}
+.profile-picture {
+	display: flex;
+	justify-content: center;
+}
+.profile-picture img {
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 3px solid white;
+}
+
+/* Button styling */
+.buttons {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
+.btn {
+	width: 400px;
+	padding: 12px;
+	font-size: 1.2rem;
+	color: white;
+	background: #a00361;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 10px;
+	transition: 0.3s;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+.btn:hover {
+	background: #b86a8a;
+}
