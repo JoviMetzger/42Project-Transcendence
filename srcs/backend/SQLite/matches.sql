@@ -4,14 +4,14 @@ CREATE TABLE matches (
     p1Alias TEXT NOT NULL,
     p2Alias TEXT NOT NULL,
     p1_id TEXT NOT NULL,
-    p2_id TEXT NOT FULL,
+    p2_id TEXT NOT NULL,
     status TEXT NOT NULL CHECK (status IN ('completed', 'interrupted')),
     winner_id TEXT,
     start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     end_time TIMESTAMP,
     duration INTEGER,
-    FOREIGN KEY (player1_id) REFERENCES users(uuid),
-    FOREIGN KEY (player2_id) REFERENCES users(uuid),
+    FOREIGN KEY (p1_id) REFERENCES users(uuid),
+    FOREIGN KEY (p2_id) REFERENCES users(uuid),
     FOREIGN KEY (winner_id) REFERENCES users(uuid)
 );
 

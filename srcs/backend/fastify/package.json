@@ -14,9 +14,8 @@
 		"env-schema": "^3.0.0",
 		"@punkish/fastify-better-sqlite3": "^2.0.0",
 		"uuid": "^9.0.0",
-		"@fastify/bcrypt": "^0.1.0",
-		"@types/bcrypt": "^5.0.0",
-		"bcrypt": "^5.1.1"
+		"bcrypt": "^5.1.1",
+		"@types/bcrypt": "^5.0.0"
 	},
 	"devDependencies": {
 		"@types/node": "^20.11.19",
