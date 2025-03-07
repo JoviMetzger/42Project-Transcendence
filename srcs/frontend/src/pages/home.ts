@@ -1,56 +1,67 @@
 import { renderPage } from './index';
-// import { setupFriends } from './friends';
-// import { setupSetting } from './setting';
-// import { setupStartGame } from './startGame';
-import { setupError404 } from './404';
-// import { setupMatchHistory } from './history';
+import { setupFriends } from './friends';
+import { setupSetting } from './setting';
+import { setupStartGame } from './startGame';
+import { setupMatchHistory } from './history';
+// import { setupError404 } from './error404';
 
 document.addEventListener('DOMContentLoaded', () => {
     setupUserHome();
-    setupFriends();
-    setupSetting();
-    setupStartGame();
-    setupError404();
-    setupMatchHistory();
+
+    // DropDown
+    document.addEventListener('click', (event) => {
+        const dropdown = document.querySelector('.dropdown-content');
+        const dropdownBtn = document.querySelector('.dropdown-btn');
+        
+        if (dropdown && dropdownBtn) {
+            if (dropdownBtn.contains(event.target)) {
+                // Toggle dropdown visibility when clicking the button
+                dropdown.classList.toggle('show');
+            } else if (!dropdown.contains(event.target)) {
+                // Hide dropdown if clicking outside of it
+                dropdown.classList.remove('show');
+            }
+        }
+    });
 });
+
 
 export function setupUserHome () {
     const root = document.getElementById('app');
     if (root) {
-        // if (window.location.pathname === '/friends') {
-        // 	setupFriends();
-        // } else if (window.location.pathname === '/setting') {
-        //     setupSetting();
-        // } else if (window.location.pathname === '/index') {
-        //     setupLogOut();
-        // } else if (window.location.pathname === '/startGame') {
-        //     setupStartGame();
-        // } else if (window.location.pathname === '/history') {
-        //     setupMatchHistory();
-        if (window.location.pathname === '/404') {
-            setupError404();
+        if (window.location.pathname === '/friends') {
+        	setupFriends();
+        } else if (window.location.pathname === '/setting') {
+            setupSetting();
+        } else if (window.location.pathname === '/index') {
+            renderPage();
+        } else if (window.location.pathname === '/startGame') {
+            setupStartGame();
+        } else if (window.location.pathname === '/history') {
+            setupMatchHistory();
         } else {
             root.innerHTML = `
+            <link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
             <link rel="stylesheet" href="src/styles/home.css"> <!-- Link to the CSS file -->
             <div class="overlay"></div>
             <div class='leftBar'>
                 <div class="dropdown">
-                    <button class="dropdown-btn" onclick="">
+                    <button class="dropdown-btn">
                         <img class='settingIcon' src='src/component/Pictures/setting-btn.png'/></img>
                     </button>
                     <div class="dropdown-content">
                         <div class="dropdown-item">Langauge
-                            // <select onchange="switchLanguage(this.value)">
-                            //     <option value="en">🇬🇧 </option>
-                            //     <option value="de">🇩🇪 </option>
-                            //     <option value="nl">🇳🇱 </option>
-                            // </select>
+                            <!-- <select onchange="switchLanguage(this.value)">
+                                <option value="en">🇬🇧 </option>
+                                <option value="de">🇩🇪 </option>
+                                <option value="nl">🇳🇱 </option>
+                            </select> -->
                         </div>
-                        <div class="dropdown-item">Home</div>
-                        <div class="dropdown-item">Settings</div>
-                        <div class="dropdown-item">Friends</div>
-                        <div class="dropdown-item">Match History</div>
-                        <div class="dropdown-item">Log Out</div>
+                        <div class="dropdown-item" id="Home">Home</div>
+                        <div class="dropdown-item" id="Settings">Settings</div>
+                        <div class="dropdown-item" id="Friends">Friends</div>
+                        <div class="dropdown-item" id="History">Match History</div>
+                        <div class="dropdown-item" id="LogOut">Log Out</div>
                     </div>
                 </div>
             </div>
@@ -64,6 +75,8 @@ export function setupUserHome () {
             </div>
             
             <div class="middle">
+                <!-- BODY CHANGE -->
+
                 <div class="Total score">
                     <div class="imgTotalScore">
                         <img src="src/component/Pictures/totalScore.png" alt="Total Score">
@@ -113,8 +126,10 @@ export function setupUserHome () {
 
                 </div>
                 <div class="buttons">
-                    <button class="btn">Play Game</button>
+                    <button class="btn" id="StartGame">Play Game</button>
                 </div>
+
+                <!-- ^^^ -->
             </div>
     `;
 
@@ -146,11 +161,6 @@ export function setupUserHome () {
             document.getElementById('History')?.addEventListener('click', () => {
                 window.history.pushState({}, '', '/history');
                 setupMatchHistory();
-            });
-
-            document.getElementById('Error')?.addEventListener('click', () => {
-                window.history.pushState({}, '', '/404');
-                setupError404();
             });
         }
     }

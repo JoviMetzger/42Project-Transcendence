@@ -3,6 +3,7 @@
 
 	document.addEventListener('DOMContentLoaded', () => {
 		renderPage();
+		
 	});
 
 	export function renderPage() {

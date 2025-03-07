@@ -1,5 +1,9 @@
 import { renderPage } from './index';
 
+document.addEventListener('DOMContentLoaded', () => {
+	setupError404();
+});
+
 export function setupError404() {
 	const root = document.getElementById('app');
 	if (root) {
@@ -12,7 +16,10 @@ export function setupError404() {
                 <p>The requested resource could not be found on the server!</p>
             </div>
 	`;
+	
+		window.history.pushState({}, '', '/404');
     }
+
 }
 
 window.addEventListener('popstate', renderPage);

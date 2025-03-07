@@ -3,8 +3,7 @@ import { setupSignUp } from './signUp';
 import { setupUserHome } from './home';
 
 document.addEventListener('DOMContentLoaded', () => {
-    setupSignUp();
-	setupUserHome();
+	setupLogIn();
 });
 
 export function setupLogIn() {
