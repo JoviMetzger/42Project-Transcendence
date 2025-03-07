@@ -23,11 +23,10 @@ RUN pnpm install --force
 EXPOSE 3000
 
 #ENTRYPOINT SCRIPT FOR SQLITE DATABASE
-COPY SQLite database
-COPY docker/scripts/entrypoint.sh database/scripts/entrypoint.sh
-RUN chmod +x database/scripts/entrypoint.sh
+COPY SQLite entrypoint
+RUN chmod +x entrypoint/scripts/entrypoint.sh
 
-ENTRYPOINT ["database/scripts/entrypoint.sh"]
+ENTRYPOINT ["entrypoint/scripts/entrypoint.sh"]
 
 # CMD is defined in dockerfile to differentiate between dev and non-dev env
 
