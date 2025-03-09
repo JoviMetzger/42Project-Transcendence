@@ -1,5 +1,6 @@
 	import { setupLogIn } from './logIn';
 	import { setupSignUp } from './signUp';
+	import { getLanguage } from '../script/language';
 
 	document.addEventListener('DOMContentLoaded', () => {
 		renderPage();
@@ -26,7 +27,7 @@
 					</div>
 				</div>
 		`;
-
+				getLanguage();
 				document.getElementById('LogIn')?.addEventListener('click', () => {
 					window.history.pushState({}, '', '/logIn');
 					renderPage();

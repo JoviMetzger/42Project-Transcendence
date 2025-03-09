@@ -1,6 +1,7 @@
 import { renderPage } from './index';
 import { setupLogIn } from './logIn';
 import { setupUserHome } from './home';
+import { getLanguage } from '../script/language';
 
 document.addEventListener('DOMContentLoaded', () => {
 	setupSignUp();
@@ -44,6 +45,7 @@ export function setupSignUp() {
 			</div>
 	`;
 
+			getLanguage();
 			document.getElementById('LogIn')?.addEventListener('click', () => {
 				window.history.pushState({}, '', '/logIn');
 				setupLogIn();
