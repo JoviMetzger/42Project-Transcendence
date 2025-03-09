@@ -1,11 +1,38 @@
 {
-    "welcome": "Willkommen",
-    "profile": "Profil",
-    "settings": "Einstellungen",
-    "play_pong": "Pong spielen",
-    "play_other_game": "Anderes Spiel spielen",
-    "edit_profile": "Profil bearbeiten",
-    "edit_name": "Name bearbeiten",
-    "chat": "Chat",
-    "friends": "Freunde"
+    "btn_LogIn": "Log In(NL)",
+	"btn_SignUp": "Sign Up(NL)",
+
+    "Password": "Password(NL)",
+    "ConfirmPassword": "Confirm Password(NL)",
+    "LogIn_Name": "Login Name(NL)",
+    
+    "Index_Header": "Welcome to Transcendence(NL)",
+    "LogIn_Header": "Login(NL)",
+    "SignUp_Header": "Create Account(NL)",
+    
+    "Index_P": "Play classic Pong with your friends!(NL)",
+    "LogIn_P": "Don't have an account? {link}(NL)",
+    "SignUp_P": "Already have an account? {link}(NL)",
+    
+    "LogIn_placeholder1": "Intra Name(NL)",
+    "SignUp_placeholder1": "Only used for Log In (Intra Name)(NL)",
+    "SignUp_placeholder2": "Visible for other users(NL)",
+    
+    "English": "🇬🇧 English(NL)",
+    "German": "🇩🇪 German(NL)",
+    "Dutch": "🇳🇱 Netherlands(NL)",
+
+    "SignUp_Avatar": "Add your Avatar(NL)",
+    "SignUp_Alias": "Alias Name(NL)",
+
+	"Language": "Language(NL)",
+	"Home": "Home(NL)",
+	"Settings": "Settings(NL)",
+	"Friends": "Friends(NL)",
+	"History": "Match History(NL)",
+	"LogOut": "Log Out(NL)",
+
+
+	
+	"EndOfFile": ""
 }
