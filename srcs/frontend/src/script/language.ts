@@ -2,7 +2,6 @@
 import en from '../languages/en.json';
 import de from '../languages/de.json';
 import nl from '../languages/nl.json';
-import test from '../languages/test.json';
 
 // Define LangData interface to type-check language data
 interface LangData {
