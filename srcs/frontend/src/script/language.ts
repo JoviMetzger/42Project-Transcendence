@@ -13,8 +13,6 @@ interface LangData {
 function switchLanguage(lang: string) {
     let langData: LangData;
 
-	console.log(lang + ' switchLanguage Log');
-
     // Determine which language data to use
     switch (lang) {
 		case 'en':
