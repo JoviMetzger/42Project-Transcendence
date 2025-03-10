@@ -3,6 +3,7 @@ import { setupFriends } from './friends';
 import { setupSetting } from './setting';
 import { setupUserHome } from './home';
 // import { setupError404 } from './error404';
+import { getLanguage } from '../script/language';
 
 document.addEventListener('DOMContentLoaded', () => {
      setupMatchHistory();
@@ -20,7 +21,8 @@ export function  setupMatchHistory () {
 		} else if (window.location.pathname === '/home') {
             setupUserHome();
         } else {
-            root.innerHTML = `
+// Not Sure How To Have The Updateable Language And The Button
+			root.innerHTML = `
             <link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
             <link rel="stylesheet" href="src/styles/history.css"> <!-- Link to the CSS file -->
             <div class="overlay"></div>
@@ -30,18 +32,18 @@ export function  setupMatchHistory () {
                         <img class='settingIcon' src='src/component/Pictures/setting-btn.png'/></img>
                     </button>
                     <div class="dropdown-content">
-                        <div class="dropdown-item">Langauge
-                            <!-- <select onchange="switchLanguage(this.value)">
+                        <div class="dropdown-item" data-i18n="Language">
+                                                    <select onchange="switchLanguage(this.value)">
                                 <option value="en">🇬🇧 </option>
                                 <option value="de">🇩🇪 </option>
                                 <option value="nl">🇳🇱 </option>
-                            </select> -->
+                            </select>
                         </div>
-                        <div class="dropdown-item" id="Home">Home</div>
-                        <div class="dropdown-item" id="Settings">Settings</div>
-                        <div class="dropdown-item" id="Friends">Friends</div>
-                        <div class="dropdown-item" id="History">Match History</div>
-                        <div class="dropdown-item" id="LogOut">Log Out</div>
+                        <div class="dropdown-item" id="Home" data-i18n="Home"></div>
+                        <div class="dropdown-item" id="Settings" data-i18n="Settings"></div>
+                        <div class="dropdown-item" id="Friends" data-i18n="Friends"></div>
+                        <div class="dropdown-item" id="History" data-i18n="History"></div>
+                        <div class="dropdown-item" id="LogOut" data-i18n="LogOut"></div>
                     </div>
                 </div>
             </div>
@@ -61,8 +63,9 @@ export function  setupMatchHistory () {
 
                 <!-- ^^^ -->
             </div>
-    `;
+        `;
 
+			getLanguage();
             document.getElementById('Friends')?.addEventListener('click', () => {
                 window.history.pushState({}, '', '/friends');
                 setupFriends();

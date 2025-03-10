@@ -4,6 +4,7 @@ import { setupSetting } from './setting';
 import { setupStartGame } from './startGame';
 import { setupMatchHistory } from './history';
 // import { setupError404 } from './error404';
+import { getLanguage } from '../script/language';
 
 document.addEventListener('DOMContentLoaded', () => {
     setupUserHome();
@@ -50,18 +51,18 @@ export function setupUserHome () {
                         <img class='settingIcon' src='src/component/Pictures/setting-btn.png'/></img>
                     </button>
                     <div class="dropdown-content">
-                        <div class="dropdown-item">Langauge
-                            <!-- <select onchange="switchLanguage(this.value)">
+                        <div class="dropdown-item">Language
+                            <select onchange="switchLanguage(this.value)">
                                 <option value="en">🇬🇧 </option>
                                 <option value="de">🇩🇪 </option>
                                 <option value="nl">🇳🇱 </option>
-                            </select> -->
+                            </select>
                         </div>
-                        <div class="dropdown-item" id="Home">Home</div>
-                        <div class="dropdown-item" id="Settings">Settings</div>
-                        <div class="dropdown-item" id="Friends">Friends</div>
-                        <div class="dropdown-item" id="History">Match History</div>
-                        <div class="dropdown-item" id="LogOut">Log Out</div>
+                        <div class="dropdown-item" id="Home" data-i18n="Home"></div>
+                        <div class="dropdown-item" id="Settings" data-i18n="Settings"></div>
+                        <div class="dropdown-item" id="Friends" data-i18n="Friends"></div>
+                        <div class="dropdown-item" id="History" data-i18n="History"></div>
+                        <div class="dropdown-item" id="LogOut" data-i18n="LogOut"></div>
                     </div>
                 </div>
             </div>
@@ -133,6 +134,7 @@ export function setupUserHome () {
             </div>
     `;
 
+			getLanguage();
             document.getElementById('Friends')?.addEventListener('click', () => {
                 window.history.pushState({}, '', '/friends');
                 setupFriends();

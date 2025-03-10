@@ -16,13 +16,23 @@
     
     "LogIn_placeholder1": "Intra Name",
     "SignUp_placeholder1": "Only used for Log In (Intra Name)",
-    "SignUp_placeholder2": "Visibale for other users",
+    "SignUp_placeholder2": "Visible for other users",
     
     "English": "🇬🇧 English",
     "German": "🇩🇪 German",
     "Dutch": "🇳🇱 Netherlands",
 
     "SignUp_Avatar": "Add your Avatar",
-    "SignUp_Alias": "Alias Name"
+    "SignUp_Alias": "Alias Name",
 
+	"Language": "Language",
+	"Home": "Home",
+	"Settings": "Settings",
+	"Friends": "Friends",
+	"History": "Match History",
+	"LogOut": "Log Out",
+
+
+	
+	"EndOfFile": ""
 }
