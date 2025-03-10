@@ -22,12 +22,6 @@ RUN pnpm install --force
 # Expose backend port
 EXPOSE 3000
 
-#ENTRYPOINT SCRIPT FOR SQLITE DATABASE
-COPY SQLite entrypoint
-RUN chmod +x entrypoint/scripts/entrypoint.sh
-
-ENTRYPOINT ["entrypoint/scripts/entrypoint.sh"]
-
 # CMD is defined in dockerfile to differentiate between dev and non-dev env
 
 #CMD ["tail", "-f", "/dev/null"]

@@ -6,7 +6,7 @@
 
 // const initializeDatabaseSchema: FastifyPluginCallback = (fastify, opts, done) => {
 //   const dbPath = path.resolve(__dirname, '../../database/app.db')
-  
+
 //   // Read SQL schema files
 //   const userSchema = fs.readFileSync(path.resolve(__dirname, '../../database/users.sql'), 'utf8')
 //   const matchesSchema = fs.readFileSync(path.resolve(__dirname, '../../database/matches.sql'), 'utf8')
@@ -18,7 +18,7 @@
 //   try {
 //     db.exec(userSchema)
 //     db.exec(matchesSchema)
-    
+
 //     fastify.log.info('Database schemas initialized successfully')
 //   } catch (error) {
 //     fastify.log.error('Database initialization failed', error)
@@ -38,3 +38,9 @@
 // }
 
 // export default initializeDatabaseSchema
+
+import { drizzle } from 'drizzle-orm/better-sqlite3';
+import Database from 'better-sqlite3';
+
+const sqlite = new Database('./data/sqlite.db');
+export const db = drizzle(sqlite);

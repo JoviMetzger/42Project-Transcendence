@@ -21,16 +21,16 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: docker/backend.Dockerfile
+      dockerfile: ../docker/backend.Dockerfile
     container_name: backend
     image: img_backend
     restart: on-failure
     ports:
       - "3000:3000"
     volumes:
-      - ./backend/fastify:/app # mounting the /backend so live edits update the docker container
+      - ./backend:/app # mounting the /backend so live edits update the docker container
       - /app/node_modules
-      - db_data:/app/database # Dedicated volume for SQLite ; only one that will also be in dev docker-compose
+      - sqlite_data:/app/data
     environment:
       - NODE_ENV=development
     env_file:
@@ -44,5 +44,5 @@ networks:
     external: false
 
 volumes:
-  db_data:
+  sqlite_data:
     driver: local

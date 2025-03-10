@@ -1,5 +1,5 @@
 # Variables
-DOCKER_COMPOSE_DEV = docker-compose -f srcs/docker-compose.dev.yml
+DOCKER_COMPOSE_DEV = docker compose -f srcs/docker-compose.dev.yml
 DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
 
 # Default target
@@ -41,7 +41,10 @@ build:
 logs:
 	$(DOCKER_COMPOSE_DEV) logs
 
-clean:
+clean-db:
+	$(DOCKER_COMPOSE_DEV) down -v sqlite_data
+
+clean: clean-db
 	$(DOCKER_COMPOSE_DEV) down -v
 	docker system prune -f
 
