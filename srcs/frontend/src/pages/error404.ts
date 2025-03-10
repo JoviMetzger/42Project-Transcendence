@@ -1,7 +1,8 @@
 export function setupError404() {
 	const root = document.getElementById('app');
 	if (root) {
-		root.innerHTML = `
+		root.innerHTML = "";
+		root.insertAdjacentHTML("beforeend", `
 		<link rel="stylesheet" href="src/styles/errorPage.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
 		<div class="container">
@@ -9,7 +10,7 @@ export function setupError404() {
 			<h1>Not Found</h1>
 			<p>The requested resource could not be found on the server!</p>
 		</div>
-		`;
+		`);
 
 		window.history.pushState({}, '', '/404');
 	}

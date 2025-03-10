@@ -8,7 +8,8 @@ import { getLanguage } from '../script/language';
 export function setupStartGame () {
 	const root = document.getElementById('app');
 	if (root) {
-		root.innerHTML = `
+		root.innerHTML = "";
+		root.insertAdjacentHTML("beforeend", `
 		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
 		<link rel="stylesheet" href="src/styles/startGame.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
@@ -58,7 +59,7 @@ export function setupStartGame () {
 
 			<!-- ^^^ -->
 		</div>
-		`;
+		`);
 
 		getLanguage();
 		document.getElementById('LogOut')?.addEventListener('click', () => {

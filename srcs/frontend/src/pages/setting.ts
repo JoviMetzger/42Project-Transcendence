@@ -7,7 +7,8 @@ import { getLanguage } from '../script/language';
 export function setupSetting () {
 	const root = document.getElementById('app');
 	if (root) {
-		root.innerHTML = `
+		root.innerHTML = "";
+		root.insertAdjacentHTML("beforeend", `
 		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
 		<link rel="stylesheet" href="src/styles/setting.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
@@ -80,7 +81,7 @@ export function setupSetting () {
 	
 			<!-- ^^^ -->
 		</div>
-		`;
+		`);
 
 		getLanguage();
 		document.getElementById('Friends')?.addEventListener('click', () => {

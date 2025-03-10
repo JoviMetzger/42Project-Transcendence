@@ -5,7 +5,8 @@ import { getLanguage } from '../script/language';
 export function setupLogIn() {
 	const root = document.getElementById('app');
 	if (root) {
-		root.innerHTML = `
+		root.innerHTML = "";
+		root.insertAdjacentHTML("beforeend", `
 		<link rel="stylesheet" href="src/styles/logIn.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
 		<div class="container">
@@ -21,7 +22,7 @@ export function setupLogIn() {
 				<button class="btn" id="Home" data-i18n="btn_LogIn"></button>
 			</div>
 		</div>
-		`;
+		`);
 
 		getLanguage();
 		document.getElementById('SignUp')?.addEventListener('click', () => {

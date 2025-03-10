@@ -38,7 +38,8 @@ export function renderPage() {
 		} else if (window.location.pathname === '/error404') {
 			setupError404();
 		} else {
-			root.innerHTML = `
+			root.innerHTML = "";
+			root.insertAdjacentHTML("beforeend", `
 			<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->
 			<div class="overlay"></div>
 			<div class="container">
@@ -49,7 +50,7 @@ export function renderPage() {
 					<button class="btn" id="SignUp" data-i18n="btn_SignUp"></button>
 				</div>
 			</div>
-			`;
+			`);
 
 			getLanguage();
 			document.getElementById('LogIn')?.addEventListener('click', () => {

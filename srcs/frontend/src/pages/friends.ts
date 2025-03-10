@@ -7,7 +7,8 @@ import { getLanguage } from '../script/language';
 export function setupFriends () {
 	const root = document.getElementById('app');
 	if (root) {
-		root.innerHTML = `
+		root.innerHTML = "";
+		root.insertAdjacentHTML("beforeend", `
 		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
 		<link rel="stylesheet" href="src/styles/friends.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
@@ -57,7 +58,7 @@ export function setupFriends () {
 
 			<!-- ^^^ -->
 		</div>
-		`;
+		`);
 
 		getLanguage();
 		document.getElementById('LogOut')?.addEventListener('click', () => {

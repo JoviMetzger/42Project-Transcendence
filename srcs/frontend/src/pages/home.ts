@@ -70,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 export function setupUserHome () {
 	const root = document.getElementById('app');
 	if (root) {
-		root.innerHTML = `
+		root.innerHTML = "";
+		root.insertAdjacentHTML("beforeend", `
 		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
 		<link rel="stylesheet" href="src/styles/home.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
@@ -170,7 +171,7 @@ export function setupUserHome () {
 
 			<!-- ^^^ -->
 		</div>
-		`;
+		`);
 
 		getLanguage();
 		document.getElementById('LogOut')?.addEventListener('click', () => {
