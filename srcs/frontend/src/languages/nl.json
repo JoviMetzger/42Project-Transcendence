@@ -11,16 +11,14 @@
     "SignUp_Header": "Create Account(NL)",
     
     "Index_P": "Play classic Pong with your friends!(NL)",
-    "LogIn_P": "Don't have an account? {link}(NL)",
-    "SignUp_P": "Already have an account? {link}(NL)",
     
     "LogIn_placeholder1": "Intra Name(NL)",
     "SignUp_placeholder1": "Only used for Log In (Intra Name)(NL)",
     "SignUp_placeholder2": "Visible for other users(NL)",
     
-    "English": "🇬🇧 English(NL)",
-    "German": "🇩🇪 German(NL)",
-    "Dutch": "🇳🇱 Netherlands(NL)",
+    "English": "English(NL)",
+    "German": "German(NL)",
+    "Dutch": "Dutch(NL)",
 
     "SignUp_Avatar": "Add your Avatar(NL)",
     "SignUp_Alias": "Alias Name(NL)",

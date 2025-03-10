@@ -78,10 +78,11 @@
 	left: 0px;
 	width: 220px; 
 	background: #a00361;
+	/* background: #382832; */
 	border-radius: 5px;
 }
 .dropdown-content.show {
-    display: block;
+	display: block;
 }
 .dropdown-item {
 	padding: 10px;
@@ -93,6 +94,70 @@
 }
 .dropdown-item:hover {
 	background: #b86a8a;
+}
+.hidden {
+	display: none;
+}
+.dropdown-content.show .hidden {
+	display: inline-block;
+}
+.language-btn {
+	background-color: #a00361;
+	width: 220px;
+	padding: 10px;
+	cursor: pointer;
+	color: rgb(255, 255, 255);
+	border: none;
+	text-align: center;
+	font-size: 20px;
+	font-family: Arial, sans-serif;
+}
+.language-btn:hover {
+	background: #b86a8a;
+}
+.language-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 100px;
+    z-index: 10;
+	left: 150px;
+}
+.language-content.showLang .hidden {
+	display: inline-block;
+}
+.language-content.showLang {
+	display: block;
+}
+.language-content div {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+	font-size: 17px;
+    gap: 5px;
+	color: black;
+    cursor: pointer;
+}
+.language-content div:hover {
+    background-color: #ecb6cd;
+}
+.language-content img {
+    width: 20px;
+    height: 15px;
+}
+.language-option {
+	padding: 10px;
+	cursor: pointer;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	font-size: 20px;
+	font-family: Arial, sans-serif;
+}
+.language-btn img {
+    width: 25px;
+    height: 15px;
 }
 
 /* All for the Top Bar */

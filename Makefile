@@ -5,6 +5,10 @@ DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
 # Default target
 .DEFAULT_GOAL := help
 
+# Colors
+GREEN		= \033[32;1m
+RESET		= \033[0m
+
 # Help
 help:
 	@echo "Available commands:"
