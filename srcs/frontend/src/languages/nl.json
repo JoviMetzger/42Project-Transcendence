@@ -1,36 +1,40 @@
 {
-    "btn_LogIn": "Log In(NL)",
-	"btn_SignUp": "Sign Up(NL)",
+    "btn_LogIn": "Inloggen",
+    "btn_SignUp": "Registreren",
+    "btn_PlayGame": "Spel Spelen",
+    "btn_Save": "Opslaan",
 
-    "Password": "Password(NL)",
-    "ConfirmPassword": "Confirm Password(NL)",
-    "LogIn_Name": "Login Name(NL)",
+    "Password": "Wachtwoord",
+    "ConfirmPassword": "Bevestig wachtwoord",
+    "LogIn_Name": "Inlognaam",
+    "SignUp_Avatar": "Voeg je avatar toe",
+    "SignUp_Alias": "Aliasnaam",
     
-    "Index_Header": "Welcome to Transcendence(NL)",
-    "LogIn_Header": "Login(NL)",
-    "SignUp_Header": "Create Account(NL)",
+    "Index_Header": "Welkom bij Transcendence",
+    "LogIn_Header": "Inloggen",
+    "SignUp_Header": "Account aanmaken",
     
-    "Index_P": "Play classic Pong with your friends!(NL)",
+    "Index_P": "Speel klassieke Pong met je vrienden!",
     
-    "LogIn_placeholder1": "Intra Name(NL)",
-    "SignUp_placeholder1": "Only used for Log In (Intra Name)(NL)",
-    "SignUp_placeholder2": "Visible for other users(NL)",
+    "LogIn_placeholder1": "Intra-naam",
+    "SignUp_placeholder1": "Alleen gebruikt voor inloggen (Intra-naam)",
+    "SignUp_placeholder2": "Zichtbaar voor andere gebruikers",
     
-    "English": "English(NL)",
-    "German": "German(NL)",
-    "Dutch": "Dutch(NL)",
+    "Language": "Taal",
+    "Home": "Home",
+    "Settings": "Instellingen",
+    "Friends": "Vrienden",
+    "History": "Wedstrijdgeschiedenis",
+    "LogOut": "Uitloggen",
 
-    "SignUp_Avatar": "Add your Avatar(NL)",
-    "SignUp_Alias": "Alias Name(NL)",
+    "English": "Engels",
+    "German": "Duits",
+    "Dutch": "Nederlands",
 
-	"Language": "Language(NL)",
-	"Home": "Home(NL)",
-	"Settings": "Settings(NL)",
-	"Friends": "Friends(NL)",
-	"History": "Match History(NL)",
-	"LogOut": "Log Out(NL)",
+    "Setting_Avatar": "Avatar bewerken",
+    "Setting_Name": "Inlognaam (Kan niet worden gewijzigd)",
+    "Setting_Alias": "Aliasnaam bewerken",
+    "Setting_Password": "Wachtwoord wijzigen",
 
-
-	
-	"EndOfFile": ""
+    "EndOfFile": ""
 }

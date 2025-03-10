@@ -1,4 +1,3 @@
-import { setupSignUp } from './signUp';
 import { setupUserHome } from './home';
 import { getLanguage } from '../script/language';
 
@@ -25,11 +24,6 @@ export function setupLogIn() {
 		`);
 
 		getLanguage();
-		document.getElementById('SignUp')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/signUp');
-			setupSignUp();
-		});
-
 		document.getElementById('Home')?.addEventListener('click', () => {
 			window.history.pushState({}, '', '/home');
 			setupUserHome();

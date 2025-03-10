@@ -1,4 +1,3 @@
-import { setupLogIn } from './logIn';
 import { setupUserHome } from './home';
 import { getLanguage } from '../script/language';
 
@@ -31,16 +30,11 @@ export function setupSignUp() {
 				
 			<div class="buttons">
 				<button class="btn" id="Home" data-i18n="btn_SignUp"></button>
-			</div>
+			</div> 
 		</div>
 		`);
 
 		getLanguage();
-		document.getElementById('LogIn')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/logIn');
-			setupLogIn();
-		});
-
 		document.getElementById('Home')?.addEventListener('click', () => {
 			window.history.pushState({}, '', '/home');
 			setupUserHome();

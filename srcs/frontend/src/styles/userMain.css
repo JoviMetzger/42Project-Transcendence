@@ -11,29 +11,30 @@
 	left: 0;
 	width: 100%;
 	height: 100vh;
-	background: rgba(0, 0, 0, 0.4); 
+	background: rgba(0, 0, 0, 0.5); 
 	z-index: -1;
 }
 
 /* All for the Middle */
 .middle {
 	background: rgba(0, 0, 0, 0.8);
-	position: relative;
+	position: fixed;
 	display: flex;
 	align-items: center;
-	padding: 40px;
-	top: 90px;
-	left: 150px;
-	margin-right: 10px;
+	justify-content: center;
+	padding: 10px;
+	top: 200px;
+	left: 290px;
+	margin: 20px;
 	border-radius: 15px;
-	width: 70%;
+	width: 80%;
 	height: 70%;
 	z-index: 1; 
 }
 
 /* All for the Left Bar */
 .leftBar {
-	background: #a00361;
+	background: #902063;
 	position: fixed;
 	display: flex;
 	height: 100%;
@@ -43,7 +44,7 @@
 	z-index: 1;
 }
 .settingIcon {
-	background: #a00361;
+	background: #902063;
 	height: 35px;
 	width: 50px;
 	margin-left: 200px;
@@ -54,7 +55,7 @@
 }
 .settingIcon:hover  {
 	display: block;
-	background-color: #b86a8a 
+	background-color: #b86a8a; 
 }
 /* Dropdown */
 .dropdown {
@@ -77,8 +78,8 @@
 	top: 120px; 
 	left: 0px;
 	width: 220px; 
-	background: #a00361;
-	/* background: #382832; */
+	/* background: #902063; */
+	background: #902063;
 	border-radius: 5px;
 }
 .dropdown-content.show {
@@ -102,7 +103,7 @@
 	display: inline-block;
 }
 .language-btn {
-	background-color: #a00361;
+	background-color: #902063;
 	width: 220px;
 	padding: 10px;
 	cursor: pointer;
@@ -141,7 +142,7 @@
     cursor: pointer;
 }
 .language-content div:hover {
-    background-color: #ecb6cd;
+    background-color: #beb0b6;
 }
 .language-content img {
     width: 20px;
@@ -162,7 +163,7 @@
 
 /* All for the Top Bar */
 .topBar {
-	background: #a00361;
+	background: #902063;
 	position: fixed;
 	width: 100%;
 	height: 120px;
@@ -173,7 +174,7 @@
 	padding: 0 30px;
 }
 .topBarFrame {
-	background: #a00361;
+	background: #902063;
 	position: absolute;
 	display: flex;
 	height: 90px; 

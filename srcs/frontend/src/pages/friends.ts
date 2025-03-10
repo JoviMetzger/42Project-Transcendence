@@ -54,8 +54,10 @@ export function setupFriends () {
 		<div class="middle">
 			<!-- BODY CHANGE -->
 
-			<p style="color: white; font-size: 20px; font-family: Arial, sans-serif;">Friends</p>
+			<div class="container">
+				<p style="color: white; font-size: 20px; font-family: Arial, sans-serif;">Friends</p>
 
+			</div>
 			<!-- ^^^ -->
 		</div>
 		`);

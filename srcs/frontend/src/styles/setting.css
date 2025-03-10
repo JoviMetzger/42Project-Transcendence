@@ -1,4 +1,4 @@
-/* settingPrivate.css */
+/* setting.css */
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
@@ -10,7 +10,8 @@
 	padding: 40px;
 	border-radius: 15px;
 	width: 400px;
-	position: relative;
+	top: 270px;
+	position: fixed;
 	z-index: 1; 
 }
 
@@ -76,7 +77,7 @@ p {
 	padding: 12px;
 	font-size: 1.1rem;
 	color: white;
-	background: #a00361;
+	background: #902063;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
@@ -102,4 +103,13 @@ p {
 	border-radius: 50%;
 	object-fit: cover;
 	border: 3px solid white;
+}
+
+.input-field.display-only {
+    padding: 12px;
+    border-radius: 5px;
+    background-color: #b8b8b8;
+    color: #000000;
+    width: 100%;
+    display: inline-block;
 }

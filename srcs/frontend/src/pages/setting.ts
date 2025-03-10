@@ -55,27 +55,27 @@ export function setupSetting () {
 			<!-- BODY CHANGE -->
 
 			<div class="container">
-				<h1 class="header">Settings</h1>
+				<h1 class="header" data-i18n="Setting_Header"></h1>
 					
-				<p class="p1">Edit your Avatar</p>
+				<p class="p1" data-i18n="Setting_Avatar"></p>
 				<div class="profile-picture">
 					<img src="src/component/Pictures/defaultPP.avif">
 				</div>
 	
-				<p class="p1">Can't change login name</p>
-				<input type="Login_Name" class="input-field" placeholder="LogIn Name">
+				<p class="p1" data-i18n="Setting_Name"></p>
+				<div class="input-field display-only">Display USER LogIn Name</div>
 	
-				<p class="p1">Edit Alias Name</p>
+				<p class="p1" data-i18n="Setting_Alias"></p>
 				<input type="Alias_Name" class="input-field">
 	
-				<p class="p1">Change Password</p>
+				<p class="p1" data-i18n="Setting_Password"></p>
 				<input type="Password" class="input-field">
 	
-				<p class="p1" data-i18n="ConfirmPassword">Confirm Password</p>
+				<p class="p1" data-i18n="ConfirmPassword"></p>
 				<input type="Confirm_Password" class="input-field">
 					
 				<div class="buttons">
-					<button class="btn">Save</button>
+					<button class="btn" data-i18n="btn_Save"></button>
 				</div>
 			</div>
 	

@@ -54,12 +54,11 @@ export function  setupMatchHistory () {
 		<div class="middle">
 			<!-- BODY CHANGE -->
 
-			<p style="color: white; font-size: 20px; font-family: Arial, sans-serif;">HIstory</p>
 			<div class="container">
 				<h class="header">Pong Match History</h>
 				
 				<table>
-					<thead>
+					<thead>			<p style="color: white; font-size: 20px; font-family: Arial, sans-serif;">HIstory</p>
 						<tr>
 							<th><p>Date</p></th>
 							<th><p>1v1 Game</p></th>

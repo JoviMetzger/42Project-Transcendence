@@ -1,36 +1,40 @@
 {
-    "btn_LogIn": "Log In(DE)",
-	"btn_SignUp": "Sign Up(DE)",
+    "btn_LogIn": "Anmelden",
+    "btn_SignUp": "Registrieren",
+    "btn_PlayGame": "Spiel Starten",
+    "btn_Save": "Speichern",
 
-    "Password": "Password(DE)",
-    "ConfirmPassword": "Confirm Password(DE)",
-    "LogIn_Name": "Login Name(DE)",
+    "Password": "Passwort",
+    "ConfirmPassword": "Passwort bestätigen",
+    "LogIn_Name": "Anmelde-Name",
+    "SignUp_Avatar": "Füge dein Avatar hinzu",
+    "SignUp_Alias": "Alias-Name",
     
-    "Index_Header": "Welcome to Transcendence(DE)",
-    "LogIn_Header": "Login(DE)",
-    "SignUp_Header": "Create Account(DE)",
+    "Index_Header": "Willkommen bei Transcendence",
+    "LogIn_Header": "Anmelden",
+    "SignUp_Header": "Konto erstellen",
     
-    "Index_P": "Play classic Pong with your friends!(DE)",
+    "Index_P": "Spiele klassisches Pong mit deinen Freunden!",
     
-    "LogIn_placeholder1": "Intra Name(DE)",
-    "SignUp_placeholder1": "Only used for Log In (Intra Name)(DE)",
-    "SignUp_placeholder2": "Visible for other users(DE)",
+    "LogIn_placeholder1": "Intra-Name",
+    "SignUp_placeholder1": "Nur für die Anmeldung verwendet (Intra-Name)",
+    "SignUp_placeholder2": "Sichtbar für andere Benutzer",
     
-    "English": "English(DE)",
-    "German": "German(DE)",
-    "Dutch": "Netherlands(DE)",
+    "Language": "Sprache",
+    "Home": "Startseite",
+    "Settings": "Einstellungen",
+    "Friends": "Freunde",
+    "History": "Spielverlauf",
+    "LogOut": "Abmelden",
 
-    "SignUp_Avatar": "Add your Avatar(DE)",
-    "SignUp_Alias": "Alias Name(DE)",
+    "English": "Englisch",
+    "German": "Deutsch",
+    "Dutch": "Niederländisch",
 
-	"Language": "Language(DE)",
-	"Home": "Home(DE)",
-	"Settings": "Settings(DE)",
-	"Friends": "Friends(DE)",
-	"History": "Match History(DE)",
-	"LogOut": "Log Out(DE)",
+    "Setting_Avatar": "Avatar bearbeiten",
+    "Setting_Name": "Anmeldename (Kann nicht geändert werden)",
+    "Setting_Alias": "Aliasnamen bearbeiten",
+    "Setting_Password": "Passwort ändern",
 
-
-	
-	"EndOfFile": ""
+    "EndOfFile": ""
 }

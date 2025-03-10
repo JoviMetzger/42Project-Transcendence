@@ -1,25 +1,21 @@
-/* userHomePage.css */
+/* home.css */
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
 
-/* All for the Middle */
-/* .middle {
-	background: rgba(0, 0, 0, 0.8);
-	position: relative;
-	display: flex;
-	align-items: center;
+/* Container for forms */
+.container {
+	background: rgba(0, 0, 0, 0.0);
 	padding: 40px;
-	top: 90px;
-	left: 150px;
-	margin-right: 10px;
 	border-radius: 15px;
-	width: 70%;
-	height: 70%;
+	width: 400px;
+	top: 270px;
+	position: fixed;
 	z-index: 1; 
-} */
+}
+
 .score-box {
 	display: flex;
 	flex-direction: column;
@@ -113,7 +109,7 @@
 	padding: 12px;
 	font-size: 1.2rem;
 	color: white;
-	background: #a00361;
+	background: #902063;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
