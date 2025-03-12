@@ -1,0 +1,41 @@
+{
+    "btn_LogIn": "Log In",
+    "btn_SignUp": "Sign Up",
+    "btn_PlayGame": "Play Game",
+    "btn_Save": "Save",
+
+    "Password": "Password",
+    "ConfirmPassword": "Confirm Password",
+    "LogIn_Name": "Login Name",
+    "SignUp_Avatar": "Add your Avatar",
+    "SignUp_Alias": "Alias Name",
+    
+    "Index_Header": "Welcome to Transcendence",
+    "LogIn_Header": "Login",
+    "SignUp_Header": "Create Account",
+    "Setting_Header": "Settings",
+    
+    "Index_P": "Play classic Pong with your friends!",
+    
+    "LogIn_placeholder1": "Intra Name",
+    "SignUp_placeholder1": "Only used for Log In (Intra-Name)",
+    "SignUp_placeholder2": "Visible for other users",
+    
+    "Language": "Language",
+    "Home": "Home",
+    "Settings": "Settings",
+    "Friends": "Friends",
+    "History": "Match History",
+    "LogOut": "Log Out",
+
+    "English": "English",
+    "German": "German",
+    "Dutch": "Netherlands",
+
+    "Setting_Avatar": "Edit your Avatar",
+    "Setting_Name": "Login Name (Can't be changed)",
+    "Setting_Alias": "Edit Alias Name",
+    "Setting_Password": "Change Password",
+
+    "EndOfFile": ""
+}

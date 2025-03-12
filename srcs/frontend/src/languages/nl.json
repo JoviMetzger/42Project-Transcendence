@@ -1,0 +1,40 @@
+{
+    "btn_LogIn": "Inloggen",
+    "btn_SignUp": "Registreren",
+    "btn_PlayGame": "Spel Spelen",
+    "btn_Save": "Opslaan",
+
+    "Password": "Wachtwoord",
+    "ConfirmPassword": "Bevestig wachtwoord",
+    "LogIn_Name": "Inlognaam",
+    "SignUp_Avatar": "Voeg je avatar toe",
+    "SignUp_Alias": "Aliasnaam",
+    
+    "Index_Header": "Welkom bij Transcendence",
+    "LogIn_Header": "Inloggen",
+    "SignUp_Header": "Account aanmaken",
+    
+    "Index_P": "Speel klassieke Pong met je vrienden!",
+    
+    "LogIn_placeholder1": "Intra-naam",
+    "SignUp_placeholder1": "Alleen gebruikt voor inloggen (Intra-naam)",
+    "SignUp_placeholder2": "Zichtbaar voor andere gebruikers",
+    
+    "Language": "Taal",
+    "Home": "Home",
+    "Settings": "Instellingen",
+    "Friends": "Vrienden",
+    "History": "Wedstrijdgeschiedenis",
+    "LogOut": "Uitloggen",
+
+    "English": "Engels",
+    "German": "Duits",
+    "Dutch": "Nederlands",
+
+    "Setting_Avatar": "Avatar bewerken",
+    "Setting_Name": "Inlognaam (Kan niet worden gewijzigd)",
+    "Setting_Alias": "Aliasnaam bewerken",
+    "Setting_Password": "Wachtwoord wijzigen",
+
+    "EndOfFile": ""
+}

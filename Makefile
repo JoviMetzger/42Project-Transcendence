@@ -5,6 +5,10 @@ DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
 # Default target
 .DEFAULT_GOAL := help
 
+# Colors
+GREEN		= \033[32;1m
+RESET		= \033[0m
+
 # Help
 help:
 	@echo "Available commands:"
@@ -57,8 +61,23 @@ prod:
 prod-down:
 	$(DOCKER_COMPOSE) down
 
-# since we cant send the env file to the git repository. store the env on your local machine in file ~/.transcendence.env - will share on slack
+# since we can't send the env file to the git repository. store the env on your local machine in file ~/.transcendence.env - will share on slack
 copy-env:
 	cp ~/.transcendence.env ./srcs/.env
 
-.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down copy-env
+# All Docker resources are removed, stopped and deleted
+deepclean: clean
+	@echo "Cleaning up Docker resources..."
+	@echo "Stopping containers..."
+	@docker stop $$(docker ps -qa) 2>/dev/null || true
+	@echo "Removing containers..."
+	@docker rm $$(docker ps -qa) 2>/dev/null || true
+	@echo "Removing images..."
+	@docker rmi -f $$(docker images -qa) 2>/dev/null || true
+	@echo "Removing volumes..."
+	@docker volume rm $$(docker volume ls -q) 2>/dev/null || true
+	@echo "Removing networks..."
+	@docker network rm $$(docker network ls -q) 2>/dev/null || true
+	@echo "$(GREEN)All Docker resources have been cleaned.$(RESET)"
+
+.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down copy-env deepclean
