@@ -25,6 +25,10 @@ COPY . .
 # Rebuild better-sqlite3 for alpine
 RUN pnpm rebuild better-sqlite3
 
+RUN pnpm run db:generate
+
+RUN pnpm run db:migrate
+
 # Expose backend port
 EXPOSE 3000
 
