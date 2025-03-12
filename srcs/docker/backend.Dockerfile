@@ -1,23 +1,29 @@
 # Use Node.js LTS version
-FROM node:23-alpine
+FROM node:20-alpine
 
+# Set working directory
 # Set working directory
 WORKDIR /app
 
-COPY fastify .
+RUN mkdir data
 
-#install sqlite
+# Install necessary build dependencies
+RUN apk add --no-cache sqlite sqlite-dev python3 make g++ gcc musl-dev
 
-RUN apk add --no-cache sqlite sqlite-dev
-
-#install pnpm
+# Install pnpm
 RUN npm install -g pnpm
 
-RUN pnpm install fastify@5.1
+# Copy package files first
+COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install tsx
-
+# Install dependencies
 RUN pnpm install --force
+
+# Copy rest of the application
+COPY . .
+
+# Rebuild better-sqlite3 for alpine
+RUN pnpm rebuild better-sqlite3
 
 # Expose backend port
 EXPOSE 3000

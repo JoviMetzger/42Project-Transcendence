@@ -5,7 +5,7 @@ import envSchema from "env-schema";
 // variables set to be used in .js files, can be imported
 const schema = {
 	type: "object",
-	required: ["PORT", "LOG_LEVEL", "API_USER_KEY", "API_POST_KEY"],
+	required: ["PORT", "LOG_LEVEL", "API_USER_KEY", "API_POST_KEY", "DB_FILE"],
 	properties: {
 		PORT: {
 			type: "number",
@@ -27,6 +27,10 @@ const schema = {
 		POST_API: {
 			type: "string",
 			default: process.env.API_POST_KEY
+		},
+		DB_FILE: {
+			type: "string",
+			default: process.env.DB_FILE
 		}
 	},
 };
@@ -44,7 +48,8 @@ const envConfig = {
 	logLevel: config.LOG_LEVEL,
 	nodeEnv: config.NODE_ENV,
 	user_api: config.USER_API,
-	post_api: config.POST_API
+	post_api: config.POST_API,
+	db_file: config.DB_FILE
 
 	// can add DB_file
 };

@@ -10,6 +10,7 @@ import {
 	AddUser
 } from '../controllers/users.ts';
 import envConfig from "../config/env.ts"
+import { populateUser } from '../db/database.ts';
 
 
 // security so swagger-ui knows what headers to include
@@ -190,6 +191,8 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 		...getUsersOptions,
 		preHandler: authenticateAdmin
 	}, getAllUsers);
+
+	fastify.get('/testdrizzle', populateUser);
 
 	fastify.get('/users/:id', {
 		...getUserOptions,

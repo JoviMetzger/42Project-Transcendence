@@ -4,12 +4,16 @@ import userRoutes from './routes/users.ts';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import matchesRoutes from './routes/matches.ts';
+import { startDatabase, populateUser } from './db/database.ts';
 
-console.log("reading from index.ts backend")
+console.log("reading from index.ts backend");
 
 const fastify = Fastify({
 	logger: true
 }) // making the fastify instance out of the imported Fastify
+
+// fastify.register(startDatabase)
+
 
 await fastify.register(swagger, {
 	swagger: {
