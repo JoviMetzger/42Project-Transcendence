@@ -10,8 +10,9 @@ export const usersTable = sqliteTable("users_table", {
 	password: text("password").notNull(),
 	alias: text("alias").notNull().unique(),
 	profile_pic: blob("profile_pic"),
+	friends: text("friends", { mode: 'json' }).$type<string[]>().default(sql`(json_array())`),
 	language: text("language").default('en'),
-	wins: int("wins").default(0),
+	win: int("wins").default(0),
 	loss: int("loss").default(0)
 });
 
@@ -20,10 +21,11 @@ export type newUser = {
 	username: string;
 	password: string;
 	alias: string;
-	language?: string;
-	wins?: number;
-	loss?: number;
 	profile_pic?: Buffer;
+	friends?: string;
+	language?: string;
+	win?: number;
+	loss?: number;
 }
 
 export const createUserTemplate = (data: Partial<newUser>): newUser => {
@@ -32,10 +34,11 @@ export const createUserTemplate = (data: Partial<newUser>): newUser => {
 		username: data.username || '',
 		password: data.password || '',
 		alias: data.alias || '',
-		language: data.language || 'en',
-		wins: data.wins || 0,
-		loss: data.loss || 0,
-		...data
+		profile_pic: data.profile_pic,
+		friends: data.friends,
+		language: data.language,
+		win: data.win,
+		loss: data.loss
 	};
 };
 
@@ -51,7 +54,7 @@ export const matchesTable = sqliteTable("matches", {
 	winner_id: int("winner", { enum: [0, 1, 2] }),
 	start_time: text("start_time").default(sql`(current_timestamp)`),
 	end_time: text("end_time").default(sql`(current_timestamp)`),
-	duration: int("duration")
+	duration: int("duration").default(0)
 });
 
 export type newMatch = {
@@ -62,9 +65,9 @@ export type newMatch = {
 	p2_id: string | null;
 	status: string;
 	winner_id: number;
-	start_time: string;
+	start_time?: string;
 	end_time: string;
-	duration: number;
+	duration?: number;
 }
 
 export const createMatchTemplate = (data: Partial<newMatch>): newMatch => {
@@ -77,9 +80,9 @@ export const createMatchTemplate = (data: Partial<newMatch>): newMatch => {
 		p2_id: data.p2_id || null,
 		status: data.status || 'interrupted',
 		winner_id: data.winner_id || 0,
-		start_time: data.start_time || now, // sets it to current date/time
+		start_time: data.start_time,
 		end_time: data.end_time || now,
-		duration: data.duration || 0
+		duration: data.duration
 	};
 };
 
