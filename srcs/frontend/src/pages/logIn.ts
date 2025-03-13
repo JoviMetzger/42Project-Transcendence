@@ -1,4 +1,5 @@
 import { setupUserHome } from './home';
+import { setupAdmin} from './admin';
 import { getLanguage } from '../script/language';
 
 export function setupLogIn() {
@@ -8,6 +9,22 @@ export function setupLogIn() {
 		root.insertAdjacentHTML("beforeend", `
 		<link rel="stylesheet" href="src/styles/logIn.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
+		<div class="btn-container">
+			<button class="language-btn">
+				<span data-i18n="Language"></span> <img id="selected-flag" src="src/component/Pictures/flagIcon-en.png">
+			</button>
+			<div class="language-content">
+				<div class="language-option" id="gb">
+					<img src="src/component/Pictures/flagIcon-en.png"> <span data-i18n="English"></span>
+				</div>
+				<div class="language-option" id="de">
+					<img src="src/component/Pictures/flagIcon-de.png"> <span data-i18n="German"></span>
+				</div>
+				<div class="language-option" id="nl">
+					<img src="src/component/Pictures/flagIcon-nl.png"> <span data-i18n="Dutch"></span>
+				</div>
+			</div>
+		</div>
 		<div class="container">
 			<h1 class="header" data-i18n="LogIn_Header"></h1>
 			
@@ -20,6 +37,9 @@ export function setupLogIn() {
 			<div class="buttons">
 				<button class="btn" id="Home" data-i18n="btn_LogIn"></button>
 			</div>
+			<div class="buttons">
+				<button class="btn" id="Admin">Admin (Gonna be removed later)</button>
+			</div>
 		</div>
 		`);
 
@@ -27,6 +47,11 @@ export function setupLogIn() {
 		document.getElementById('Home')?.addEventListener('click', () => {
 			window.history.pushState({}, '', '/home');
 			setupUserHome();
+		});
+
+		document.getElementById('Admin')?.addEventListener('click', () => {
+			window.history.pushState({}, '', '/admin');
+			setupAdmin();
 		});
 	}
 }

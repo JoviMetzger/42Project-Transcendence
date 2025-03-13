@@ -12,7 +12,7 @@ export function  setupMatchHistory () {
 		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
 		<link rel="stylesheet" href="src/styles/history.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
-		<div class="leftBar">
+		<div class="topBar">
 			<div class="dropdown">
 				<button class="dropdown-btn">
 					<img class="settingIcon" src="src/component/Pictures/setting-btn.png"/></img>
@@ -40,9 +40,6 @@ export function  setupMatchHistory () {
 					<div class="dropdown-item" id="LogOut" data-i18n="LogOut"></div>
 				</div>
 			</div>
-		</div>
-
-		<div class="topBar">
 			<div class="topBarFrame">
 				<div class="aliasName">cool alias</div>
 				<div class="profile-picture">

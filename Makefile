@@ -47,7 +47,7 @@ logs:
 
 clean:
 	$(DOCKER_COMPOSE_DEV) down -v
-	docker system prune -f
+	docker system prune -af
 
 # Installation commands
 install:

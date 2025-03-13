@@ -1,4 +1,4 @@
-/* userMain.css */
+/* adminPage.css */
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
@@ -58,7 +58,7 @@
 	gap: 15px;
 	min-width: fit-content;
 }
-.aliasName {
+.adminName {
 	color: white;
 	font-size: 20px;
 	font-family: Arial, sans-serif;

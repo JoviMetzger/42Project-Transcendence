@@ -12,7 +12,7 @@ export function setupFriends () {
 		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
 		<link rel="stylesheet" href="src/styles/friends.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
-		<div class="leftBar">
+		<div class="topBar">
 			<div class="dropdown">
 				<button class="dropdown-btn">
 					<img class="settingIcon" src="src/component/Pictures/setting-btn.png"/></img>
@@ -40,9 +40,6 @@ export function setupFriends () {
 					<div class="dropdown-item" id="LogOut" data-i18n="LogOut"></div>
 				</div>
 			</div>
-		</div>
-
-		<div class="topBar">
 			<div class="topBarFrame">
 				<div class="aliasName">cool alias</div>
 				<div class="profile-picture">
@@ -55,7 +52,56 @@ export function setupFriends () {
 			<!-- BODY CHANGE -->
 
 			<div class="container">
-				<p style="color: white; font-size: 20px; font-family: Arial, sans-serif;">Friends</p>
+				<h1 class="header"> Your Friends </h1>
+					
+				<div class="profile-picture">
+					<img src="src/component/Pictures/defaultPP.avif">
+				</div>
+				<p class="p1"> Friend 1</p>
+				<div class="buttons">
+					<button class="btn">Match History</button>
+				</div>
+
+				<div class="profile-picture">
+					<img src="src/component/Pictures/defaultPP.avif">
+				</div>
+				<p class="p1"> Friend 2</p>
+				<div class="buttons">
+					<button class="btn">Match History</button>
+				</div>
+
+				<div class="profile-picture">
+					<img src="src/component/Pictures/defaultPP.avif">
+				</div>
+				<p class="p1"> Friend 3</p>
+				<div class="buttons">
+					<button class="btn">Match History</button>
+				</div>
+
+
+				<h1 class="header"> Friend Request </h1>
+
+				<div class="profile-picture">
+					<img src="src/component/Pictures/defaultPP.avif">
+				</div>
+				<p class="p1"> want's to be friend</p>
+				<div class="buttons">
+					<button class="btn">Accept</button>
+				</div>
+
+
+				<input type="Search">
+
+				<div class="profile-picture">
+					<img src="src/component/Pictures/defaultPP.avif">
+				</div>
+				<p class="p1"> maybefriend</p>
+				<div class="buttons">
+					<button class="btn">Add</button>
+				</div>
+				<div class="buttons">
+					<button class="btn">Match History</button>
+				</div>
 
 			</div>
 			<!-- ^^^ -->
