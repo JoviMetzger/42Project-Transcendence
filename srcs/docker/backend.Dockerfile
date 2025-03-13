@@ -1,22 +1,33 @@
 # Use Node.js LTS version
-FROM node:23-alpine
+FROM node:20-alpine
 
+# Set working directory
 # Set working directory
 WORKDIR /app
 
-COPY . .
+RUN mkdir data
 
-#install pnpm
+# Install necessary build dependencies
+RUN apk add --no-cache sqlite sqlite-dev python3 make g++ gcc musl-dev
+
+# Install pnpm
 RUN npm install -g pnpm
 
-RUN pnpm install fastify
+# Copy package files first
+COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install tsx
-
+# Install dependencies
 RUN pnpm install --force
 
-# Copy the backend source code, comments back in when running the non-dev docker-compose
-#COPY . .
+# Copy rest of the application
+COPY . .
+
+# Rebuild better-sqlite3 for alpine
+RUN pnpm rebuild better-sqlite3
+
+RUN pnpm run db:generate
+
+RUN pnpm run db:migrate
 
 # Expose backend port
 EXPOSE 3000
