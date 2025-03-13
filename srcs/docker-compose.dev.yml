@@ -13,7 +13,7 @@ services:
       - "5173:5173" # might be able to remove this later, could be useful for now in the development env to be able to directly go to frontend port
     volumes:
       - ./frontend:/app #mounting the /frontend so live edits update the docker container
-      - .:/app/node_modules # Ensures node_modules are not overwritten by the host, allowing container to manage dependencies
+      - /app/node_modules # Ensures node_modules are not overwritten by the host, allowing container to manage dependencies
     env_file:
       - ./.env
     command: [ "pnpm", "run", "dev" ] # Hot-reload mode for frontend
