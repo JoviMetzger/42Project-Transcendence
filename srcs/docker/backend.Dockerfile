@@ -13,14 +13,11 @@ RUN apk add --no-cache sqlite sqlite-dev python3 make g++ gcc musl-dev
 # Install pnpm
 RUN npm install -g pnpm
 
-# Copy package files first
-COPY package.json pnpm-lock.yaml ./
+# Copy all files
+COPY . .
 
 # Install dependencies
 RUN pnpm install --force
-
-# Copy rest of the application
-COPY . .
 
 # Rebuild better-sqlite3 for alpine
 RUN pnpm rebuild better-sqlite3

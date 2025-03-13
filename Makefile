@@ -1,5 +1,5 @@
 # Variables
-DOCKER_COMPOSE_DEV = docker compose -f srcs/docker-compose.dev.yml
+DOCKER_COMPOSE_DEV = docker-compose -f srcs/docker-compose.dev.yml
 DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
 
 VOLUME_DIR := ${HOME}/ft_transcendence/data
