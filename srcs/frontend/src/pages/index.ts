@@ -7,6 +7,7 @@ import { setupMatchHistory } from './history';
 import { setupStartGame } from './startGame';
 import { setupError404 } from './error404';
 import { getLanguage } from '../script/language';
+import { connectFunc } from '../script/connections';
 
 document.addEventListener('DOMContentLoaded', () => {
 	renderPage();	
@@ -48,6 +49,7 @@ export function renderPage() {
 				<div class="buttons">
 					<button class="btn" id="LogIn" data-i18n="btn_LogIn"></button>
 					<button class="btn" id="SignUp" data-i18n="btn_SignUp"></button>
+					<button class="btn" id="Connect" data-i18n="Connect"> ConneCt </button>
 				</div>
 			</div>
 			`);
@@ -61,6 +63,10 @@ export function renderPage() {
 			document.getElementById('SignUp')?.addEventListener('click', () => {
 				window.history.pushState({}, '', '/signUp');
 				renderPage();
+			});
+			document.getElementById('Connect')?.addEventListener('click', () => {
+				// window.history.pushState({}, '', '/Connect');
+				connectFunc();
 			});
 
 		}

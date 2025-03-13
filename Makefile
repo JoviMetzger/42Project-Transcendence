@@ -62,8 +62,8 @@ clean:
 
 # Installation commands
 install:
-	cd frontend && npm install
-	cd backend && npm install
+	cd srcs/frontend && npm install
+	cd srcs/backend && npm install
 
 # Production commands
 prod:

@@ -5,6 +5,7 @@ import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import matchesRoutes from './routes/matches.ts';
 import { startDatabase, populateUser } from './db/database.ts';
+// import cors, { fastifyCors } from '@fastify/cors'
 
 console.log("reading from index.ts backend");
 
@@ -41,6 +42,11 @@ await fastify.register(swaggerUi, {
 fastify.register(userRoutes);
 fastify.register(matchesRoutes);
 
+fastify.addHook('onSend', async (request, reply) => {
+	reply.header('Access-Control-Allow-Origin', '*'); // Allow all origins or specify a specific origin
+	reply.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+	reply.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+})
 
 // defining a function in TS
 const start = async () => {
