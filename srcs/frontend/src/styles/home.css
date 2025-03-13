@@ -1,0 +1,123 @@
+/* home.css */
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+/* Container for forms */
+.container {
+	background: rgba(0, 0, 0, 0.0);
+	padding: 40px;
+	border-radius: 15px;
+	width: 400px;
+	top: 270px;
+	position: fixed;
+	z-index: 1; 
+}
+
+.score-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	color: white;
+}
+.score-icon {
+	width: 180px;
+	height: 180px;
+	/*background: rgba(255, 255, 255, 0.2);*/
+	background-size: cover;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 5.5rem;
+	/*border: 1px solid white;*/
+}
+.score-icon {
+		width: 100px;
+		height: 100px;
+		font-size: 2rem;
+}
+.score-text {
+	margin-top: 10px;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+.score-number {
+	font-size: 2.5rem; 
+	font-weight: bold;
+	color: #ffd700;
+}
+.imgTotalScore {
+	display: flex;
+	justify-content: center;
+	width: 340px;
+	height: 340px;
+	top: 0px;
+	left: 20px;
+}
+.imgWins {
+	display: flex;
+	justify-content: center;
+	width: 50px;
+	height: 50px;
+}
+.imgLosses {
+	display: flex;
+	justify-content: center;
+	width: 50px;
+	height: 50px;
+}
+.img1 {
+	display: flex;
+	justify-content: center;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1px solid rgb(255, 255, 255);
+}
+.img2 {
+	display: flex;
+	justify-content: center;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 3px solid white;
+}
+.img3 {
+	display: flex;
+	justify-content: center;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 3px solid white;
+}
+
+/* Button styling */
+.buttons {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+}
+.btn {
+	width: 400px;
+	padding: 12px;
+	font-size: 1.2rem;
+	color: white;
+	background: #902063;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 10px;
+	transition: 0.3s;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+.btn:hover {
+	background: #b86a8a;
+}
