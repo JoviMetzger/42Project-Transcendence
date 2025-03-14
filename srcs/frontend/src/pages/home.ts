@@ -113,62 +113,66 @@ export function setupUserHome () {
 		
 		<div class="middle">
 			<!-- BODY CHANGE -->
-
 			<div class="container">
 
-				<div class="Total score">
-					<div class="imgTotalScore">
-						<img src="src/component/Pictures/totalScore.png" alt="Total Score">
+				<div class="user-stats">
+					<div class="stat-box">
+						<div class="total-score">
+							<img src="src/component/Pictures/totalScore.png" alt="Total Score">
+						</div>
+						<div class="score-text">Total Score</div>
+						<div class="score-number">1200</div>
 					</div>
-					<div class="score-text">Wins</div>
-					<div class="score-number">1200</div>
-				</div>
 
-				<div class="wins">
-					<div class="imgWins">
-						<img src="src/component/Pictures/wins.png" alt="Wins">
+					<div class="smoll-stat-container">
+						<div class="smoll-stat-box-right">
+							<div class="win-losse">
+								<img src="src/component/Pictures/wins.png" alt="Wins">
+							</div>
+							<div class="score-text">Wins</div>
+							<div class="score-number">1200</div>
+						</div>
+
+						<div class="smoll-stat-box-left">
+							<div class="win-losse">
+								<img src="src/component/Pictures/losses.png" alt="Losses">
+							</div>
+							<div class="score-text">Losses</div>
+							<div class="score-number">900</div>
+						</div>
 					</div>
-					<div class="score-text">Wins</div>
-					<div class="score-number">1200</div>
-				</div>
 
-				<div class="Losses">
-					<div class="imgLosses">
-						<img src="src/component/Pictures/losses.png" alt="Losses">
+					<div class="buttons">
+						<button class="btn" id="StartGame" data-i18n="btn_PlayGame">Play Game</button>
 					</div>
-					<div class="score-text">Losses</div>
-					<div class="score-number">900</div>
 				</div>
-
+				
 				<div class="leaderboard">
-					<div class="1">
-						<div class="img1">
-							<img src="src/component/Pictures/1.jpg" alt="1st.">
+					<h2>Leaderboard</h2>
+					<div class="leaderboard-entry">
+						<div class="img-container">
+							<img src="src/component/Pictures/1.jpg" alt="1st Place">
 						</div>
-						<div class="score-text">Losses</div>
-						<div class="score-number">900</div>
+						<div class="text">1st Place</div>
+						<div class="number">1500</div>
 					</div>
-					<div class="2">
-						<div class="img2">
-							<img src="src/component/Pictures/2.jpg" alt="2nd.">
+					<div class="leaderboard-entry">
+						<div class="img-container">
+							<img src="src/component/Pictures/2.jpg" alt="2nd Place">
 						</div>
-						<div class="score-text">Losses</div>
-						<div class="score-number">900</div>
+						<div class="text">2nd Place</div>
+						<div class="number">1400</div>
 					</div>
-					<div class="3">
-						<div class="img3">
-							<img src="src/component/Pictures/3.jpg" alt="3rd.">
+					<div class="leaderboard-entry">
+						<div class="img-container">
+							<img src="src/component/Pictures/3.jpg" alt="3rd Place">
 						</div>
-						<div class="score-text">Losses</div>
-						<div class="score-number">900</div>
+						<div class="text">3rd Place</div>
+						<div class="number">1300</div>
 					</div>
+				</div>
 
-				</div>
-				<div class="buttons">
-					<button class="btn" id="StartGame" data-i18n="btn_PlayGame"></button>
-				</div>
 			</div>
-
 			<!-- ^^^ -->
 		</div>
 		`);

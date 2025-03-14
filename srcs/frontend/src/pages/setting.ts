@@ -55,9 +55,9 @@ export function setupSetting () {
 				<h1 class="header" data-i18n="Setting_Header"></h1>
 					
 				<p class="p1" data-i18n="Setting_Avatar"></p>
-				<div class="profile-picture">
+				<button class="edit-picture">
 					<img src="src/component/Pictures/defaultPP.avif">
-				</div>
+				</button>
 	
 				<p class="p1" data-i18n="Setting_Name"></p>
 				<div class="input-field display-only">Display USER LogIn Name</div>
@@ -65,7 +65,7 @@ export function setupSetting () {
 				<p class="p1" data-i18n="Setting_Alias"></p>
 				<input type="Alias_Name" class="input-field">
 	
-				<p class="p1" data-i18n="Setting_Password"></p>
+				<p class="p1" data-i18n="Change_Password"></p>
 				<input type="Password" class="input-field">
 	
 				<p class="p1" data-i18n="ConfirmPassword"></p>

@@ -3,12 +3,14 @@
     "btn_SignUp": "Sign Up",
     "btn_PlayGame": "Play Game",
     "btn_Save": "Save",
+    "btn_Remove": "Remove",
 
     "Password": "Password",
     "ConfirmPassword": "Confirm Password",
     "LogIn_Name": "Login Name",
     "SignUp_Avatar": "Add your Avatar",
     "SignUp_Alias": "Alias Name",
+    "Admin": "Admin",
     
     "Index_Header": "Welcome to Transcendence",
     "LogIn_Header": "Login",
@@ -16,10 +18,12 @@
     "Setting_Header": "Settings",
     
     "Index_P": "Play classic Pong with your friends!",
+    "History_P": "Of",
     
     "LogIn_placeholder1": "Intra Name",
     "SignUp_placeholder1": "Only used for Log In (Intra-Name)",
     "SignUp_placeholder2": "Visible for other users",
+    "Admin_placeholder1": "Search users...",
     
     "Language": "Language",
     "Home": "Home",
@@ -35,7 +39,13 @@
     "Setting_Avatar": "Edit your Avatar",
     "Setting_Name": "Login Name (Can't be changed)",
     "Setting_Alias": "Edit Alias Name",
-    "Setting_Password": "Change Password",
+    "Change_Password": "Change Password",
+
+    "Action": "Actions",
+    "Date": "Date",
+    "1v1_Game": "1v1 Game",
+    "Winner": "Winner",
+    "Score": "Score",
 
     "EndOfFile": ""
 }

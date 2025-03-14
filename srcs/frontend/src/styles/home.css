@@ -7,117 +7,158 @@
 
 /* Container for forms */
 .container {
-	background: rgba(0, 0, 0, 0.0);
-	padding: 40px;
-	border-radius: 15px;
-	width: 400px;
-	top: 270px;
-	position: fixed;
-	z-index: 1; 
+	display: flex;
+	background: rgba(0, 0, 0, 0);
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	height: 70vh;
+	width: 100%;
+	top: 220px;
+	box-sizing: border-box;
 }
 
-.score-box {
+/* Section for stats (Left) */
+.user-stats {
+	width: 50%;
+	height: 35vh;
+	display: flex;
+	background: rgba(255, 255, 255, 0);
+	flex-direction: column;
+	gap: 10px;
+	padding: 25px;
+	align-items: center;
+	justify-content: center;
+}
+.stat-box {
+	margin-top: 30px;
+	/* background-color: #575757; */
+	padding: 15px;
+	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-	color: white;
+	width: 90%;
 }
-.score-icon {
-	width: 180px;
-	height: 180px;
-	/*background: rgba(255, 255, 255, 0.2);*/
-	background-size: cover;
-	border-radius: 50%;
+.smoll-stat-container {
 	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 5.5rem;
-	/*border: 1px solid white;*/
+	justify-content: space-between;
+	width: 100%;
+	gap: 20px;
+	margin-top: 10px;
 }
-.score-icon {
-		width: 100px;
-		height: 100px;
-		font-size: 2rem;
+.smoll-stat-box-left {
+	flex: 1;
+	/* background-color: #575757; */
+	border-radius: 8px;
+	padding: 10px;
+	display: flex;
+	align-items: left;
+	flex-direction: column;
+	text-align: left;
+}
+.smoll-stat-box-right {
+	flex: 1;
+	/* background-color: #575757; */
+	border-radius: 8px;
+	padding: 10px;
+	display: flex;
+	align-items: left;
+	flex-direction: column;
+	text-align: right;
 }
 .score-text {
-	margin-top: 10px;
-	font-size: 1.5rem;
+	font-size: 14px;
 	font-weight: bold;
+	color: #dcdbdb;
+	margin-top: 5px;
 }
 .score-number {
-	font-size: 2.5rem; 
+	font-size: 20px;
 	font-weight: bold;
-	color: #ffd700;
+	color: #dcdbdb;
 }
-.imgTotalScore {
-	display: flex;
-	justify-content: center;
-	width: 340px;
-	height: 340px;
-	top: 0px;
-	left: 20px;
-}
-.imgWins {
-	display: flex;
-	justify-content: center;
-	width: 50px;
-	height: 50px;
-}
-.imgLosses {
-	display: flex;
-	justify-content: center;
-	width: 50px;
-	height: 50px;
-}
-.img1 {
-	display: flex;
-	justify-content: center;
-	width: 90px;
-	height: 90px;
-	border-radius: 50%;
+.total-score img {
+	width: 200px;
+	height: 200px;
 	object-fit: cover;
-	border: 1px solid rgb(255, 255, 255);
-}
-.img2 {
-	display: flex;
-	justify-content: center;
-	width: 90px;
-	height: 90px;
 	border-radius: 50%;
-	object-fit: cover;
-	border: 3px solid white;
+	margin-top: -60px;
+	margin-bottom: -50px;
 }
-.img3 {
-	display: flex;
-	justify-content: center;
-	width: 90px;
-	height: 90px;
-	border-radius: 50%;
+.win-losse img {
+	width: 30px;
+	height: 30px;
 	object-fit: cover;
-	border: 3px solid white;
+	border-radius: 50%;
+	/* margin-left: -60px; */
+}
+
+
+/* Section for leaderboard (Right) */
+.leaderboard {
+	width: 30%;
+	height: 35vh;
+	display: fixed;
+	flex-direction: column;
+	gap: 10px;
+	border-radius: 10px;
+	border: 3px solid #902063;
+	padding: 25px;
+	align-items: center;
+	justify-items: center;
+}
+h2 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 25px;
+	font-family: Arial, sans-serif;
+	color: #dcdbdb;
+}
+.leaderboard-entry {
+	margin-top: 30px;
+	background-color: none;
+	padding: 15px;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+}
+.text {
+	font-size: 16px;margin-right: 10px;
+	color: #dcdbdb;
+	margin-left: 25px;
+	align-items: center;
+}
+.img-container img {
+	width: 70px;
+	height: 70px;
+	object-fit: cover;
+	/* margin-right: 15px; */
+	border-radius: 50%;
 }
 
 /* Button styling */
 .buttons {
 	display: flex;
-	gap: 10px;
 	justify-content: center;
+	width: 100%;
+	margin-top: auto;
 }
+
 .btn {
-	width: 400px;
+	width: 50%;
 	padding: 12px;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	color: white;
 	background: #902063;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	margin-top: 10px;
 	transition: 0.3s;
-	box-sizing: border-box;
 	font-family: Arial, sans-serif;
 }
+
 .btn:hover {
 	background: #b86a8a;
 }

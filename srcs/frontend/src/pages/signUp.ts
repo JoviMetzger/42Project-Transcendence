@@ -28,9 +28,9 @@ export function setupSignUp() {
 			<h1 class="header" data-i18n="SignUp_Header"></h1>
 				
 			<p class="p1" data-i18n="SignUp_Avatar"></p>
-			<div class="profile-picture">
+			<button class="edit-picture">
 				<img src="src/component/Pictures/defaultPP.avif">
-			</div>
+			</button>
 
 			<p class="p1" data-i18n="LogIn_Name"></p>
 			<input type="Login_Name" class="input-field" data-i18n-placeholder="SignUp_placeholder1">

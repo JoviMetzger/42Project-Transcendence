@@ -1,4 +1,4 @@
-/* history.css */
+/* adminPage.css */
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
@@ -6,29 +6,22 @@
 
 /* Container for forms */
 .container {
-	background: rgba(0, 0, 0, 0.0);
+	background: rgba(0, 0, 0, 0);
 	padding: 40px;
 	border-radius: 15px;
-	width: 400px;
-	top: 270px;
+	width: 77%;
+	top: 170px;
+	left: 160px;
+	margin: 50px;
 	position: fixed;
+	justify-content: center;
+	text-align: center;
 	z-index: 1; 
 }
 
 /* Title styling */
 .header {
 	font-size: 2.5rem;
-	margin-bottom: 15px;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
-	color: white;
-	text-align: center;
-}
-
-/* Paragraph styling */
-p {
-	font-size: 1rem;
 	margin-bottom: 5px;
 	margin-top: 5px;
 	box-sizing: border-box;
@@ -39,35 +32,34 @@ p {
 
 /* Paragraph styling */
 .p1 {
-	font-size: 1rem;
-	margin-bottom: 2px;
-	margin-top: 20px;
+	font-size: 1.1rem;
+	margin-bottom: 5px;
+	margin-top: 5px;
 	box-sizing: border-box;
 	font-family: Arial, sans-serif;
 	color: white;
-	text-align: left;
+	text-align: center;
 }
 
- table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+/* Table Styling */
+.userTable {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+	background-color: #ffffff;
 }
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+.userTable th, .userTable td {
+	padding: 12px;
+	text-align: left;
+	color: rgb(0, 0, 0);
+	border-bottom: 1px solid #ddd;
+	font-size: 15px;
+	font-family: Arial, sans-serif;
 }
-th {
-    background-color: black;
-}
-        
-/* Container for forms */
-.container {
-	background: rgba(0, 0, 0, 0.0);
-	padding: 40px;
-	border-radius: 15px;
-	width: 400px;
-	position: relative;
-	z-index: 1; 
+.userTable th {
+	color: rgb(0, 0, 0);
+	background-color: #d7d7d7;
+	font-weight: bold;
+	font-size: 17px;
+	font-family: Arial, sans-serif;
 }
