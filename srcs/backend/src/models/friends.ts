@@ -1,9 +1,11 @@
-import { InferModel } from 'drizzle-orm';
-import { friendsTable } from '../db/schema';
+import { InferSelectModel, InferInsertModel } from 'drizzle-orm';
+import { friendsTable } from '../db/schema.ts';
 
-export type friend = InferModel<friendsTable>
+// For reading operations
+export type friend = InferSelectModel<typeof friendsTable>;
 
-export type createFriend = Omit<friendsTable, 'status'> & {
+// For creating new friend relationships
+export type createFriend = {
 	requester: string;
 	recipient: string;
-} 
+}; 

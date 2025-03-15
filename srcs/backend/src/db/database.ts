@@ -18,14 +18,7 @@ export const startDatabase: FastifyPluginAsync = async (fastify) => {
 		const sqlite = new Database('./data/data.db', { verbose: console.log })
 		const db = drizzle({ client: sqlite })
 
-		// create the db
-		// await migrate(db, { migrationsFolder: './drizzle' })
-
 		fastify.decorate('db', db)
-
-
-		//const output = await db.select().from(usersTable);
-		//console.log(output)
 
 		fastify.addHook('onClose', async (instance) => {
 			await sqlite.close()

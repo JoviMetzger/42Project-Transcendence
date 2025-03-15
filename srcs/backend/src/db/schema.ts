@@ -1,5 +1,4 @@
-import { randomUUID } from 'crypto';
-import { int, sqliteTable, text, blob, datetime } from "drizzle-orm/sqlite-core";
+import { int, sqliteTable, text, blob } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
 
 
@@ -14,6 +13,7 @@ export const usersTable = sqliteTable("users_table", {
 	uuid: text("uuid").notNull().unique(),
 	username: text("username").notNull().unique(),
 	password: text("password").notNull(),
+	salt: text("salt").notNull(),
 	alias: text("alias").notNull().unique(),
 	profile_pic: blob("profile_pic"),
 	language: text("language").default('en'),
@@ -27,6 +27,12 @@ export enum matchStatus {
 	INTERRUPTED = 1
 }
 
+export enum eWinner {
+	NOWINNER = 0,
+	PLAYER1 = 1,
+	PLAYER2 = 2
+}
+
 // table with all matches
 export const matchesTable = sqliteTable("matches", {
 	id: int("id").primaryKey({ autoIncrement: true }),
@@ -36,7 +42,7 @@ export const matchesTable = sqliteTable("matches", {
 	p1_id: text("p1_id").references(() => usersTable.uuid),
 	p2_id: text("p2_id").references(() => usersTable.uuid),
 	status: int("status").$type<matchStatus>().notNull(),
-	winner_id: int("winner", { enum: [0, 1, 2] }),
+	winner_id: int("winner").$type<eWinner>().default(eWinner.NOWINNER),
 	start_time: text("start_time").default(sql`(current_timestamp)`),
 	end_time: text("end_time").default(sql`(current_timestamp)`),
 	duration: int("duration").default(0)
@@ -53,5 +59,5 @@ export enum friendStatus {
 export const friendsTable = sqliteTable("friends", {
 	requester: text("requester").references(() => usersTable.uuid),
 	recipient: text("recipient").references(() => usersTable.uuid),
-	status: int("status").$type<friendStatus>().default(FriendStatus.PENDING)
+	status: int("status").$type<friendStatus>().default(friendStatus.PENDING)
 })
