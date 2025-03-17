@@ -5,7 +5,7 @@ import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
 
 import { usersTable } from '../db/schema.ts';
-import { publicUser } from '../models/users.ts';
+import { publicUser, User } from '../models/users.ts';
 
 // get all Users
 export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) => {
@@ -16,7 +16,7 @@ export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) 
 
 		const users = await db.select().from(usersTable);
 
-		const publicUsers: publicUser[] = users.map((user) => {
+		const publicUsers: publicUser[] = users.map((user: User) => {
 			return {
 				id: user.id,
 				uuid: user.uuid,

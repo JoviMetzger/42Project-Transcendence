@@ -39,7 +39,7 @@ await fastify.register(swaggerUi, {
 })
 
 fastify.register(userRoutes);
-fastify.register(matchesRoutes);
+//fastify.register(matchesRoutes);
 
 
 // defining a function in TS

@@ -4,12 +4,15 @@ import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
 import { createUser, hashPassword, validateUser, publicUser } from '../models/users.ts';
 import { usersTable } from '../db/schema.ts'
+import { randomUUID } from 'crypto';
 
 export const addUser = async (request: FastifyRequest, reply: FastifyReply) => {
 	let sqlite = null;
 	try {
 		const body = request.body as createUser;
 		validateUser(body);
+		// set uuid
+		body.uuid = randomUUID();
 		// hash the password
 		const passwordSalt = hashPassword(body.password);
 		body.password = passwordSalt.hashedPassword;

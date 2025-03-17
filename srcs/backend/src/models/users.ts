@@ -1,5 +1,6 @@
 import { InferSelectModel, InferInsertModel } from 'drizzle-orm';
 import { usersTable, userStatus } from '../db/schema.ts';
+import crypto from 'crypto'
 
 /* types */
 
@@ -62,7 +63,6 @@ export function validateUser(user: Partial<createUser>): void {
 
 // function that returns the hashed password + the salt key for in the db
 export function hashPassword(password: string): { hashedPassword: string, salt: string } {
-	const crypto = require('crypto');
 	const salt = crypto.randomBytes(16).toString('hex');
 	const hashedPassword = crypto.pbkdf2Sync(
 		password,
@@ -77,7 +77,6 @@ export function hashPassword(password: string): { hashedPassword: string, salt: 
 
 // Checks if incoming password matches the stored hash
 export function verifyPassword(password: string, storedHash: string, salt: string): boolean {
-	const crypto = require('crypto');
 	const hash = crypto.pbkdf2Sync(
 		password,
 		salt,

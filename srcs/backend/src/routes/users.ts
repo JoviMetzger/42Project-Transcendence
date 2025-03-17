@@ -2,15 +2,11 @@
 
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import {
-	getAllUsers,
-	getUserById,
-	getUserByAlias,
-	getUserStats,
-	getLeaderboard,
-	AddUser
-} from '../controllers/users.ts';
+	getAllUsers
+} from '../controllers/getUsers.ts';
+import { addUser } from '../controllers/setUsers.ts'
 import envConfig from "../config/env.ts"
-import { populateUser } from '../db/database.ts';
+// import { populateUser } from '../db/database.ts';
 
 
 // security so swagger-ui knows what headers to include
@@ -32,13 +28,6 @@ const userProperties = {
 	wins: { type: 'number' },
 	losses: { type: 'number' }
 };
-
-const addUserProperties = {
-	username: { type: 'string', minLength: 3 },
-	alias: { type: 'string', minLength: 3 },
-	password: { type: 'string', minLength: 6 },
-	profilePic: { type: ['string', 'null'] }
-} as const;
 
 // Schema for multiple users response
 const getUsersOptions = {
@@ -125,6 +114,15 @@ const getLeaderboardOptions = {
 
 // POST
 
+const addUserProperties = {
+	username: { type: 'string', minLength: 3 },
+	password: { type: 'string', minLength: 6 },
+	alias: { type: 'string', minLength: 3 },
+	profile_pic: { type: ['string', 'null'] },
+	language: { type: 'string' },
+	status: { type: 'number' }
+} as const;
+
 // Schema for single user response
 const postUserOptions = {
 	schema: {
@@ -187,37 +185,41 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 	})
 
 	// User routes
-	fastify.get('/users', {
-		...getUsersOptions,
-		preHandler: authenticateAdmin
-	}, getAllUsers);
+	fastify.get('/users', getAllUsers);
+	// @todo prehandler: Admin, maybe userOptions
+	// fastify.get('/users', {
+	// 	...getUsersOptions,
+	// 	preHandler: authenticateAdmin
+	// }, getAllUsers);
 
-	fastify.get('/testdrizzle', populateUser);
+	// fastify.get('/testdrizzle', populateUser);
 
-	fastify.get('/users/:id', {
-		...getUserOptions,
-		preHandler: authenticateAdmin
-	}, getUserById);
+	// fastify.get('/users/:id', {
+	// 	...getUserOptions,
+	// 	preHandler: authenticateAdmin
+	// }, getUserById);
 
-	fastify.get('/users/alias/:alias', {
-		...getUserOptions,
-		preHandler: authenticateAdmin
-	}, getUserByAlias);
+	// fastify.get('/users/alias/:alias', {
+	// 	...getUserOptions,
+	// 	preHandler: authenticateAdmin
+	// }, getUserByAlias);
 
-	fastify.get('/users/:id/stats', {
-		...getUserStatsOptions,
-		preHandler: authenticateAdmin
-	}, getUserStats);
+	// fastify.get('/users/:id/stats', {
+	// 	...getUserStatsOptions,
+	// 	preHandler: authenticateAdmin
+	// }, getUserStats);
 
-	// Leaderboard route
-	fastify.get('/leaderboard', getLeaderboardOptions, getLeaderboard);
+	// // Leaderboard route
+	// fastify.get('/leaderboard', getLeaderboardOptions, getLeaderboard);
 
 
-	// user POST
-	fastify.post('/users/new', {
-		...postUserOptions,
-		preHandler: authenticateAdmin
-	}, AddUser);
+	// // user POST
+	// fastify.post('/users/new', {
+	// 	...postUserOptions,
+	// 	preHandler: authenticateAdmin
+	// }, AddUser);
+	// @todo preHandler: admin\fastify.post('/users/new', { preHandler: authenticateAdmin }, addUser)
+	fastify.post('/users/new', { ...postUserOptions }, addUser)
 
 	done();
 }
