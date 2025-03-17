@@ -2,54 +2,52 @@
 import { FastifyReply, FastifyRequest, FastifyPluginAsync } from 'fastify';
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
-import { createUser, updateUser, validateUser } from '../modules/user.ts';
-import crypto from 'crypto';
+import { createUser, hashPassword, validateUser, publicUser } from '../models/users.ts';
+import { usersTable } from '../db/schema.ts'
 
-export const addUser = (request: FastifyRequest, reply: FastifyReply) => {
+export const addUser = async (request: FastifyRequest, reply: FastifyReply) => {
+	let sqlite = null;
 	try {
 		const body = request.body as createUser;
-		// validate for rules in the models.ts
-		const validationErrors = validateUser(body);
-
-		// if validation errors exist
-		if (Object.keys(validationErrors).length > 0) {
-			return reply.status(400).send({ errors: validationErrors });
-		}
-
+		validateUser(body);
 		// hash the password
-		const salt = crypto.randomBytes(16).toString('hex');
-		body.password = crypto.pbkdf2Sync(
-			body.password,
-			salt,
-			1000,  // iterations
-			64,    // key length
-			'sha512'
-		).toString('hex');
+		const passwordSalt = hashPassword(body.password);
+		body.password = passwordSalt.hashedPassword;
+		body.salt = passwordSalt.salt;
+
+		// add to database
+		sqlite = new Database('./data/data.db', { verbose: console.log });
+		const db = drizzle(sqlite);
+		await db.insert(usersTable).values(body);
+		reply.send('user created');
 	}
 	catch (error) {
-		fastify.log.error('startDatabase initialization failed:', error)
-		throw error
+		const errorMessage = error instanceof Error ? error.message : 'addUser error';
+		request.log.error('User creation failed:', error);
+		reply.status(400).send({ error: errorMessage });
 	}
-
-}
-
-export const populateUser: FastifyPluginAsync = async (fastify) => {
-	try {
-		const sqlite = new Database('./data/data.db', { verbose: console.log })
-		const db = drizzle({ client: sqlite })
-
-		const output = await db.select().from(usersTable);
-
-		// Create a new user following the schema
-		const newUser = createUserTemplate({ username: 'bruh', password: 'mypass', alias: 'my_alias' })
-
-		await db.insert(usersTable).values(newUser);
-
-		// fastify.addHook('onClose', async (instance) => {
-		// 	await sqlite.close()
-		// })
-	} catch (error) {
-		fastify.log.error('startDatabase initialization failed:', error)
-		throw error
+	finally {
+		if (sqlite) sqlite.close();
 	}
 }
+
+// export const populateUser: FastifyPluginAsync = async (fastify) => {
+// 	try {
+// 		const sqlite = new Database('./data/data.db', { verbose: console.log })
+// 		const db = drizzle({ client: sqlite })
+
+// 		const output = await db.select().from(usersTable);
+
+// 		// Create a new user following the schema
+// 		const newUser = createUserTemplate({ username: 'bruh', password: 'mypass', alias: 'my_alias' })
+
+// 		await db.insert(usersTable).values(newUser);
+
+// 		// fastify.addHook('onClose', async (instance) => {
+// 		// 	await sqlite.close()
+// 		// })
+// 	} catch (error) {
+// 		fastify.log.error('startDatabase initialization failed:', error)
+// 		throw error
+// 	}
+// }

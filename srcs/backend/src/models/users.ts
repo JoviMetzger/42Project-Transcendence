@@ -18,12 +18,12 @@ export type createUser = Omit<InferInsertModel<typeof usersTable>, 'id' | 'win' 
 };
 
 // Type for public user data (omit password and salt)
-export type publicUser = Omit<User, 'password' | 'salt'>;
+export type publicUser = Omit<User, 'password' | 'salt' | 'language'>;
 
 // Type to update the user, omits fields that shouldn't be changed (id/uuid)
 export type updateUser = Partial<Omit<User, 'id' | 'uuid'>>;
 
-/* validation interfaces */
+/* validation */
 
 // Validation constraints
 const USER_VALIDATION = {
@@ -33,15 +33,8 @@ const USER_VALIDATION = {
 	MAX_PROFILE_PIC_SIZE: 5 * 1024 * 1024 // 5MB in bytes
 };
 
-interface UserValidationErrors {
-	username?: string;
-	password?: string;
-	alias?: string;
-	profile_pic?: string;
-}
-
-export function validateUser(user: Partial<createUser>): UserValidationErrors {
-	// Using multiple errors to show all validation errors at once
+// function to validate user data, will throw with a all errors combined if there is bad input
+export function validateUser(user: Partial<createUser>): void {
 	const errors: string[] = [];
 
 	if (user.username && user.username.length < USER_VALIDATION.MIN_USERNAME_LENGTH) {
@@ -65,7 +58,9 @@ export function validateUser(user: Partial<createUser>): UserValidationErrors {
 	}
 }
 
-// Helper function for password hashing
+/* password hashing */
+
+// function that returns the hashed password + the salt key for in the db
 export function hashPassword(password: string): { hashedPassword: string, salt: string } {
 	const crypto = require('crypto');
 	const salt = crypto.randomBytes(16).toString('hex');
@@ -80,7 +75,7 @@ export function hashPassword(password: string): { hashedPassword: string, salt: 
 	return { hashedPassword, salt };
 }
 
-// Helper function to verify password
+// Checks if incoming password matches the stored hash
 export function verifyPassword(password: string, storedHash: string, salt: string): boolean {
 	const crypto = require('crypto');
 	const hash = crypto.pbkdf2Sync(
@@ -90,6 +85,8 @@ export function verifyPassword(password: string, storedHash: string, salt: strin
 		64,
 		'sha512'
 	).toString('hex');
-
-	return hash === storedHash;
+	if (hash == storedHash) {
+		return true;
+	}
+	return false;
 }
