@@ -1,28 +1,57 @@
 // generate and update user settings
 import { FastifyReply, FastifyRequest, FastifyPluginAsync } from 'fastify';
+import { MultipartFile } from '@fastify/multipart'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
-import { createUser, hashPassword, validateUser, publicUser } from '../models/users.ts';
-import { usersTable } from '../db/schema.ts'
+import { CreateUserRequest, CreateUser, hashPassword, validateUser, PublicUser } from '../models/users.ts';
+import { usersTable, userStatus } from '../db/schema.ts'
 import { randomUUID } from 'crypto';
 
-export const addUser = async (request: FastifyRequest, reply: FastifyReply) => {
+// Extend FastifyRequest to include multipart file handling
+interface MultipartRequest extends FastifyRequest {
+	file: () => Promise<MultipartFile>;
+	body: CreateUserRequest;
+}
+
+export const addUser = async (request: MultipartRequest, reply: FastifyReply) => {
 	let sqlite = null;
 	try {
-		const body = request.body as createUser;
-		validateUser(body);
-		// set uuid
-		body.uuid = randomUUID();
-		// hash the password
-		const passwordSalt = hashPassword(body.password);
-		body.password = passwordSalt.hashedPassword;
-		body.salt = passwordSalt.salt;
+		const body = request.body;
+
+		// profile pic first
+		let profilePic: Buffer | null = null;
+
+		const file = await request.file();
+		if (file) {
+			if (!file.mimetype.startsWith('image/')) {
+				reply.code(400).send({ error: 'File must be an image (jpeg, png, or gif)' });
+				return;
+			}
+
+			profilePic = await file.toBuffer();
+		}
+
+		const userData: CreateUser = {
+			uuid: crypto.randomUUID(),
+			username: body.username,
+			alias: body.alias,
+			profile_pic: profilePic || undefined,
+			password: hashPassword(body.password).hashedPassword,
+			salt: hashPassword(body.password).salt,
+			language: body.language,
+			status: body.status
+		};
+
+		validateUser(userData);
 
 		// add to database
 		sqlite = new Database('./data/data.db', { verbose: console.log });
 		const db = drizzle(sqlite);
-		await db.insert(usersTable).values(body);
-		reply.send('user created');
+		await db.insert(usersTable).values(userData);
+
+		const out: PublicUser = { ...userData }
+
+		reply.code(201).send(out);
 	}
 	catch (error) {
 		const errorMessage = error instanceof Error ? error.message : 'addUser error';

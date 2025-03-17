@@ -4,25 +4,36 @@ import crypto from 'crypto'
 
 /* types */
 
-// User interface for reading operations
-export type User = InferSelectModel<typeof usersTable>;
-// Type for creating a User 
-export type createUser = Omit<InferInsertModel<typeof usersTable>, 'id' | 'win' | 'loss'> & {
-	uuid: string;
+// Base user type with common fields
+type BaseUser = {
 	username: string;
-	password: string;
-	salt: string; // Added salt field
 	alias: string;
 	profile_pic?: Buffer;
 	language?: string;
 	status?: userStatus;
 };
 
-// Type for public user data (omit password and salt)
-export type publicUser = Omit<User, 'password' | 'salt' | 'language'>;
+// User interface for reading operations
+export type User = InferSelectModel<typeof usersTable>;
 
-// Type to update the user, omits fields that shouldn't be changed (id/uuid)
-export type updateUser = Partial<Omit<User, 'id' | 'uuid'>>;
+// Type for creating a User 
+export type CreateUser = BaseUser & {
+	uuid: string;
+	password: string;
+	salt: string;
+};
+
+// Type for user creation request
+export type CreateUserRequest = Omit<BaseUser, 'profile_pic'> & {
+	password: string;
+	profile_pic?: File | null;
+};
+
+// Type for public user data (omit sensitive fields)
+export type PublicUser = Omit<User, 'password' | 'salt' | 'language'>;
+
+// Type to update the user
+export type UpdateUser = Partial<Omit<User, 'id' | 'uuid'>>;
 
 /* validation */
 
@@ -35,7 +46,7 @@ const USER_VALIDATION = {
 };
 
 // function to validate user data, will throw with a all errors combined if there is bad input
-export function validateUser(user: Partial<createUser>): void {
+export function validateUser(user: Partial<CreateUser>): void {
 	const errors: string[] = [];
 
 	if (user.username && user.username.length < USER_VALIDATION.MIN_USERNAME_LENGTH) {

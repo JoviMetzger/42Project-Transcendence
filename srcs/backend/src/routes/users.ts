@@ -6,6 +6,7 @@ import {
 } from '../controllers/getUsers.ts';
 import { addUser } from '../controllers/setUsers.ts'
 import envConfig from "../config/env.ts"
+import { kMaxLength } from 'buffer';
 // import { populateUser } from '../db/database.ts';
 
 
@@ -114,11 +115,20 @@ const getLeaderboardOptions = {
 
 // POST
 
+// properties for a User, documentatoin will take this as reference
 const addUserProperties = {
 	username: { type: 'string', minLength: 3 },
 	password: { type: 'string', minLength: 6 },
 	alias: { type: 'string', minLength: 3 },
-	profile_pic: { type: ['string', 'null'] },
+	profile_pic: {
+		type: 'object',
+		properties: {
+			encoding: { type: 'string' },
+			filename: { type: 'string' },
+			mimetype: { type: 'string', pattern: '^image/(jpeg|png|gif)$' },
+			buffer: { type: 'string', format: 'binary', maxLength: 5 * 1024 * 1024 }
+		}
+	},
 	language: { type: 'string' },
 	status: { type: 'number' }
 } as const;
@@ -127,6 +137,7 @@ const addUserProperties = {
 const postUserOptions = {
 	schema: {
 		security: [{ apiKey: [] }],
+		consumes: ['multipart/form-data'],
 		body: {
 			type: 'object',
 			required: ['username', 'alias', 'password'],
