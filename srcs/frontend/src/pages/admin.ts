@@ -1,5 +1,6 @@
 import { renderPage } from './index';
 import { getLanguage } from '../script/language';
+// import { setupAdminSetting } from './adminSetting';
 
 export function setupAdmin() {
 	const root = document.getElementById('app');
@@ -64,7 +65,7 @@ export function setupAdmin() {
 							<td>coolAlias</td>
 							<td>
 								<button class="btn" data-i18n="btn_Remove"></button>
-								<button class="btn" data-i18n="Change_Password"></button>
+								<button class="btn" id="AdminSet" data-i18n="Change_Password"></button>
 							</td>
 						</tr>
 						<!--- REMOVE THIS ONE -> Just an example --- -->
@@ -88,6 +89,10 @@ export function setupAdmin() {
 		getLanguage();
 		document.getElementById('LogOut')?.addEventListener('click', () => {
 			window.history.pushState({}, '', '/index');
+			renderPage();
+		});
+		document.getElementById('AdminSet')?.addEventListener('click', () => {
+			window.history.pushState({}, '', '/adminSetting');
 			renderPage();
 		});
 		

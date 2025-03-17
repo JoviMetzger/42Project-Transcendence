@@ -6,6 +6,7 @@ import { setupFriends } from './friends';
 import { setupMatchHistory } from './history';
 import { setupStartGame } from './startGame';
 import { setupAdmin } from './admin';
+import { setupAdminSetting } from './adminSetting';
 import { setupError404 } from './error404';
 import { getLanguage } from '../script/language';
 
@@ -40,6 +41,8 @@ export function renderPage() {
 			setupError404();
 		} else if (window.location.pathname === '/admin') {
 			setupAdmin();
+		} else if (window.location.pathname === '/adminSetting') {
+			setupAdminSetting();
 		} else {
 			root.innerHTML = "";
 			root.insertAdjacentHTML("beforeend", `

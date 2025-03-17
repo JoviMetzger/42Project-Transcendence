@@ -120,25 +120,31 @@ export function setupUserHome () {
 						<div class="total-score">
 							<img src="src/component/Pictures/totalScore.png" alt="Total Score">
 						</div>
-						<div class="score-text">Total Score</div>
-						<div class="score-number">1200</div>
+						<div class="text-container">
+							<div class="total-score-text">Total Score</div>
+							<div class="score-number">1200</div>
+						</div>
 					</div>
 
 					<div class="smoll-stat-container">
-						<div class="smoll-stat-box-right">
+						<div class="smoll-stat-box">
 							<div class="win-losse">
 								<img src="src/component/Pictures/wins.png" alt="Wins">
 							</div>
-							<div class="score-text">Wins</div>
-							<div class="score-number">1200</div>
+							<div class="text-container">
+								<div class="score-text">Wins</div>
+								<div class="score-number">1200</div>
+							</div>
 						</div>
 
-						<div class="smoll-stat-box-left">
+						<div class="smoll-stat-box">
 							<div class="win-losse">
 								<img src="src/component/Pictures/losses.png" alt="Losses">
 							</div>
-							<div class="score-text">Losses</div>
-							<div class="score-number">900</div>
+							<div class="text-container">
+								<div class="score-text">Losses</div>
+								<div class="score-number">900</div>
+							</div>
 						</div>
 					</div>
 
@@ -152,23 +158,35 @@ export function setupUserHome () {
 					<div class="leaderboard-entry">
 						<div class="img-container">
 							<img src="src/component/Pictures/1.jpg" alt="1st Place">
+							</div>
+							<div class="text-container">
+								<div class="position">1st Place</div>
+								<div class="text">user123</div>
+								<div class="number">wins: 1500</div>
+								<div class="number">losses: 1500</div>
+							</div>
 						</div>
-						<div class="text">1st Place</div>
-						<div class="number">1500</div>
-					</div>
 					<div class="leaderboard-entry">
 						<div class="img-container">
 							<img src="src/component/Pictures/2.jpg" alt="2nd Place">
 						</div>
-						<div class="text">2nd Place</div>
-						<div class="number">1400</div>
+						<div class="test-container">
+							<div class="position">2nd Place</div>
+							<div class="text">$welp</div>
+							<div class="number">wins: 1500</div>
+							<div class="number">losses: 1500</div>
+						</div>
 					</div>
 					<div class="leaderboard-entry">
 						<div class="img-container">
 							<img src="src/component/Pictures/3.jpg" alt="3rd Place">
 						</div>
-						<div class="text">3rd Place</div>
-						<div class="number">1300</div>
+						<div class="test-container">
+							<div class="position">3rd Place</div>
+							<div class="text">coolalias</div>
+							<div class="number">wins: 1500</div>
+							<div class="number">losses: 1500</div>
+						</div>
 					</div>
 				</div>
 

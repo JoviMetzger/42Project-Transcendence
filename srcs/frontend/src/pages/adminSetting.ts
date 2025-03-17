@@ -1,17 +1,13 @@
 import { renderPage } from './index';
-import { setupUserHome } from './home';
-import { setupSetting } from './setting';
-import { setupFriends } from './friends';
-import { setupMatchHistory } from './history';
 import { getLanguage } from '../script/language';
 
-export function setupStartGame () {
+export function setupAdminSetting() {
 	const root = document.getElementById('app');
 	if (root) {
 		root.innerHTML = "";
 		root.insertAdjacentHTML("beforeend", `
-		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
-		<link rel="stylesheet" href="src/styles/startGame.css"> <!-- Link to the CSS file -->
+		<link rel="stylesheet" href="src/styles/admin.css"> <!-- Link to the CSS file -->
+		<link rel="stylesheet" href="src/styles/adminSet.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
 		<div class="topBar">
 			<div class="dropdown">
@@ -34,15 +30,11 @@ export function setupStartGame () {
 								<img src="src/component/Pictures/flagIcon-nl.png"> <span data-i18n="Dutch"></span>
 							</div>
 					</div>
-					<div class="dropdown-item" id="Home" data-i18n="Home"></div>
-					<div class="dropdown-item" id="Settings" data-i18n="Settings"></div>
-					<div class="dropdown-item" id="Friends" data-i18n="Friends"></div>
-					<div class="dropdown-item" id="History" data-i18n="History"></div>
 					<div class="dropdown-item" id="LogOut" data-i18n="LogOut"></div>
 				</div>
 			</div>
 			<div class="topBarFrame">
-				<div class="aliasName">cool alias</div>
+				<div class="adminName" data-i18n="Admin"></div>
 				<div class="profile-picture">
 					<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
 				</div>
@@ -50,24 +42,34 @@ export function setupStartGame () {
 		</div>
 		
 		<div class="middle">
+			<div class="ucontainer">
 			<!-- BODY CHANGE -->
-
-			<div class="container">
-				<h1 class="header">Choose Your Game</h1>
+				<h1 class="admin_header" data-i18n="Admin_Header"></h1>
+				<p class="p2" data-i18n="Admin_P"></p>
+				<p class="p2">$USERNAME</p>
 					
-				<div class="buttons">
-					<button class="btn">Play with a Friend</button>
-				</div>
-				<div class="buttons">
-					<button class="btn">Play a Match</button>
-				</div>
-					
-				<div class="buttons">
-					<button class="btn">Play Solo</button>
-				</div>
-			</div>
+				<button class="user-picture">
+					<img src="src/component/Pictures/defaultPP.avif">
+				</button>
 	
-			<!-- ^^^ -->
+				<p class="p1" data-i18n="LogIn_Name"></p>
+				<div class="input-field display-only">Display USER LogIn Name</div>
+	
+				<p class="p1" data-i18n="SignUp_Alias"></p>
+				<div class="input-field display-only">Display USER Alias Name</div>
+	
+				<p class="p1" data-i18n="Change_Password"></p>
+				<input type="Password" class="input-field">
+	
+				<p class="p1" data-i18n="ConfirmPassword"></p>
+				<input type="Confirm_Password" class="input-field">
+					
+				<div class="ubuttons">
+					<button class="ubtn" data-i18n="btn_admin"></button>
+				</div>
+				
+				<!-- ^^^ -->
+			</div>
 		</div>
 		`);
 
@@ -76,25 +78,6 @@ export function setupStartGame () {
 			window.history.pushState({}, '', '/index');
 			renderPage();
 		});
-
-		document.getElementById('Home')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/home');
-			setupUserHome();
-		});
-
-		document.getElementById('Settings')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/setting');
-			setupSetting();
-		});
-
-		document.getElementById('Friends')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/friends');
-			setupFriends();
-		});
-
-		document.getElementById('History')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/history');
-			setupMatchHistory();
-		});
+		
 	}
 }

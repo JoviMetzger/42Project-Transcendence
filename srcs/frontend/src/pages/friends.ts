@@ -52,55 +52,45 @@ export function setupFriends () {
 			<!-- BODY CHANGE -->
 
 			<div class="container">
-				<h1 class="header"> Your Friends </h1>
-					
-				<div class="profile-picture">
-					<img src="src/component/Pictures/defaultPP.avif">
-				</div>
-				<p class="p1"> Friend 1</p>
-				<div class="buttons">
-					<button class="btn">Match History</button>
-				</div>
-
-				<div class="profile-picture">
-					<img src="src/component/Pictures/defaultPP.avif">
-				</div>
-				<p class="p1"> Friend 2</p>
-				<div class="buttons">
-					<button class="btn">Match History</button>
-				</div>
-
-				<div class="profile-picture">
-					<img src="src/component/Pictures/defaultPP.avif">
-				</div>
-				<p class="p1"> Friend 3</p>
-				<div class="buttons">
-					<button class="btn">Match History</button>
+				 <h1 class="header">Your Friends</h1>
+				<div class="friends-list">
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p>Friend 1</p>
+						<button class="btn">Match History</button>
+					</div>
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p>Friend 2</p>
+						<button class="btn">Match History</button>
+					</div>
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p>Friend 3</p>
+						<button class="btn">Match History</button>
+					</div>
 				</div>
 
-
-				<h1 class="header"> Friend Request </h1>
-
-				<div class="profile-picture">
-					<img src="src/component/Pictures/defaultPP.avif">
+				<h1 class="header">Friend Requests</h1>
+				<div class="friend-requests">
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p>Someone wants to be your friend</p>
+						<button class="btn accept">Accept</button>
+						<button class="btn decline">Decline</button>
+					</div>
 				</div>
-				<p class="p1"> want's to be friend</p>
-				<div class="buttons">
-					<button class="btn">Accept</button>
-				</div>
 
-
-				<input type="Search">
-
-				<div class="profile-picture">
-					<img src="src/component/Pictures/defaultPP.avif">
-				</div>
-				<p class="p1"> maybefriend</p>
-				<div class="buttons">
-					<button class="btn">Add</button>
-				</div>
-				<div class="buttons">
-					<button class="btn">Match History</button>
+				<h1 class="header">Find Friends</h1>
+				<input type="text" placeholder="Search for friends..." class="search-bar">
+				
+				<div class="search-results">
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p>MaybeFriend</p>
+						<button class="btn">Add Friend</button>
+						<button class="btn">Match History</button>
+					</div>
 				</div>
 
 			</div>
