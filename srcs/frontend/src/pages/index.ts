@@ -66,7 +66,12 @@ export function renderPage() {
 			});
 			document.getElementById('Connect')?.addEventListener('click', () => {
 				// window.history.pushState({}, '', '/Connect');
-				connectFunc();
+				// renderPage();
+				const url = "http://localhost:3000/"
+				const response = connectFunc(url); // saves the response.json. this can be changed to response.text in connections.ts (automatically does so if a response.json cannot be generated)
+				response.then((response) => {
+					console.log(response); // this is where you insert the code that actually uses the information
+				})
 			});
 
 		}
