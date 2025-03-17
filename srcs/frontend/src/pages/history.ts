@@ -85,7 +85,7 @@ export function  setupMatchHistory () {
 							<td>Player 1</td>
 							<td>11-7</td>
 						</tr>
-						<!--- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
+						<!--- ^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 					</tbody>
 				</table>
 				

@@ -118,74 +118,74 @@ export function setupUserHome () {
 				<div class="user-stats">
 					<div class="stat-box">
 						<div class="total-score">
-							<img src="src/component/Pictures/totalScore.png" alt="Total Score">
+							<img src="src/component/Pictures/totalScore.png">
 						</div>
 						<div class="text-container">
-							<div class="total-score-text">Total Score</div>
-							<div class="score-number">1200</div>
+							<div class="total-score-text" data-i18n="Total_Score"></div>
+							<div class="score-number"> >-1200-< </div>
 						</div>
 					</div>
 
 					<div class="smoll-stat-container">
 						<div class="smoll-stat-box">
 							<div class="win-losse">
-								<img src="src/component/Pictures/wins.png" alt="Wins">
+								<img src="src/component/Pictures/wins.png">
 							</div>
 							<div class="text-container">
-								<div class="score-text">Wins</div>
-								<div class="score-number">1200</div>
+								<div class="score-text" data-i18n="Wins"></div>
+								<div class="score-number"> >-1200-< </div>
 							</div>
 						</div>
 
 						<div class="smoll-stat-box">
 							<div class="win-losse">
-								<img src="src/component/Pictures/losses.png" alt="Losses">
+								<img src="src/component/Pictures/losses.png">
 							</div>
 							<div class="text-container">
-								<div class="score-text">Losses</div>
-								<div class="score-number">900</div>
+								<div class="score-text" data-i18n="Losses"></div>
+								<div class="score-number"> >-900-< </div>
 							</div>
 						</div>
 					</div>
 
 					<div class="buttons">
-						<button class="btn" id="StartGame" data-i18n="btn_PlayGame">Play Game</button>
+						<button class="btn" id="StartGame" data-i18n="btn_PlayGame"></button>
 					</div>
 				</div>
 				
 				<div class="leaderboard">
-					<h2>Leaderboard</h2>
+					<h2 data-i18n="LeaderBoard"></h2>
 					<div class="leaderboard-entry">
 						<div class="img-container">
-							<img src="src/component/Pictures/1.jpg" alt="1st Place">
+							<img src="src/component/Pictures/1.jpg">
 							</div>
 							<div class="text-container">
-								<div class="position">1st Place</div>
-								<div class="text">user123</div>
-								<div class="number">wins: 1500</div>
-								<div class="number">losses: 1500</div>
+								<div class="position" data-i18n="1"></div>
+								<div class="text"> $user123</div>
+								<div class="number" data-i18n="wins_"></div>
+								<div class="number" data-i18n="losses_"></div>
 							</div>
 						</div>
 					<div class="leaderboard-entry">
 						<div class="img-container">
-							<img src="src/component/Pictures/2.jpg" alt="2nd Place">
+							<img src="src/component/Pictures/2.jpg">
 						</div>
 						<div class="test-container">
-							<div class="position">2nd Place</div>
+							<div class="position" data-i18n="2"></div>
 							<div class="text">$welp</div>
-							<div class="number">wins: 1500</div>
-							<div class="number">losses: 1500</div>
+							<div class="number" data-i18n="wins_"></div>
+							<div class="number" data-i18n="losses_"></div>
 						</div>
 					</div>
 					<div class="leaderboard-entry">
 						<div class="img-container">
-							<img src="src/component/Pictures/3.jpg" alt="3rd Place">
+							<img src="src/component/Pictures/3.jpg">
 						</div>
 						<div class="test-container">
-							<div class="position">3rd Place</div>
-							<div class="text">coolalias</div>
-							<div class="number">wins: 1500</div>
-							<div class="number">losses: 1500</div>
+							<div class="position" data-i18n="3"></div>
+							<div class="text">$coolalias</div>
+							<div class="number" data-i18n="wins_"></div>
+							<div class="number" data-i18n="losses_"></div>
 						</div>
 					</div>
 				</div>

@@ -1,6 +1,5 @@
 import { renderPage } from './index';
 import { getLanguage } from '../script/language';
-// import { setupAdminSetting } from './adminSetting';
 
 export function setupAdmin() {
 	const root = document.getElementById('app');

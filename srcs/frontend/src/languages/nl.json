@@ -4,7 +4,14 @@
     "btn_PlayGame": "Spel Spelen",
     "btn_Save": "Opslaan",
     "btn_Remove": "Verwijderen",
-    "btn_admin": "Wijzigingen aanbrengen",
+    "btn_Admin": "Wijzigingen aanbrengen",
+    "btn_Match": "Speel een wedstrijd",
+    "btn_Solo": "Speel solo",
+    "btn_Friend": "Speel met een vriend",
+    "btn_Add_Friend": "Vriend toevoegen",
+    "btn_Accept": "Accepteren",
+    "btn_Decline": "Weigeren",
+    "btn_Block": "Blokkeren",
 
     "Password": "Wachtwoord",
     "ConfirmPassword": "Bevestig wachtwoord",
@@ -17,6 +24,9 @@
     "LogIn_Header": "Inloggen",
     "SignUp_Header": "Account aanmaken",
     "Admin_Header": "Gebruikersinstellingen",
+    "Game_Header": "Kies je spel",
+    "Friends_Header": "Jouw vrienden",
+    "Request_Header": "Vriendschapsverzoeken",
     
     "Index_P": "Speel klassieke Pong met je vrienden!",
     "History_P": "Van",
@@ -26,6 +36,7 @@
     "SignUp_placeholder1": "Alleen gebruikt voor inloggen (Intra-naam)",
     "SignUp_placeholder2": "Zichtbaar voor andere gebruikers",
     "Admin_placeholder1": "Zoek gebruikers...",
+    "Friends_placeholder1": "Zoek naar vrienden...",
     
     "Language": "Taal",
     "Home": "Home",
@@ -48,6 +59,16 @@
     "1v1_Game": "1v1 Spel",
     "Winner": "Winnaar",
     "Score": "Score",
+
+    "Total_Score": "Totale score",
+    "Wins": "Overwinningen",
+    "Losses": "Verliezen",
+    "LeaderBoard": "Ranglijst",
+    "1": "1e plaats",
+    "2": "2e plaats",
+    "3": "3e plaats",
+    "wins_": "overwinningen: ",
+    "losses_": "verliezen: ",
     
     "EndOfFile": ""
 }

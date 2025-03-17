@@ -52,45 +52,56 @@ export function setupFriends () {
 			<!-- BODY CHANGE -->
 
 			<div class="container">
-				 <h1 class="header">Your Friends</h1>
-				<div class="friends-list">
-					<div class="friend">
-						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
-						<p>Friend 1</p>
-						<button class="btn">Match History</button>
-					</div>
-					<div class="friend">
-						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
-						<p>Friend 2</p>
-						<button class="btn">Match History</button>
-					</div>
-					<div class="friend">
-						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
-						<p>Friend 3</p>
-						<button class="btn">Match History</button>
-					</div>
+				<div class="search-container">
+					<input type="text" class="userSearch" data-i18n-placeholder="Friends_placeholder1" onkeyup="searchBar()">
+					<button class="search-btn">
+						<img class="searchIcon" src="src/component/Pictures/searchIcon.png"/>
+					</button>
 				</div>
-
-				<h1 class="header">Friend Requests</h1>
-				<div class="friend-requests">
-					<div class="friend">
-						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
-						<p>Someone wants to be your friend</p>
-						<button class="btn accept">Accept</button>
-						<button class="btn decline">Decline</button>
-					</div>
-				</div>
-
-				<h1 class="header">Find Friends</h1>
-				<input type="text" placeholder="Search for friends..." class="search-bar">
 				
+				<!-- Should Be A DROPDOWN -->
 				<div class="search-results">
 					<div class="friend">
 						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
-						<p>MaybeFriend</p>
-						<button class="btn">Add Friend</button>
+						<p> >$MaybeFriend< </p>
+						<button class="btn" data-i18n="btn_Add_Friend"></button>
+						<button class="btn" id="UserHistory" data-i18n="History"></button>
+					</div>
+				</div>
+				<!-- ^^^^^^^^^^^^^^^^^^^ -->
+
+				<h1 class="header" data-i18n="Request_Header"></h1>
+				<div class="friend-requests">
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p> >$Someone wants to be your friend< </p>
+						<button class="btn accept" data-i18n="btn_Accept"></button>
+						<button class="btn decline" data-i18n="btn_Decline"></button>
+						<button class="btn block" data-i18n="btn_Block"></button>
+					</div>
+				</div>
+
+				<h1 class="header" data-i18n="Friends_Header"></h1>
+				<div class="friends-list">
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p> >$Friend 1< </p>
+						<button class="btn" id="FriendsHistory" data-i18n="History"></button>
+					</div>
+
+					<!-- REMOVE - ONly for testing -->
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p> >$Friend 2< </p>
 						<button class="btn">Match History</button>
 					</div>
+					<div class="friend">
+						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
+						<p> >$Friend 3< </p>
+						<button class="btn">Match History</button>
+					</div>
+					<!-- ^^^^^^^^^^^^^^^^^^^^^^^^ -->
+
 				</div>
 
 			</div>
@@ -120,6 +131,14 @@ export function setupFriends () {
 		});
 
 		document.getElementById('History')?.addEventListener('click', () => {
+			window.history.pushState({}, '', '/history');
+			setupMatchHistory();
+		});
+		document.getElementById('UserHistory')?.addEventListener('click', () => {
+			window.history.pushState({}, '', '/history');
+			setupMatchHistory();
+		});
+		document.getElementById('FriendsHistory')?.addEventListener('click', () => {
 			window.history.pushState({}, '', '/history');
 			setupMatchHistory();
 		});

@@ -53,17 +53,16 @@ export function setupStartGame () {
 			<!-- BODY CHANGE -->
 
 			<div class="container">
-				<h1 class="header">Choose Your Game</h1>
+				<h1 class="header" data-i18n="Game_Header"></h1>
 					
 				<div class="buttons">
-					<button class="btn">Play with a Friend</button>
+					<button class="btn" data-i18n="btn_Friend"></button>
 				</div>
 				<div class="buttons">
-					<button class="btn">Play a Match</button>
+					<button class="btn" data-i18n="btn_Match"></button>
 				</div>
-					
 				<div class="buttons">
-					<button class="btn">Play Solo</button>
+					<button class="btn" data-i18n="btn_Solo"></button>
 				</div>
 			</div>
 	

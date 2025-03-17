@@ -4,7 +4,14 @@
     "btn_PlayGame": "Play Game",
     "btn_Save": "Save",
     "btn_Remove": "Remove",
-    "btn_admin": "Make Changes",
+    "btn_Admin": "Apply Changes",
+    "btn_Match": "Play a Match",
+    "btn_Solo": "Play Solo",
+    "btn_Friend": "Play with a Friend",
+    "btn_Add_Friend": "Add Friend",
+    "btn_Accept": "Accept",
+    "btn_Decline": "Decline",
+    "btn_Block": "Block",
 
     "Password": "Password",
     "ConfirmPassword": "Confirm Password",
@@ -18,6 +25,9 @@
     "SignUp_Header": "Create Account",
     "Setting_Header": "Settings",
     "Admin_Header": "User Settings",
+    "Game_Header": "Choose Your Game",
+    "Friends_Header": "Your Friends",
+    "Request_Header": "Friend Requests",
     
     "Index_P": "Play classic Pong with your friends!",
     "History_P": "Of",
@@ -27,6 +37,7 @@
     "SignUp_placeholder1": "Only used for Log In (Intra-Name)",
     "SignUp_placeholder2": "Visible for other users",
     "Admin_placeholder1": "Search users...",
+    "Friends_placeholder1": "Search for friends...",
     
     "Language": "Language",
     "Home": "Home",
@@ -49,6 +60,16 @@
     "1v1_Game": "1v1 Game",
     "Winner": "Winner",
     "Score": "Score",
+
+    "Total_Score": "Total Score",
+    "Wins": "Wins",
+    "Losses": "Losses",
+    "LeaderBoard": "Leaderboard",
+    "1": "1st Place",
+    "2": "2nd Place",
+    "3": "3rd Place",
+    "wins_": "wins: ",
+    "losses_": "losses:",
 
     "EndOfFile": ""
 }

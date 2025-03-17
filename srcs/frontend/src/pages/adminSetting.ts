@@ -65,7 +65,7 @@ export function setupAdminSetting() {
 				<input type="Confirm_Password" class="input-field">
 					
 				<div class="ubuttons">
-					<button class="ubtn" data-i18n="btn_admin"></button>
+					<button class="ubtn" data-i18n="btn_Admin"></button>
 				</div>
 				
 				<!-- ^^^ -->
