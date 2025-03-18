@@ -3,40 +3,56 @@ import Fastify from 'fastify';
 import userRoutes from './routes/users.ts';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
-import matchesRoutes from './routes/matches.ts';
-import { startDatabase, populateUser } from './db/database.ts';
+import multipart from '@fastify/multipart';
 
 console.log("reading from index.ts backend");
 
 const fastify = Fastify({
 	logger: true
-}) // making the fastify instance out of the imported Fastify
-
-// fastify.register(startDatabase)
-
+})
 
 await fastify.register(swagger, {
-	swagger: {
+	openapi: {  // Change from 'swagger' to 'openapi'
 		info: {
 			title: 'Your API',
 			description: 'API documentation',
 			version: '1.0.0'
 		},
-		securityDefinitions: {
-			apiKey: {
-				type: 'apiKey',
-				name: 'Authorization',
-				in: 'header',
-				description: 'Enter token with Bearer prefix, e.g., "Bearer your-token-here"'
+		components: {  // Change from securityDefinitions to components
+			securitySchemes: {
+				apiKey: {
+					type: 'http',
+					scheme: 'bearer',
+					description: 'Enter token with Bearer prefix, e.g., "Bearer your-token-here"'
+				}
 			}
+		},
+		tags: [
+			{ name: 'users', description: 'User related endpoints' }
+		]
+	}
+});
+
+// Update multipart configuration with more specific options
+fastify.register(multipart, {
+	limits: {
+		fileSize: 5 * 1024 * 1024, // 5MB limit
+		files: 1 // Allow only 1 file upload at a time
+	},
+	attachFieldsToBody: true, // Automatically attach fields to request body
+	onFile: async (event) => {
+		// Optional: Add file type validation here if needed
+		const mimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+		if (!mimeTypes.includes(event.mimetype)) {
+			throw new Error('Invalid file type');
 		}
 	}
 });
 
+
 await fastify.register(swaggerUi, {
-	routePrefix: '/docs',
-	exposeRoute: true
-})
+	routePrefix: '/docs'
+});
 
 fastify.register(userRoutes);
 //fastify.register(matchesRoutes);

@@ -1,17 +1,9 @@
-// routes - users.ts
-
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import {
-	getAllUsers
-} from '../controllers/getUsers.ts';
-import { addUser } from '../controllers/setUsers.ts'
-import envConfig from "../config/env.ts"
-import { kMaxLength } from 'buffer';
-// import { populateUser } from '../db/database.ts';
+import { getAllUsers } from '../controllers/getUsers.ts';
+import { addUser, updateUserProfilePic } from '../controllers/setUsers.ts';
+import envConfig from "../config/env.ts";
 
-
-// security so swagger-ui knows what headers to include
-
+// Security schema for swagger
 const securitySchemes = {
 	apiKey: {
 		type: 'http',
@@ -25,15 +17,15 @@ const userProperties = {
 	uuid: { type: 'string' },
 	username: { type: 'string' },
 	alias: { type: 'string' },
-	profilePic: { type: ['string', 'null'] },
+	profile_pic: { type: ['string', 'null'] },
 	wins: { type: 'number' },
 	losses: { type: 'number' }
 };
 
-// Schema for multiple users response
+// Schema for GET users response
 const getUsersOptions = {
 	schema: {
-		security: [{ apiKey: [] }],  // Add this line
+		security: [{ apiKey: [] }],
 		response: {
 			200: {
 				type: 'array',
@@ -41,21 +33,8 @@ const getUsersOptions = {
 					type: 'object',
 					properties: userProperties
 				}
-			}
-		}
-	}
-};
-
-// Schema for single user response
-const getUserOptions = {
-	schema: {
-		security: [{ apiKey: [] }],
-		response: {
-			200: {
-				type: 'object',
-				properties: userProperties
 			},
-			404: {
+			403: {
 				type: 'object',
 				properties: {
 					error: { type: 'string' }
@@ -65,83 +44,21 @@ const getUserOptions = {
 	}
 };
 
-// Schema for user stats response
-const getUserStatsOptions = {
+// Schema for creating a new user (JSON)
+const createUserOptions = {
 	schema: {
 		security: [{ apiKey: [] }],
-		response: {
-			200: {
-				type: 'object',
-				properties: {
-					...userProperties,
-					totalGames: { type: 'number' },
-					winRate: { type: 'string' }
-				}
-			},
-			404: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			}
-		}
-	}
-};
-
-// Schema for leaderboard response
-const getLeaderboardOptions = {
-	schema: {
-		security: [{ apiKey: [] }],
-		response: {
-			200: {
-				type: 'array',
-				items: {
-					type: 'object',
-					properties: {
-						alias: { type: 'string' },
-						wins: { type: 'number' },
-						losses: { type: 'number' },
-						rank: { type: 'number' },
-						totalGames: { type: 'number' },
-						winRate: { type: 'string' }
-					}
-				}
-			}
-		}
-	}
-};
-
-
-
-// POST
-
-// properties for a User, documentatoin will take this as reference
-const addUserProperties = {
-	username: { type: 'string', minLength: 3 },
-	password: { type: 'string', minLength: 6 },
-	alias: { type: 'string', minLength: 3 },
-	profile_pic: {
-		type: 'object',
-		properties: {
-			encoding: { type: 'string' },
-			filename: { type: 'string' },
-			mimetype: { type: 'string', pattern: '^image/(jpeg|png|gif)$' },
-			buffer: { type: 'string', format: 'binary', maxLength: 5 * 1024 * 1024 }
-		}
-	},
-	language: { type: 'string' },
-	status: { type: 'number' }
-} as const;
-
-// Schema for single user response
-const postUserOptions = {
-	schema: {
-		security: [{ apiKey: [] }],
-		consumes: ['multipart/form-data'],
+		consumes: ['application/json'],
 		body: {
 			type: 'object',
 			required: ['username', 'alias', 'password'],
-			properties: addUserProperties
+			properties: {
+				username: { type: 'string', minLength: 3 },
+				password: { type: 'string', minLength: 6 },
+				alias: { type: 'string', minLength: 3 },
+				language: { type: 'string' },
+				status: { type: 'number' }
+			}
 		},
 		response: {
 			201: {
@@ -158,10 +75,55 @@ const postUserOptions = {
 	}
 };
 
-// checks if there is an authentication header
-// @todo replace with JWT validation
+// Schema for updating profile picture (multipart/form-data)
+const updateProfilePicOptions = {
+	schema: {
+		security: [{ apiKey: [] }],
+		tags: ['users'],
+		summary: 'Upload user profile picture',
+		consumes: ['multipart/form-data'],
+		params: {
+			type: 'object',
+			required: ['uuid'],
+			properties: {
+				uuid: { type: 'string' }
+			}
+		},
+		body: {
+			type: 'object',
+			required: ['profile_pic'],
+			properties: {
+				profile_pic: {
+					type: 'string',
+					format: 'binary',
+					description: 'Profile picture file (JPEG, PNG, or GIF)'
+				}
+			}
+		},
+		response: {
+			200: {
+				type: 'object',
+				properties: userProperties
+			},
+			400: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' }
+				}
+			},
+			404: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' }
+				}
+			}
+		}
+	}
+};
+
+
+// Auth middleware
 const authenticateAdmin = async (request: FastifyRequest, reply: FastifyReply) => {
-	// Get the auth token from headers
 	const authHeader = request.headers.authorization;
 
 	if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -170,67 +132,30 @@ const authenticateAdmin = async (request: FastifyRequest, reply: FastifyReply) =
 	}
 
 	const token = authHeader.split(' ')[1];
-
-
 	const validToken = request.method === 'POST'
 		? envConfig.post_api
 		: envConfig.user_api;
 
-
-	// console.log('env key:', envConfig.user_api);
-	// console.log('Received token:', token);
-	// console.log('Expected token:', validToken);
-	// console.log('Request method:', request.method);
-	// For your dummy data implementation, you could use a simple check
 	if (token !== validToken) {
 		reply.code(403).send({ error: 'Invalid authentication token' });
 		return;
 	}
 };
 
-
 function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 	fastify.addSchema({
 		$id: 'security',
 		security: securitySchemes
-	})
+	});
 
 	// User routes
 	fastify.get('/users', getAllUsers);
-	// @todo prehandler: Admin, maybe userOptions
-	// fastify.get('/users', {
-	// 	...getUsersOptions,
-	// 	preHandler: authenticateAdmin
-	// }, getAllUsers);
 
-	// fastify.get('/testdrizzle', populateUser);
+	// Create user with JSON data
+	fastify.post('/users/new', { ...createUserOptions }, addUser);
 
-	// fastify.get('/users/:id', {
-	// 	...getUserOptions,
-	// 	preHandler: authenticateAdmin
-	// }, getUserById);
-
-	// fastify.get('/users/alias/:alias', {
-	// 	...getUserOptions,
-	// 	preHandler: authenticateAdmin
-	// }, getUserByAlias);
-
-	// fastify.get('/users/:id/stats', {
-	// 	...getUserStatsOptions,
-	// 	preHandler: authenticateAdmin
-	// }, getUserStats);
-
-	// // Leaderboard route
-	// fastify.get('/leaderboard', getLeaderboardOptions, getLeaderboard);
-
-
-	// // user POST
-	// fastify.post('/users/new', {
-	// 	...postUserOptions,
-	// 	preHandler: authenticateAdmin
-	// }, AddUser);
-	// @todo preHandler: admin\fastify.post('/users/new', { preHandler: authenticateAdmin }, addUser)
-	fastify.post('/users/new', { ...postUserOptions }, addUser)
+	// Update profile picture with multipart/form-data
+	fastify.post('/users/:uuid/profile-pic', { ...updateProfilePicOptions }, updateUserProfilePic);
 
 	done();
 }

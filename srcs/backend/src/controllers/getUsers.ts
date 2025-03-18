@@ -1,11 +1,12 @@
 //controller files
 
-import fastify, { FastifyReply, FastifyRequest } from 'fastify';
+// files
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
-
+// packages
 import { usersTable } from '../db/schema.ts';
-import { publicUser, User } from '../models/users.ts';
+import { toPublicUser } from '../models/users.ts';
 
 // get all Users
 export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) => {
@@ -16,18 +17,8 @@ export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) 
 
 		const users = await db.select().from(usersTable);
 
-		const publicUsers: publicUser[] = users.map((user: User) => {
-			return {
-				id: user.id,
-				uuid: user.uuid,
-				username: user.username,
-				alias: user.alias,
-				profile_pic: user.profile_pic,
-				status: user.status,
-				win: user.win,
-				loss: user.loss
-			};
-		});
+		// Use the toPublicUser helper to map users to public format
+		const publicUsers = users.map(toPublicUser);
 
 		reply.send(publicUsers);
 	} catch (error) {

@@ -1,6 +1,8 @@
-import { InferSelectModel, InferInsertModel } from 'drizzle-orm';
+// models/users.ts
+
+import { InferSelectModel } from 'drizzle-orm';
 import { usersTable, userStatus } from '../db/schema.ts';
-import crypto from 'crypto'
+import crypto from 'crypto';
 
 /* types */
 
@@ -16,17 +18,16 @@ type BaseUser = {
 // User interface for reading operations
 export type User = InferSelectModel<typeof usersTable>;
 
-// Type for creating a User 
+// Type for creating a User (without profile pic)
 export type CreateUser = BaseUser & {
 	uuid: string;
 	password: string;
 	salt: string;
 };
 
-// Type for user creation request
+// Type for user creation request (JSON)
 export type CreateUserRequest = Omit<BaseUser, 'profile_pic'> & {
 	password: string;
-	profile_pic?: File | null;
 };
 
 // Type for public user data (omit sensitive fields)
@@ -35,17 +36,33 @@ export type PublicUser = Omit<User, 'password' | 'salt' | 'language'>;
 // Type to update the user
 export type UpdateUser = Partial<Omit<User, 'id' | 'uuid'>>;
 
+export function toPublicUser(user: User): PublicUser {
+	return {
+		id: user.id,
+		uuid: user.uuid,
+		username: user.username,
+		alias: user.alias,
+		profile_pic: user.profile_pic,
+		status: user.status,
+		win: user.win,
+		loss: user.loss
+	};
+}
+
 /* validation */
 
 // Validation constraints
 const USER_VALIDATION = {
 	MIN_USERNAME_LENGTH: 3,
 	MIN_ALIAS_LENGTH: 3,
-	MIN_PASSWORD_LENGTH: 6,
-	MAX_PROFILE_PIC_SIZE: 5 * 1024 * 1024 // 5MB in bytes
+	MIN_PASSWORD_LENGTH: 6
 };
 
-// function to validate user data, will throw with a all errors combined if there is bad input
+const PROFILE_PIC_VALIDATION = {
+	MAX_SIZE: 5 * 1024 * 1024 // 5MB in bytes
+};
+
+// function to validate user data
 export function validateUser(user: Partial<CreateUser>): void {
 	const errors: string[] = [];
 
@@ -61,12 +78,15 @@ export function validateUser(user: Partial<CreateUser>): void {
 		errors.push(`Password must be at least ${USER_VALIDATION.MIN_PASSWORD_LENGTH} characters`);
 	}
 
-	if (user.profile_pic && user.profile_pic.length > USER_VALIDATION.MAX_PROFILE_PIC_SIZE) {
-		errors.push(`Profile picture must be less than ${USER_VALIDATION.MAX_PROFILE_PIC_SIZE / (1024 * 1024)}MB`);
-	}
-
 	if (errors.length > 0) {
 		throw new Error(`Validation failed: ${errors.join(', ')}`);
+	}
+}
+
+//validate profile pic
+export function validateProfilePic(profilePic: Buffer): void {
+	if (profilePic.length > PROFILE_PIC_VALIDATION.MAX_SIZE) {
+		throw new Error(`Profile picture must be less than ${PROFILE_PIC_VALIDATION.MAX_SIZE / (1024 * 1024)}MB`);
 	}
 }
 
@@ -95,8 +115,5 @@ export function verifyPassword(password: string, storedHash: string, salt: strin
 		64,
 		'sha512'
 	).toString('hex');
-	if (hash == storedHash) {
-		return true;
-	}
-	return false;
+	return hash === storedHash;
 }
