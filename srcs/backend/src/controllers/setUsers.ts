@@ -12,7 +12,7 @@ import {
 	validateProfilePic,
 	toPublicUser
 } from '../models/users.ts';
-import { usersTable, userStatus } from '../db/schema.ts';
+import { usersTable, userStatus, eLanguage } from '../db/schema.ts';
 
 // Create a user with JSON data (no profile pic)
 export const addUser = async (request: FastifyRequest<{
@@ -20,7 +20,7 @@ export const addUser = async (request: FastifyRequest<{
 		username: string;
 		password: string;
 		alias: string;
-		language?: string;
+		language?: eLanguage;
 		status?: userStatus;
 	}
 }>,

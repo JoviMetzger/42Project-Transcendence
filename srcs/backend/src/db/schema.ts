@@ -7,6 +7,12 @@ export enum userStatus {
 	OFFLINE = 1
 }
 
+export enum eLanguage {
+	ENGLISH = 'en',
+	GERMAN = 'de',
+	DUTCH = 'nl',
+}
+
 // table with all users
 export const usersTable = sqliteTable("users_table", {
 	id: int("id").primaryKey({ autoIncrement: true }),
@@ -16,7 +22,7 @@ export const usersTable = sqliteTable("users_table", {
 	salt: text("salt").notNull(),
 	alias: text("alias").notNull().unique(),
 	profile_pic: blob("profile_pic"),
-	language: text("language").default('en'),
+	language: text("language").$type<eLanguage>().default(eLanguage.ENGLISH),
 	status: int("status").$type<userStatus>(),
 	win: int("wins").default(0),
 	loss: int("loss").default(0)

@@ -1,7 +1,7 @@
 // models/users.ts
 
 import { InferSelectModel } from 'drizzle-orm';
-import { usersTable, userStatus } from '../db/schema.ts';
+import { usersTable, userStatus, eLanguage } from '../db/schema.ts';
 import crypto from 'crypto';
 
 /* types */
@@ -11,7 +11,7 @@ type BaseUser = {
 	username: string;
 	alias: string;
 	profile_pic?: Buffer;
-	language?: string;
+	language?: eLanguage;
 	status?: userStatus;
 };
 
@@ -76,6 +76,14 @@ export function validateUser(user: Partial<CreateUser>): void {
 
 	if (user.password && user.password.length < USER_VALIDATION.MIN_PASSWORD_LENGTH) {
 		errors.push(`Password must be at least ${USER_VALIDATION.MIN_PASSWORD_LENGTH} characters`);
+	}
+
+	if (user.language !== undefined && !Object.values(eLanguage).includes(user.language)) {
+		errors.push(`Invalid language. Must be one of: ${Object.values(eLanguage).join(', ')}`);
+	}
+
+	if (user.status !== undefined && !Object.values(userStatus).includes(user.status)) {
+		errors.push(`Invalid status. Must be one of: ${Object.values(userStatus).join(', ')}`);
 	}
 
 	if (errors.length > 0) {
