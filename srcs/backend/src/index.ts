@@ -28,7 +28,9 @@ await fastify.register(swagger, {
 			}
 		},
 		tags: [
-			{ name: 'users', description: 'User related endpoints' }
+			{ name: 'users', description: 'User related endpoints' },
+			{ name: 'matches', description: 'Match related endpoints' },
+			{ name: 'friends', description: 'Friend related endpoints' }
 		]
 	}
 });

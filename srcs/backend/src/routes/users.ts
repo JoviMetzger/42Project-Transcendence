@@ -14,12 +14,10 @@ const securitySchemes = {
 //propertiieis for profile_pic
 
 const profilePicProperties = {
-	properties: {
-		data: { type: ['string', 'null'] },
-		mimeType: { type: ['string', 'null'] },
-		nullabe: true
-	}
+	data: { type: ['string', 'null'] },
+	mimeType: { type: ['string', 'null'] }
 };
+
 
 // Schema for user properties
 const userProperties = {
@@ -37,11 +35,35 @@ const userProperties = {
 	losses: { type: 'number' }
 };
 
-// Schema for GET users response
+const imageOptions = {
+	schema: {
+		security: [{ apiKey: [] }],
+		summary: 'Get user profile picture by UUID',
+		tags: ['users'],
+		response: {
+			200: {
+				type: 'object',
+				properties: profilePicProperties
+			},
+			404: {
+				type: 'object',
+				properties: {
+					error: {
+						type: 'string',
+						description: 'Error message if image not found'
+					}
+				}
+			}
+		}
+	}
+};
 
+// Schema for GET user response
 const getUserOptions = {
 	schema: {
 		security: [{ apiKey: [] }],
+		summary: 'Get user by UUID',
+		tags: ['users'],
 		response: {
 			200: {
 				type: 'object',
@@ -66,6 +88,8 @@ const getUserOptions = {
 const getUsersOptions = {
 	schema: {
 		security: [{ apiKey: [] }],
+		summary: 'Get all users',
+		tags: ['users'],
 		response: {
 			200: {
 				type: 'array',
@@ -94,6 +118,8 @@ const getUsersOptions = {
 const createUserOptions = {
 	schema: {
 		security: [{ apiKey: [] }],
+		summary: 'Creates a new user in the database',
+		tags: ['users'],
 		consumes: ['application/json'],
 		body: {
 			type: 'object',
@@ -185,7 +211,7 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 
 	// User routes
 	// for testing:
-	fastify.get('/user/:uuid/profile-pic', getUserImage);
+	fastify.get('/user/:uuid/profile-pic', { ...imageOptions }, getUserImage);
 
 
 	fastify.get('/users', { ...getUsersOptions }, getAllUsers);
