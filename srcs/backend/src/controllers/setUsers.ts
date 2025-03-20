@@ -64,29 +64,28 @@ export const addUser = async (request: FastifyRequest<{
 
 // Update profile picture for an existing user
 export const updateUserProfilePic = async (
-	request: FastifyRequest<{
-		Params: { uuid: string }
-	}>,
-	reply: FastifyReply
-) => {
+	request: FastifyRequest<{ Params: { uuid: string } }>,
+	reply: FastifyReply) => {
 	let sqlite = null;
 	try {
+		console.log("0");
 		const { uuid } = request.params;
-
 		// Get the profile pic from multipart data
 		const file = await request.file();
 		if (!file) {
 			reply.code(400).send({ error: 'No file uploaded' });
 			return;
 		}
+		console.log("1");
 
-		if (!file.mimetype.startsWith('image/')) {
-			reply.code(400).send({ error: 'File must be an image (jpeg, png, or gif)' });
+		const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+		if (!allowedTypes.includes(file.mimetype)) {
+			reply.code(400).send({ error: 'File must be a JPEG, PNG, or GIF image' });
 			return;
 		}
 
 		const profilePic = await file.toBuffer();
-
+		console.log("2");
 		// Validate profile pic separately
 		validateProfilePic(profilePic);
 
@@ -100,7 +99,7 @@ export const updateUserProfilePic = async (
 			reply.code(404).send({ error: 'User not found' });
 			return;
 		}
-
+		console.log("3");
 		// Update the profile picture
 		await db.update(usersTable)
 			.set({ profile_pic: profilePic })
@@ -108,7 +107,7 @@ export const updateUserProfilePic = async (
 
 		// Get the updated user
 		const updatedUser = await db.select().from(usersTable).where(eq(usersTable.uuid, uuid));
-
+		console.log("4");
 		// Use the helper function to create the public user object
 		reply.code(200).send(toPublicUser(updatedUser[0]));
 	}

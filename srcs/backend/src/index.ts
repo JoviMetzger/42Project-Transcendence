@@ -39,14 +39,7 @@ fastify.register(multipart, {
 		fileSize: 5 * 1024 * 1024, // 5MB limit
 		files: 1 // Allow only 1 file upload at a time
 	},
-	attachFieldsToBody: true, // Automatically attach fields to request body
-	onFile: async (event) => {
-		// Optional: Add file type validation here if needed
-		const mimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
-		if (!mimeTypes.includes(event.mimetype)) {
-			throw new Error('Invalid file type');
-		}
-	}
+	attachFieldsToBody: false
 });
 
 

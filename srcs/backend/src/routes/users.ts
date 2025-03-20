@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { getAllUsers } from '../controllers/getUsers.ts';
+import { getAllUsers, getUser, getUserImage } from '../controllers/getUsers.ts';
 import { addUser, updateUserProfilePic } from '../controllers/setUsers.ts';
 import envConfig from "../config/env.ts";
 
@@ -11,18 +11,58 @@ const securitySchemes = {
 	}
 };
 
+//propertiieis for profile_pic
+
+const profilePicProperties = {
+	properties: {
+		data: { type: ['string', 'null'] },
+		mimeType: { type: ['string', 'null'] },
+		nullabe: true
+	}
+};
+
 // Schema for user properties
 const userProperties = {
 	id: { type: 'number' },
 	uuid: { type: 'string' },
 	username: { type: 'string' },
 	alias: { type: 'string' },
-	profile_pic: { type: ['string', 'null'] },
+	profile_pic: {
+		type: 'object',
+		properties: profilePicProperties
+	},
+	status: { type: 'number' },
+	language: { type: 'string' },
 	wins: { type: 'number' },
 	losses: { type: 'number' }
 };
 
 // Schema for GET users response
+
+const getUserOptions = {
+	schema: {
+		security: [{ apiKey: [] }],
+		response: {
+			200: {
+				type: 'object',
+				properties: userProperties
+			},
+			403: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' }
+				}
+			},
+			404: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' }
+				}
+			}
+		}
+	}
+};
+
 const getUsersOptions = {
 	schema: {
 		security: [{ apiKey: [] }],
@@ -35,6 +75,12 @@ const getUsersOptions = {
 				}
 			},
 			403: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' }
+				}
+			},
+			404: {
 				type: 'object',
 				properties: {
 					error: { type: 'string' }
@@ -89,17 +135,6 @@ const updateProfilePicOptions = {
 				uuid: { type: 'string' }
 			}
 		},
-		body: {
-			type: 'object',
-			required: ['profile_pic'],
-			properties: {
-				profile_pic: {
-					type: 'string',
-					format: 'binary',
-					description: 'Profile picture file (JPEG, PNG, or GIF)'
-				}
-			}
-		},
 		response: {
 			200: {
 				type: 'object',
@@ -149,7 +184,12 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 	});
 
 	// User routes
-	fastify.get('/users', getAllUsers);
+	// for testing:
+	fastify.get('/user/:uuid/profile-pic', getUserImage);
+
+
+	fastify.get('/users', { ...getUsersOptions }, getAllUsers);
+	fastify.get('/user/:uuid', { ...getUserOptions }, getUser);
 
 	// Create user with JSON data
 	fastify.post('/users/new', { ...createUserOptions }, addUser);

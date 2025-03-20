@@ -31,7 +31,12 @@ export type CreateUserRequest = Omit<BaseUser, 'profile_pic'> & {
 };
 
 // Type for public user data (omit sensitive fields)
-export type PublicUser = Omit<User, 'password' | 'salt' | 'language'>;
+export type PublicUser = Omit<User, 'password' | 'salt'> & {
+	profile_pic?: {
+		data: string | null;
+		mimeType: string | null;
+	};
+};
 
 // Type to update the user
 export type UpdateUser = Partial<Omit<User, 'id' | 'uuid'>>;
@@ -42,8 +47,12 @@ export function toPublicUser(user: User): PublicUser {
 		uuid: user.uuid,
 		username: user.username,
 		alias: user.alias,
-		profile_pic: user.profile_pic,
+		profile_pic: user.profile_pic instanceof Buffer ? {
+			data: blobToPicture(user.profile_pic),
+			mimeType: getMimeType(user.profile_pic)
+		} : undefined,
 		status: user.status,
+		language: user.language,
 		win: user.win,
 		loss: user.loss
 	};
@@ -58,8 +67,10 @@ const USER_VALIDATION = {
 	MIN_PASSWORD_LENGTH: 6
 };
 
+export const maxFileSize = 5 * 1024 * 1024
+
 const PROFILE_PIC_VALIDATION = {
-	MAX_SIZE: 5 * 1024 * 1024 // 5MB in bytes
+	MAX_SIZE: maxFileSize // 5MB in bytes
 };
 
 // function to validate user data
@@ -96,6 +107,28 @@ export function validateProfilePic(profilePic: Buffer): void {
 	if (profilePic.length > PROFILE_PIC_VALIDATION.MAX_SIZE) {
 		throw new Error(`Profile picture must be less than ${PROFILE_PIC_VALIDATION.MAX_SIZE / (1024 * 1024)}MB`);
 	}
+}
+
+//mime type for profile pic:
+export function getMimeType(buffer: Buffer): string {
+	// Simple MIME type detection based on magic numbers
+	if (buffer.length < 4) return 'image/png';
+
+	if (buffer[0] === 0xFF && buffer[1] === 0xD8) {
+		return 'image/jpeg';
+	}
+	if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) {
+		return 'image/png';
+	}
+	if (buffer[0] === 0x47 && buffer[1] === 0x49 && buffer[2] === 0x46) {
+		return 'image/gif';
+	}
+
+	return 'image/png'; // Default
+}
+
+function blobToPicture(buffer: Buffer | null): string | null {
+	return buffer ? buffer.toString('base64') : null;
 }
 
 /* password hashing */
