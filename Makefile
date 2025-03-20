@@ -101,5 +101,5 @@ deepclean: clean
 	@docker network rm $$(docker network ls -q) 2>/dev/null || true
 	@echo "$(GREEN)All Docker resources have been cleaned.$(RESET)"
 
-.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down volume copy-env deepclean
+.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down volume copy-env studio deepclean
 
