@@ -41,7 +41,8 @@ fastify.register(multipart, {
 		fileSize: 5 * 1024 * 1024, // 5MB limit
 		files: 1 // Allow only 1 file upload at a time
 	},
-	attachFieldsToBody: false
+	attachFieldsToBody: false,
+	throwFileSizeLimit: true
 });
 
 

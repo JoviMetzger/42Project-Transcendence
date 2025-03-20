@@ -165,34 +165,23 @@ const updateProfilePicOptions = {
 			properties: {
 				uuid: { type: 'string' }
 			}
-		},
-		body: {
+		}
+	},
+	response: {
+		200: {
 			type: 'object',
-			required: ['profilePic'],
+			properties: userProperties
+		},
+		400: {
+			type: 'object',
 			properties: {
-				profilePic: {
-					type: 'string',
-					format: 'binary',
-					description: 'Profile picture file to upload'
-				}
+				error: { type: 'string' }
 			}
 		},
-		response: {
-			200: {
-				type: 'object',
-				properties: userProperties
-			},
-			400: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			},
-			404: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
+		404: {
+			type: 'object',
+			properties: {
+				error: { type: 'string' }
 			}
 		}
 	}

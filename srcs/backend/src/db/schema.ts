@@ -19,7 +19,6 @@ export const usersTable = sqliteTable("users_table", {
 	uuid: text("uuid").notNull().unique(),
 	username: text("username").notNull().unique(),
 	password: text("password").notNull(),
-	salt: text("salt").notNull(),
 	alias: text("alias").notNull().unique(),
 	profile_pic: blob("profile_pic"),
 	language: text("language").$type<eLanguage>().default(eLanguage.ENGLISH),
