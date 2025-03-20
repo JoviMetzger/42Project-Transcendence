@@ -83,6 +83,9 @@ volume:
 copy-env:
 	cp ~/.transcendence.env ./srcs/.env
 
+studio:
+	docker exec -it backend pnpm run db:studio
+
 # All Docker resources are removed, stopped and deleted
 deepclean: clean
 	@echo "Cleaning up Docker resources..."
