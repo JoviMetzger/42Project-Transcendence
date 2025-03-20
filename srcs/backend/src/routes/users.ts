@@ -13,6 +13,11 @@ const securitySchemes = {
 
 //propertiieis for profile_pic
 
+const loginProperties = {
+	username: { type: 'string' },
+	password: { type: 'string' }
+}
+
 const profilePicProperties = {
 	data: { type: ['string', 'null'] },
 	mimeType: { type: ['string', 'null'] }
@@ -159,6 +164,17 @@ const updateProfilePicOptions = {
 			required: ['uuid'],
 			properties: {
 				uuid: { type: 'string' }
+			}
+		},
+		body: {
+			type: 'object',
+			required: ['profilePic'],
+			properties: {
+				profilePic: {
+					type: 'string',
+					format: 'binary',
+					description: 'Profile picture file to upload'
+				}
 			}
 		},
 		response: {
