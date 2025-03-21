@@ -84,7 +84,7 @@ const getMatchOptions = {
 	}
 };
 
-function Matchesroutes(fastify: FastifyInstance, options: any, done: () => void) {
+function matchesRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 	// Match routes
 	fastify.get('/matches', getMatchesOptions, getAllMatches);
 	fastify.get('/matches/:id', getMatchOptions, getMatchById);
@@ -92,4 +92,4 @@ function Matchesroutes(fastify: FastifyInstance, options: any, done: () => void)
 	done();
 }
 
-export default Matchesroutes;
+export default matchesRoutes;

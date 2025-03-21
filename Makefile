@@ -2,6 +2,8 @@
 DOCKER_COMPOSE_DEV = docker-compose -f srcs/docker-compose.dev.yml
 DOCKER_COMPOSE = docker-compose -f srcs/docker-compose.yml
 
+VOLUME_DIR := ${HOME}/ft_transcendence/data
+
 # Default target
 .DEFAULT_GOAL := help
 
@@ -21,10 +23,16 @@ help:
 	@echo "  make clean       - Remove all containers and volumes"
 	@echo "  make install     - Install dependencies for both frontend and backend"
 	@echo "  make prod        - Start production environment"
-	@echo "  copy env         - copies env stored on local machine from ~/.transcendence.env to the right directory"
+	@echo "  make volume      - creates the volume dir"
+	@echo "  make copy-env    - copies env stored on local machine from ~/.transcendence.env to the right directory"
+
 
 # Development commands
 dev:
+	@if [ ! -d "$(VOLUME_DIR)" ]; then \
+		echo "Creating volume directory $(VOLUME_DIR)"; \
+		mkdir -p $(VOLUME_DIR); \
+	fi
 	$(DOCKER_COMPOSE_DEV) up -d
 
 dev-build:
@@ -45,8 +53,11 @@ build:
 logs:
 	$(DOCKER_COMPOSE_DEV) logs
 
+clean-db:
+	docker volume prune -af
+
 clean:
-	$(DOCKER_COMPOSE_DEV) down -v
+	$(DOCKER_COMPOSE_DEV) down
 	docker system prune -af
 
 # Installation commands
@@ -56,12 +67,19 @@ install:
 
 # Production commands
 prod:
+	@if [ ! -d "$(VOLUME_DIR)" ]; then \
+		echo "Creating volume directory $(VOLUME_DIR)"; \
+		mkdir -p $(VOLUME_DIR); \
+	fi
 	$(DOCKER_COMPOSE) up -d
 
 prod-down:
 	$(DOCKER_COMPOSE) down
 
-# since we can't send the env file to the git repository. store the env on your local machine in file ~/.transcendence.env - will share on slack
+volume:
+	mkdir -p ${HOME}/ft_transcendence/data
+
+# since we cant send the env file to the git repository. store the env on your local machine in file ~/.transcendence.env - will share on slack
 copy-env:
 	cp ~/.transcendence.env ./srcs/.env
 
@@ -80,4 +98,5 @@ deepclean: clean
 	@docker network rm $$(docker network ls -q) 2>/dev/null || true
 	@echo "$(GREEN)All Docker resources have been cleaned.$(RESET)"
 
-.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down copy-env deepclean
+.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down volume copy-env deepclean
+

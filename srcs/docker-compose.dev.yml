@@ -27,10 +27,11 @@ services:
     restart: on-failure
     ports:
       - "3000:3000"
+      - "4983:4983"
     volumes:
       - ./backend:/app # mounting the /backend so live edits update the docker container
-      - /app/node_modules # Ensures node_modules are not overwritten by the host, allowing container to manage dependencies
-      - db_data:/app/database # Dedicated volume for SQLite ; only one that will also be in dev docker-compose
+      - /app/node_modules
+      - sqlite_data:/app/data
     environment:
       - NODE_ENV=development
     env_file:
@@ -44,5 +45,9 @@ networks:
     external: false
 
 volumes:
-  db_data:
+  sqlite_data:
     driver: local
+    driver_opts:
+      type: none
+      device: ${HOME}/ft_transcendence/data
+      o: bind
