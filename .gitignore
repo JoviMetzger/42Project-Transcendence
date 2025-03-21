@@ -9,7 +9,7 @@
 **/node_modules
 
 #locally installed packages
-./package-lock.json
+**/package-lock.json
 ./package.json
 ./node_modules
 
