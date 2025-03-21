@@ -9,7 +9,6 @@ import { setupAdmin } from './admin';
 import { setupAdminSetting } from './adminSetting';
 import { setupError404 } from './error404';
 import { getLanguage } from '../script/language';
-import { connectFunc, requestBody } from '../script/connections';
 
 document.addEventListener('DOMContentLoaded', () => {
 	renderPage();	
@@ -71,7 +70,7 @@ export function renderPage() {
 				<div class="buttons">
 					<button class="btn" id="LogIn" data-i18n="btn_LogIn"></button>
 					<button class="btn" id="SignUp" data-i18n="btn_SignUp"></button>
-					<button class="btn" id="Connect" data-i18n="Connect"> ConneCt </button>
+					<!-- <button class="btn" id="Connect" data-i18n="Connect"> ConneCt </button> -->
 				</div>
 			</div>
 			`);
@@ -86,19 +85,6 @@ export function renderPage() {
 				window.history.pushState({}, '', '/signUp');
 				renderPage();
 			});
-			document.getElementById('Connect')?.addEventListener('click', () => {
-				// window.history.pushState({}, '', '/Connect');
-				// renderPage();
-				const url:string = "http://localhost:3000/users/new" // The backend route you want to reuest from
-				const method:string = "poSt" // GET or post or dElEtE. works with any case usage
-				const content:string = '"username": "string112", "alias": "string112", "password": "string112"' // the fields:content you want to pass to the backend
-				const body = requestBody(method, content) // Used for requests where the frontend has to send info to the backend (like making a new user). Will return null in case of GET
-				const response = connectFunc(url, body); // saves the response.json. this can be changed to response.text in connections.ts (automatically does so if a response.json cannot be generated)
-				response.then((response) => {
-					console.log(response); // this is where you insert the code that actually uses the information
-				})
-			});
-
 		}
 	} else {
 		// If invalid route -> 404 page

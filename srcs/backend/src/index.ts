@@ -4,7 +4,8 @@ import userRoutes from './routes/users.ts';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import matchesRoutes from './routes/matches.ts';
-import cors, { fastifyCors } from '@fastify/cors'
+import fastifyCors from '@fastify/cors';
+// import cors, { fastifyCors } from '@fastify/cors'
 
 console.log("reading from index.ts backend");
 
@@ -13,10 +14,10 @@ const fastify = Fastify({
 }) // making the fastify instance out of the imported Fastify
 
 // Setting Up The CORS Plugin First
-fastify.register(cors, {
-	origin: '*',
-	methods: ['GET', 'POST', 'DELETE'],
-	allowedHeaders: ['Origin','Content-Type'],
+fastify.register(fastifyCors, {
+    origin: '*',
+    methods: ['GET', 'POST', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow Authorization header
 });
 // 'X-Requested-With', 'Accept', 'Authorization'
 

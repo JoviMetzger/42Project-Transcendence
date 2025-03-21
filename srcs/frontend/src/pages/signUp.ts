@@ -1,5 +1,6 @@
 import { setupUserHome } from './home';
 import { getLanguage } from '../script/language';
+import { connectFunc, requestBody } from '../script/connections';
 
 export function setupSignUp() {
 	const root = document.getElementById('app');
@@ -42,7 +43,7 @@ export function setupSignUp() {
 			<input type="Password" class="input-field">
 
 			<p class="p1" data-i18n="ConfirmPassword"></p>
-			<input type="Confirm_Password" class="input-field">
+			<input type="Password" class="input-field">
 				
 			<div class="buttons">
 				<button class="btn" id="Home" data-i18n="btn_SignUp"></button>
@@ -52,8 +53,34 @@ export function setupSignUp() {
 
 		getLanguage();
 		document.getElementById('Home')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/home');
-			setupUserHome();
+			
+			// window.history.pushState({}, '', '/Connect');
+			// renderPage();
+			const url:string = "http://localhost:3000/users/new" // The backend route you want to reuest from
+			const method:string = "POST" // GET or post or dElEtE. works with any case usage
+			const content:string = '"username": "test123", "alias": "test123", "password": "test123", "profilePic": "null"' // the fields:content you want to pass to the backend
+			const body = requestBody(method, content) // Used for requests where the frontend has to send info to the backend (like making a new user). Will return null in case of GET
+			const response = connectFunc(url, body); // saves the response.json. this can be changed to response.text in connections.ts (automatically does so if a response.json cannot be generated)
+			response.then((response) => {
+				console.log(response); // this is where you insert the code that actually uses the information
+			})
+
+			// window.history.pushState({}, '', '/home');
+			// setupUserHome();
 		});
+	// 	document.getElementById('Connect')?.addEventListener('click', () => {
+	// 		// window.history.pushState({}, '', '/Connect');
+	// 		// renderPage();
+	// 		const url:string = "http://localhost:3000/users/new" // The backend route you want to reuest from
+	// 		const method:string = "poSt" // GET or post or dElEtE. works with any case usage
+	// 		const content:string = '"username": "string112", "alias": "string112", "password": "string112"' // the fields:content you want to pass to the backend
+	// 		const body = requestBody(method, content) // Used for requests where the frontend has to send info to the backend (like making a new user). Will return null in case of GET
+	// 		const response = connectFunc(url, body); // saves the response.json. this can be changed to response.text in connections.ts (automatically does so if a response.json cannot be generated)
+	// 		response.then((response) => {
+	// 			console.log(response); // this is where you insert the code that actually uses the information
+	// 		})
+	// 	});
+
 	}
 }
+
