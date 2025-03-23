@@ -16,9 +16,9 @@ const fastify = Fastify({
 fastify.register(fastifyCors, {
 	origin: '*',
 	methods: ['GET', 'POST', 'DELETE'],
-	allowedHeaders: ['Origin', 'Content-Type', 'Authorization'],
+	allowedHeaders: ['Content-Type', 'Authorization'],
 });
-// 'X-Requested-With', 'Accept'
+// 'Origin', 'X-Requested-With', 'Accept'
 
 await fastify.register(swagger, {
 	swagger: {
