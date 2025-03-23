@@ -13,7 +13,7 @@ export function setupStartGame () {
 		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
 		<link rel="stylesheet" href="src/styles/startGame.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
-		<div class="leftBar">
+		<div class="topBar">
 			<div class="dropdown">
 				<button class="dropdown-btn">
 					<img class="settingIcon" src="src/component/Pictures/setting-btn.png"/></img>
@@ -41,9 +41,6 @@ export function setupStartGame () {
 					<div class="dropdown-item" id="LogOut" data-i18n="LogOut"></div>
 				</div>
 			</div>
-		</div>
-
-		<div class="topBar">
 			<div class="topBarFrame">
 				<div class="aliasName">cool alias</div>
 				<div class="profile-picture">
@@ -56,9 +53,19 @@ export function setupStartGame () {
 			<!-- BODY CHANGE -->
 
 			<div class="container">
-				<p style="color: white; font-size: 20px; font-family: Arial, sans-serif;">GAME</p>
-
+				<h1 class="header" data-i18n="Game_Header"></h1>
+					
+				<div class="buttons">
+					<button class="btn" data-i18n="btn_Friend"></button>
+				</div>
+				<div class="buttons">
+					<button class="btn" data-i18n="btn_Match"></button>
+				</div>
+				<div class="buttons">
+					<button class="btn" data-i18n="btn_Solo"></button>
+				</div>
 			</div>
+	
 			<!-- ^^^ -->
 		</div>
 		`);

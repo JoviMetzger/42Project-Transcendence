@@ -31,6 +31,7 @@ export function requestBody(method:string, content:string | null)
 	}
 	return `ERROR (requestBody): Method ${method} Not Recognized`
 }
+// */
 
 async function httpGet(url:string, request:any | null)
 {
@@ -40,7 +41,7 @@ async function httpGet(url:string, request:any | null)
 		if (contentType && contentType.includes("application/json"))
 			return response.json();
 		else
-		return response.text();	
+			return response.text();	
 	})
 	.catch((error) => {
 		console.log(error)

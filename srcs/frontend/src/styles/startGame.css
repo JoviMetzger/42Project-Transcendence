@@ -1,4 +1,4 @@
-/* startGame.css */
+/* setting.css */
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
@@ -10,7 +10,42 @@
 	padding: 40px;
 	border-radius: 15px;
 	width: 400px;
-	top: 270px;
+	border: solid, 3px, #902063;
 	position: fixed;
+	justify-content: center;
+	justify-items: center;
 	z-index: 1; 
+}
+
+/* Title styling */
+.header {
+	font-size: 2.5rem;
+	margin-bottom: 45px;
+	font-family: Arial, sans-serif;
+	color: white;
+	text-align: center;
+}
+
+/* Button styling */
+.buttons {
+	display: flex;
+	margin-top: 10px;
+	justify-content: center;
+}
+.btn {
+	width: 400px;
+	padding: 12px;
+	font-size: 1.1rem;
+	color: white;
+	background: #902063;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 10px;
+	transition: 0.3s;
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+.btn:hover {
+	background: #b86a8a;
 }
