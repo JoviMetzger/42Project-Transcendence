@@ -1,5 +1,6 @@
 import envConfig from '../config/env';
 
+/* Your Code, With The Changes Needed To Make It Work Commented Out
 export function requestBody(method:string, content:string | null)
 {
 	if (method.toUpperCase() === 'GET')
@@ -8,6 +9,8 @@ export function requestBody(method:string, content:string | null)
 	{
 		const mode = "cors";
 		const headers = {
+//	The (Hard)Code That Fixes The Authorization Error
+//			Authorization : `Bearer qwertyuio`,
 			Authorization : `Bearer ${envConfig.postApi}`,
 			Accept : 'application/json',
 			"Content-Type" : 'application/json'
@@ -20,11 +23,49 @@ export function requestBody(method:string, content:string | null)
 		// const body = JSON.parse(`{${content}}`);
 		const body = content ? JSON.parse(`{${content}}`) : {};
 		return {method, mode, headers, body};
+//	The Code That Fixes The Bad Request Error. 
+//		const body = '{' + content + '}'
+//		return {"method": method, "mode": mode, "headers": headers, "body": body};
 	}
 	if (method.toUpperCase() === 'DELETE')
 		return null;
 	return `ERROR (requestBody): Method '${method}' Not Recognized`;
 }
+*/
+
+// /*	The Function I Recommend You Use
+export function requestBody(method:string, content:string | null)
+{
+	if (method.toUpperCase() === 'GET')
+	{
+		const headers = {
+			// "Authorization" : `Bearer ${envConfig.userApi}`,
+			"Authorization" : `Bearer asdfghjk`,
+		}
+		return {"method": method, "headers": headers}
+	}
+	if (method.toUpperCase() === 'POST')
+	{
+		const headers = {
+			// "Authorization" : `Bearer ${envConfig.postApi}`,
+			"Authorization" : `Bearer qwertyuio`,
+			"Content-Type" : "application/json",
+		}
+		const body = '{' + content + '}'
+		return {"method": method, "headers": headers, "body": body};
+	}
+	if (method.toUpperCase() === 'DELETE')
+	{
+		const headers = {
+			"Authorization" : `Bearer ${envConfig.deleteApi}`,
+			"Content-Type" : "application/json",
+		}
+		const body = '{' + content + '}'
+		return {"method": method, "headers": headers, "body": body};
+	}
+	return `ERROR (requestBody): Method ${method} Not Recognized`
+}
+// */
 
 async function httpGet(url:string, request:any | null)
 {
@@ -42,10 +83,9 @@ async function httpGet(url:string, request:any | null)
 	})
 }
 
-export async function connectFunc(url: string, request:any| null){
+export async function connectFunc(url: string, request:any | null){
 	console.log("Connect To " + url + " Using:")
 	console.log(request)
 	const response = await httpGet(url, request);
-	// console.log(response);
 	return response
 }
