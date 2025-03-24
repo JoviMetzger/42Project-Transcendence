@@ -1,6 +1,6 @@
 import { setupUserHome } from './home';
 import { getLanguage } from '../script/language';
-import { connectFunc, requestBody } from '../script/connections';
+import { connectFunc, requestBody, inputToContent } from '../script/connections';
 
 export function setupSignUp() {
 	const root = document.getElementById('app');
@@ -53,15 +53,13 @@ export function setupSignUp() {
 
 		getLanguage();
 		document.getElementById('Home')?.addEventListener('click', () => {
-			// const content:string = '"username": "test123", "alias": "test123", "password": "test123", "profilePic": "null"' // the fields:content you want to pass to the backend
-			
-				// const avatar= document.getElementById("avatar").src
-				const username= document.getElementById("username") as HTMLInputElement
-				const alias= document.getElementById("alias") as HTMLInputElement
-				const password= document.getElementById("password") as HTMLInputElement
-				const password_confirm= document.getElementById("password_confirm") as HTMLInputElement
-				// function for comparing passwords
-				const content:string = `"username": "${username.value}", "alias": "${alias.value}", "password": "${password.value}"`
+			// { //check if this can be done inside the <input>
+			// 	let str1 = 
+				
+			// 	if (inputToContent(["password"]) != inputToContent(["password_confirm"]))
+			// 		console.log("Passwords Don't Match"); // Replace this with actual response to user.
+			// }
+			const content:string = inputToContent(["username", "alias", "password"])
 			const body = requestBody("POST", content) // Used for requests where the frontend has to send info to the backend (like making a new user). Will return null in case of GET
 			const response = connectFunc("http://localhost:3000/users/new", body); // saves the response.json. this can be changed to response.text in connections.ts (automatically does so if a response.json cannot be generated)
 			response.then((response) => {

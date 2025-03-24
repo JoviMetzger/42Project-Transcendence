@@ -1,5 +1,17 @@
 import envConfig from '../config/env';
 
+export function inputToContent(input:string[])
+{
+	let str:string = "";
+	input.forEach(element => {
+		const elem = document.getElementById(element) as HTMLInputElement
+		str += `"${elem.id}": "${elem.value}",`
+	});
+	str = str.slice(0, -1);
+	console.log ("string = " + str);
+	return str;
+}
+
 export function requestBody(method:string, content:string | null)
 {
 	if (method.toUpperCase() === 'GET')
@@ -31,7 +43,6 @@ export function requestBody(method:string, content:string | null)
 	}
 	return `ERROR (requestBody): Method ${method} Not Recognized`
 }
-// */
 
 async function httpGet(url:string, request:any | null)
 {
