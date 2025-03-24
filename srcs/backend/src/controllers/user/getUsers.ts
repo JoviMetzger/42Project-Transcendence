@@ -5,8 +5,8 @@ import Database from 'better-sqlite3'
 import { eq } from 'drizzle-orm'
 
 // files
-import { usersTable } from '../db/schema.ts';
-import { toPublicUser, getMimeType } from '../models/users.ts';
+import { usersTable } from '../../db/schema.ts';
+import { toPublicUser, getMimeType } from '../../models/users.ts';
 
 // get all Users
 export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) => {

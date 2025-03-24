@@ -3,8 +3,8 @@ import { sql } from "drizzle-orm";
 
 
 export enum userStatus {
-	ONLINE = 0,
-	OFFLINE = 1
+	OFFLINE = 0,
+	ONLINE = 1
 }
 
 export enum eLanguage {
@@ -22,7 +22,7 @@ export const usersTable = sqliteTable("users_table", {
 	alias: text("alias").notNull().unique(),
 	profile_pic: blob("profile_pic"),
 	language: text("language").$type<eLanguage>().default(eLanguage.ENGLISH),
-	status: int("status").$type<userStatus>(),
+	status: int("status").$type<userStatus>().default(0),
 	win: int("wins").default(0),
 	loss: int("loss").default(0)
 });

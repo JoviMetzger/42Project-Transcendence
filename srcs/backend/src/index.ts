@@ -23,7 +23,7 @@ await fastify.register(swagger, {
 				apiKey: {
 					type: 'http',
 					scheme: 'bearer',
-					description: 'Enter token with Bearer prefix, e.g., "Bearer your-token-here"'
+					description: 'just input the token, Bearer is auto prefixed now'
 				}
 			}
 		},

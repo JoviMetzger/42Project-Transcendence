@@ -1,6 +1,5 @@
 // controllers/setUsers.ts
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { MultipartFile } from '@fastify/multipart';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { eq } from 'drizzle-orm';
 import Database from 'better-sqlite3';
@@ -11,8 +10,8 @@ import {
 	validateUser,
 	validateProfilePic,
 	toPublicUser
-} from '../models/users.ts';
-import { usersTable, userStatus, eLanguage } from '../db/schema.ts';
+} from '../../models/users.ts';
+import { usersTable, userStatus, eLanguage } from '../../db/schema.ts';
 
 // Create a user with JSON data (no profile pic)
 export const addUser = async (request: FastifyRequest<{
