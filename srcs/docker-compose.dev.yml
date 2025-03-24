@@ -16,6 +16,9 @@ services:
       - /app/node_modules # Ensures node_modules are not overwritten by the host, allowing container to manage dependencies
     env_file:
       - ./.env
+    environment: # Add the .env variabes to the container enviroment as VITE_-variables
+      - VITE_API_POST_KEY=${API_POST_KEY}
+      - VITE_API_USER_KEY=${API_USER_KEY}
     command: [ "pnpm", "run", "dev" ] # Hot-reload mode for frontend
   # backend written with Fastify and .ts/js
   backend:

@@ -13,9 +13,3 @@ RUN pnpm install --force
 RUN pnpm install tailwindcss @tailwindcss/vite
 
 RUN pnpm install postcss typescript @types/node --save-dev
-
-
-# Build the frontend
-#RUN pnpm run build
-
-# CMD is defined in dockerfile to differentiate between dev and non-dev env
