@@ -17,16 +17,14 @@ export function requestBody(method:string, content:string | null)
 	if (method.toUpperCase() === 'GET')
 	{
 		const headers = {
-			// "Authorization" : `Bearer ${envConfig.userApi}`,
-			"Authorization" : `Bearer asdfghjk`,
+			"Authorization" : `Bearer ${envConfig.userApi}`,
 		}
 		return {"method": method, "headers": headers}
 	}
 	if (method.toUpperCase() === 'POST')
 	{
 		const headers = {
-			// "Authorization" : `Bearer ${envConfig.postApi}`,
-			"Authorization" : `Bearer qwertyuio`,
+			"Authorization" : `Bearer ${envConfig.postApi}`,
 			"Content-Type" : "application/json",
 		}
 		const body = '{' + content + '}'

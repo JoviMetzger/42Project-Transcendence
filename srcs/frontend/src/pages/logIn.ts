@@ -1,6 +1,7 @@
 import { setupUserHome } from './home';
 import { setupAdmin} from './admin';
 import { getLanguage } from '../script/language';
+import { connectFunc, requestBody, inputToContent } from '../script/connections';
 
 export function setupLogIn() {
 	const root = document.getElementById('app');
@@ -45,7 +46,13 @@ export function setupLogIn() {
 
 		getLanguage();
 		document.getElementById('Home')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/home');
+			const content:string = inputToContent(["username", "alias", "password"])
+			const body = requestBody("POST", content)
+			const response = connectFunc("http://localhost:3000/user/login", body);
+			response.then((response) => {
+				console.log(response);
+			})
+			window.history.pushState({}, '', '/home'); // can be moved into the response.then section for proper usage
 			setupUserHome();
 		});
 
