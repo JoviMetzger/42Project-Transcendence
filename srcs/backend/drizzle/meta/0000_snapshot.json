@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "64ae15cc-d540-427e-8eb5-b8745bfb4c52",
+  "id": "72af94aa-76c3-4a62-83c9-8e41be01e41d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "friends": {
@@ -120,7 +120,8 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": 0
         },
         "start_time": {
           "name": "start_time",

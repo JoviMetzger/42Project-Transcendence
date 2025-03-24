@@ -2,7 +2,7 @@
 
 import { InferSelectModel } from 'drizzle-orm';
 import { usersTable, userStatus, eLanguage } from '../db/schema.ts';
-import crypto from 'crypto';
+import { hash, verify } from 'argon2';
 
 /* types */
 
@@ -22,7 +22,6 @@ export type User = InferSelectModel<typeof usersTable>;
 export type CreateUser = BaseUser & {
 	uuid: string;
 	password: string;
-	salt: string;
 };
 
 // Type for user creation request (JSON)
@@ -31,7 +30,7 @@ export type CreateUserRequest = Omit<BaseUser, 'profile_pic'> & {
 };
 
 // Type for public user data (omit sensitive fields)
-export type PublicUser = Omit<User, 'password' | 'salt'> & {
+export type PublicUser = Omit<User, 'password'> & {
 	profile_pic?: {
 		data: string | null;
 		mimeType: string | null;
@@ -41,7 +40,15 @@ export type PublicUser = Omit<User, 'password' | 'salt'> & {
 // Type to update the user
 export type UpdateUser = Partial<Omit<User, 'id' | 'uuid'>>;
 
-export function toPublicUser(user: User): PublicUser {
+/**
+ * Converts a User object to a PublicUser object, removing sensitive information
+ * @param user - The user object to convert
+ * @returns A PublicUser object without sensitive information
+ * @throws Error if the user parameter is null or undefined
+ */
+export function toPublicUser(user: User | null | undefined): PublicUser {
+	if (!user)
+		throw ("user could not be transformed to publicUser")
 	return {
 		id: user.id,
 		uuid: user.uuid,
@@ -73,7 +80,11 @@ const PROFILE_PIC_VALIDATION = {
 	MAX_SIZE: maxFileSize // 5MB in bytes
 };
 
-// function to validate user data
+/**
+ * Validates user data according to defined constraints
+ * @param user - Partial user data to validate
+ * @throws Error if any validation constraints are violated
+ */
 export function validateUser(user: Partial<CreateUser>): void {
 	const errors: string[] = [];
 
@@ -102,14 +113,22 @@ export function validateUser(user: Partial<CreateUser>): void {
 	}
 }
 
-//validate profile pic
+/**
+ * Validates that a profile picture meets size requirements
+ * @param profilePic - Buffer containing the profile picture data
+ * @throws Error if the profile picture exceeds the maximum allowed size
+ */
 export function validateProfilePic(profilePic: Buffer): void {
 	if (profilePic.length > PROFILE_PIC_VALIDATION.MAX_SIZE) {
 		throw new Error(`Profile picture must be less than ${PROFILE_PIC_VALIDATION.MAX_SIZE / (1024 * 1024)}MB`);
 	}
 }
 
-//mime type for profile pic:
+/**
+ * Determines the MIME type of an image buffer based on its magic numbers
+ * @param buffer - Buffer containing the image data
+ * @returns The detected MIME type string, defaults to 'image/png' if type cannot be determined
+ */
 export function getMimeType(buffer: Buffer): string {
 	// Simple MIME type detection based on magic numbers
 	if (buffer.length < 4) return 'image/png';
@@ -127,34 +146,32 @@ export function getMimeType(buffer: Buffer): string {
 	return 'image/png'; // Default
 }
 
+/**
+ * Converts a Buffer to a base64 string for use in data URLs
+ * @param buffer - Buffer containing the image data
+ * @returns Base64 encoded string or null if the buffer is null
+ */
 function blobToPicture(buffer: Buffer | null): string | null {
 	return buffer ? buffer.toString('base64') : null;
 }
 
 /* password hashing */
 
-// function that returns the hashed password + the salt key for in the db
-export function hashPassword(password: string): { hashedPassword: string, salt: string } {
-	const salt = crypto.randomBytes(16).toString('hex');
-	const hashedPassword = crypto.pbkdf2Sync(
-		password,
-		salt,
-		1000,
-		64,
-		'sha512'
-	).toString('hex');
-
-	return { hashedPassword, salt };
+/**
+ * Hashes a password using the Argon2 algorithm
+ * @param password - The plain text password to hash
+ * @returns Promise resolving to the hashed password string
+ */
+export async function hashPassword(password: string): Promise<string> {
+	return await hash(password);
 }
 
-// Checks if incoming password matches the stored hash
-export function verifyPassword(password: string, storedHash: string, salt: string): boolean {
-	const hash = crypto.pbkdf2Sync(
-		password,
-		salt,
-		1000,
-		64,
-		'sha512'
-	).toString('hex');
-	return hash === storedHash;
+/**
+ * Verifies if a plain text password matches a stored hash
+ * @param password - The plain text password to verify
+ * @param storedHash - The previously hashed password to compare against
+ * @returns Promise resolving to true if the password matches, false otherwise
+ */
+export async function verifyPassword(password: string, storedHash: string): Promise<boolean> {
+	return await verify(storedHash, password);
 }

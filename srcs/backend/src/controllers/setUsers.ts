@@ -28,14 +28,12 @@ export const addUser = async (request: FastifyRequest<{
 	let sqlite = null;
 	try {
 		const body = request.body;
-		const { hashedPassword, salt } = hashPassword(body.password);
-
+		const hashedPassword = await hashPassword(body.password);
 		const userData: CreateUser = {
 			uuid: crypto.randomUUID(),
 			username: body.username,
 			alias: body.alias,
 			password: hashedPassword,
-			salt: salt,
 			language: body.language,
 			status: body.status
 		};

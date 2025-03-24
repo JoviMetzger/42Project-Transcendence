@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { getAllUsers, getUser, getUserImage } from '../controllers/getUsers.ts';
 import { addUser, updateUserProfilePic } from '../controllers/setUsers.ts';
+import { loginUser } from '../controllers/login.ts'
 import envConfig from "../config/env.ts";
 
 // Security schema for swagger
@@ -187,6 +188,46 @@ const updateProfilePicOptions = {
 	}
 };
 
+const loginUserOptions = {
+	schema: {
+		security: [{ apiKey: [] }],
+		summary: 'Logs a user in',
+		tags: ['users'],
+		consumes: ['application/json'],
+		body: {
+			type: 'object',
+			required: ['username', 'password'],
+			properties: {
+				username: { type: 'string', minLength: 3 },
+				password: { type: 'string', minLength: 6 },
+			}
+		},
+		response: {
+			200: {
+				type: 'object',
+				properties: userProperties
+			},
+			400: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' }
+				}
+			},
+			401: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' }
+				}
+			},
+			500: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' }
+				}
+			}
+		}
+	}
+};
 
 // Auth middleware
 const authenticateAdmin = async (request: FastifyRequest, reply: FastifyReply) => {
@@ -227,6 +268,9 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 
 	// Update profile picture with multipart/form-data
 	fastify.post('/users/:uuid/profile-pic', { ...updateProfilePicOptions }, updateUserProfilePic);
+
+	// Log in
+	fastify.post('/user/login', { ...loginUserOptions }, loginUser)
 
 	done();
 }

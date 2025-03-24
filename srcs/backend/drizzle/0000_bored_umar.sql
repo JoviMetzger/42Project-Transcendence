@@ -14,7 +14,7 @@ CREATE TABLE `matches` (
 	`p1_id` text,
 	`p2_id` text,
 	`status` integer NOT NULL,
-	`winner` integer,
+	`winner` integer DEFAULT 0,
 	`start_time` text DEFAULT (current_timestamp),
 	`end_time` text DEFAULT (current_timestamp),
 	`duration` integer DEFAULT 0,

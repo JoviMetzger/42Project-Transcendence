@@ -6,7 +6,7 @@ import { eq } from 'drizzle-orm'
 
 // files
 import { usersTable } from '../db/schema.ts';
-import { toPublicUser } from '../models/users.ts';
+import { toPublicUser, verifyPassword } from '../models/users.ts';
 
 
 export const loginUser = async (request: FastifyRequest, reply: FastifyReply) => {
@@ -17,17 +17,29 @@ export const loginUser = async (request: FastifyRequest, reply: FastifyReply) =>
 			reply.code(400).send({ error: 'Username and password are required' });
 			return;
 		}
+		// for time consistency 
+		let userFound = false;
+		let user = null;
+		let storedHash = '$argon2id$v=19$m=65536,t=3,p=4$AAAAAAAAAAAAAAAAAAAAAA$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+
 
 		sqlite = new Database('./data/data.db', { verbose: console.log });
 		const db = drizzle(sqlite);
 		const userArray = await db.select().from(usersTable).where(eq(usersTable.username, username));
 
-		if (userArray.length === 0) {
+		if (userArray.length > 0) {
+			userFound = true;
+			user = userArray[0];
+			storedHash = user.password
+		}
+		const samePassword = await verifyPassword(password, storedHash);
+
+		if (!userFound || !samePassword) {
 			reply.code(401).send({ error: 'username and password combination do not match database entry' });
 			return;
 		}
-
-		const user = userArray[0];
+		const pubUser = toPublicUser(user);
+		reply.code(200).send(pubUser);
 	} catch (error) {
 		request.log.error('getAllUsers failed:', error);
 		reply.code(500).send({ error: 'Failed to retrieve users' });
