@@ -53,12 +53,10 @@ export function setupSignUp() {
 
 		getLanguage();
 		document.getElementById('Home')?.addEventListener('click', () => {
-			// { //check if this can be done inside the <input>
-			// 	let str1 = 
-				
-			// 	if (inputToContent(["password"]) != inputToContent(["password_confirm"]))
-			// 		console.log("Passwords Don't Match"); // Replace this with actual response to user.
-			// }
+			{
+				if ((document.getElementById("password") as HTMLInputElement).value != (document.getElementById("password_confirm") as HTMLInputElement).value)
+					console.log("Passwords Don't Match"); // Replace this with actual response to user.
+			}
 			const content:string = inputToContent(["username", "alias", "password"])
 			const body = requestBody("POST", content) // Used for requests where the frontend has to send info to the backend (like making a new user). Will return null in case of GET
 			const response = connectFunc("http://localhost:3000/users/new", body); // saves the response.json. this can be changed to response.text in connections.ts (automatically does so if a response.json cannot be generated)
