@@ -100,17 +100,98 @@ p {
 	background: #b86a8a;
 }
 
-/* Picture */
-.profile-picture {
+/* Edit Picture */
+.edit-picture {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
 	margin-top: 15px;
 	margin-bottom: 15px;
+	margin-left: 140px;
+
 }
-.profile-picture img {
+.edit-picture img {
 	width: 100px; 
 	height: 100px;
 	border-radius: 50%;
 	object-fit: cover;
 	border: 3px solid white;
+}
+.edit-picture img:hover {
+	border: 3px solid #b86a8a;
+}
+
+/* Button Container */
+.btn-container {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: right;
+	top: 20px;
+	right: 20px;
+	z-index: 1; 
+}
+.language-btn {
+	background-color: #902063;
+	width: 220px;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 7px;
+	color: rgb(255, 255, 255);
+	border: 1px solid #ccc;
+	text-align: center;
+	font-size: 20px;
+	font-family: Arial, sans-serif;
+}
+.language-btn:hover {
+	background: #b86a8a;
+}
+.language-content {
+	gap: 10px;
+	display: none;
+	position: absolute;
+	background-color: #902063;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	min-width: 219px;
+	z-index: 10;
+	top: 43px;
+}
+.language-content.showLang .hidden {
+	display: inline-block;
+}
+.language-content.showLang {
+	display: block;
+}
+.language-content div {
+	padding: 8px;
+	display: flex;
+	align-items: center;
+	font-size: 17px;
+	gap: 5px;
+	color: white;
+	cursor: pointer;
+}
+.language-content div:hover {
+	background-color: #b86a8a;
+}
+.language-content img {
+	width: 20px;
+	height: 15px;
+}
+.language-option {
+	padding: 10px;
+	cursor: pointer;
+	color: rgb(255, 255, 255);
+	text-align: center;
+	font-size: 20px;
+	font-family: Arial, sans-serif;
+}
+.language-btn img {
+	width: 25px;
+	height: 15px;
 }

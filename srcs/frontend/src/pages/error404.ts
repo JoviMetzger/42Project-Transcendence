@@ -11,7 +11,5 @@ export function setupError404() {
 			<p>The requested resource could not be found on the server!</p>
 		</div>
 		`);
-
-		window.history.pushState({}, '', '/404');
 	}
 }

@@ -1,5 +1,5 @@
 # Use Node.js LTS version
-FROM node:20-alpine
+FROM node:23-alpine
 
 # Set working directory
 # Set working directory
@@ -18,7 +18,6 @@ COPY . .
 
 # Install dependencies
 RUN pnpm install --force
-
 
 # Rebuild better-sqlite3 for alpine
 RUN pnpm rebuild better-sqlite3

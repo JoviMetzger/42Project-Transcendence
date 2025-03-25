@@ -4,12 +4,23 @@ import userRoutes from './routes/users.ts';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import multipart from '@fastify/multipart';
+import matchesRoutes from './routes/matches.ts';
+import fastifyCors from '@fastify/cors'
 
 console.log("reading from index.ts backend");
 
 const fastify = Fastify({
 	logger: true
 })
+
+
+// Setting Up The CORS Plugin First
+fastify.register(fastifyCors, {
+	origin: '*',
+	methods: ['GET', 'POST', 'DELETE'],
+	allowedHeaders: ['Content-Type', 'Authorization'],
+});
+// 'Origin', 'X-Requested-With', 'Accept'
 
 await fastify.register(swagger, {
 	openapi: {  // Change from 'swagger' to 'openapi'
@@ -53,7 +64,6 @@ await fastify.register(swaggerUi, {
 fastify.register(userRoutes);
 //fastify.register(matchesRoutes);
 
-
 // defining a function in TS
 const start = async () => {
 	try {
@@ -75,11 +85,11 @@ fastify.get('/', function (request, reply) {
 
 
 
-// // Run the server!
-// fastify.listen({ port: 3000, host: '0.0.0.0' }, function (err, address) {
-// 	if (err) {
-// 		fastify.log.error(err)
-// 		process.exit(1)
-// 	}
-// 	fastify.log.info(`server listening on ${address}`)
-// })
+// Run the server!
+fastify.listen({ port: 3000, host: '0.0.0.0' }, function (err, address) {
+	if (err) {
+		fastify.log.error(err)
+		process.exit(1)
+	}
+	fastify.log.info(`server listening on ${address}`)
+})

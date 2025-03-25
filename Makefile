@@ -62,8 +62,8 @@ clean:
 
 # Installation commands
 install:
-	cd frontend && npm install
-	cd backend && npm install
+	cd srcs/frontend && npm install
+	cd srcs/backend && npm install
 
 # Production commands
 prod:
@@ -83,6 +83,9 @@ volume:
 copy-env:
 	cp ~/.transcendence.env ./srcs/.env
 
+studio:
+	docker exec -it backend pnpm run db:studio
+
 # All Docker resources are removed, stopped and deleted
 deepclean: clean
 	@echo "Cleaning up Docker resources..."
@@ -98,5 +101,5 @@ deepclean: clean
 	@docker network rm $$(docker network ls -q) 2>/dev/null || true
 	@echo "$(GREEN)All Docker resources have been cleaned.$(RESET)"
 
-.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down volume copy-env deepclean
+.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down volume copy-env studio deepclean
 
