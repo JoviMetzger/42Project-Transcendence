@@ -3,7 +3,7 @@ import { envSchema } from "env-schema";
 // variables set to be used in .js files, can be imported
 const schema = {
 	type: "object",
-	required: ["BACKEND_PORT", "LOG_LEVEL", "PUBLIC_KEY", "PRIVATE_KEY", "DB_FILE"],
+	required: ["BACKEND_PORT", "LOG_LEVEL", "PUBLIC_KEY", "PRIVATE_KEY"],
 	properties: {
 		PORT: {
 			type: "number",
@@ -21,11 +21,7 @@ const schema = {
 			type: "string",
 			default: process.env.PRIVATE_KEY
 		},
-		DB_FILE: {
-			type: "string",
-			default: process.env.DB_FILE
-		}
-	},
+	}
 };
 
 
@@ -37,8 +33,7 @@ const envConfig = {
 	port: Number(config.BACKEND_PORT || 3000),
 	logLevel: config.LOG_LEVEL || 'info',
 	public_key: config.PUBLIC_KEY || '',
-	private_key: config.PRIVATE_KEY || '',
-	db_file: String(config.DB_FILE || '')
+	private_key: config.PRIVATE_KEY || ''
 };
 
 export default envConfig;
