@@ -5,7 +5,11 @@ import { friendsTable } from '../db/schema.ts';
 export type friend = InferSelectModel<typeof friendsTable>;
 
 // For creating new friend relationships
-export type createFriend = {
-	requester: string;
-	recipient: string;
-}; 
+type baseRelation = InferInsertModel<typeof friendsTable>;
+
+export function createRelation(requestUUid: string, recepientUUid: string): baseRelation {
+	return {
+		requester: requestUUid,
+		recipient: recepientUUid
+	}
+}

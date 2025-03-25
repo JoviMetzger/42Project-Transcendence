@@ -1,4 +1,9 @@
-import { userStatus, eLanguage } from '../db/schema.ts';
+export const errorResponseSchema = {
+	type: 'object',
+	properties: {
+		error: { type: 'string' }
+	}
+};
 
 // Security schema for swagger
 export const securitySchemes = {
@@ -91,18 +96,8 @@ export const getUserOptions = {
 				type: 'object',
 				properties: userProperties
 			},
-			403: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			},
-			404: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			}
+			403: errorResponseSchema,
+			404: errorResponseSchema
 		}
 	}
 };
@@ -120,18 +115,8 @@ export const getUsersOptions = {
 					properties: userProperties
 				}
 			},
-			403: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			},
-			404: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			}
+			403: errorResponseSchema,
+			404: errorResponseSchema
 		}
 	}
 };
@@ -149,18 +134,8 @@ export const getPublicUsersOptions = {
 					properties: publicUserProperties
 				}
 			},
-			403: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			},
-			404: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			}
+			403: errorResponseSchema,
+			404: errorResponseSchema
 		}
 	}
 };
@@ -187,12 +162,7 @@ export const createUserOptions = {
 				type: 'object',
 				properties: userProperties
 			},
-			400: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			}
+			400: errorResponseSchema
 		}
 	}
 };
@@ -217,18 +187,8 @@ export const updateProfilePicOptions = {
 			type: 'object',
 			properties: userProperties
 		},
-		400: {
-			type: 'object',
-			properties: {
-				error: { type: 'string' }
-			}
-		},
-		404: {
-			type: 'object',
-			properties: {
-				error: { type: 'string' }
-			}
-		}
+		400: errorResponseSchema,
+		404: errorResponseSchema
 	}
 };
 
@@ -248,24 +208,9 @@ export const loginUserOptions = {
 				type: 'object',
 				properties: userProperties
 			},
-			400: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			},
-			401: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			},
-			500: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			}
+			400: errorResponseSchema,
+			401: errorResponseSchema,
+			500: errorResponseSchema
 		}
 	}
 };
@@ -286,24 +231,9 @@ export const updatePasswordProperties = {
 		},
 		response: {
 			200: {},
-			400: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			},
-			401: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			},
-			500: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			}
+			400: errorResponseSchema,
+			401: errorResponseSchema,
+			500: errorResponseSchema
 		}
 	}
 };
@@ -315,12 +245,7 @@ export const deleteUserOptions = {
 		tags: ['users'],
 		response: {
 			204: {},
-			500: {
-				type: 'object',
-				properties: {
-					error: { type: 'string' }
-				}
-			}
+			500: errorResponseSchema
 		}
 	}
 };
