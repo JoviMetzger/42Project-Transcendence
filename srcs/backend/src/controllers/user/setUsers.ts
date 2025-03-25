@@ -51,8 +51,9 @@ export const addUser = async (request: FastifyRequest<{
 	}
 	catch (error) {
 		const errorMessage = error instanceof Error ? error.message : 'addUser error';
-		request.log.error('User creation failed:', error);
-		reply.status(400).send({ error: errorMessage });
+		if (error instanceof Error && error.message.startsWith("Validation failed:"))
+			reply.status(400).send({ error: errorMessage })
+		reply.status(500).send({ error: errorMessage });
 	}
 	finally {
 		if (sqlite) sqlite.close();
