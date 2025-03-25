@@ -7,6 +7,7 @@
 # installed dependencies etc
 **/.pnpm-store
 **/node_modules
+**/pnpm-lock.yaml
 
 #locally installed packages
 **/package-lock.json

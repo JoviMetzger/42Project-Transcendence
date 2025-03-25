@@ -14,12 +14,14 @@
 	"dependencies": {
 		"@fastify/cors": "^11.0.0",
 		"@punkish/fastify-better-sqlite3": "^2.0.0",
-		"better-sqlite3": "^9.x.x",
+		"better-sqlite3": "^11.9.1",
 		"drizzle-orm": "^0.x.x",
 		"env-schema": "^3.0.0",
 		"fastify": "^5.2.1",
 		"i": "^0.3.7",
-		"uuid": "^9.0.0"
+		"uuid": "^9.0.1",
+		"@fastify/multipart": "^9.0.3",
+		"argon2": "^0.41.0"
 	},
 	"devDependencies": {
 		"@fastify/swagger": "^9.x.x",
@@ -29,7 +31,7 @@
 		"drizzle-kit": "^0.x.x",
 		"nodemon": "^3.0.3",
 		"ts-node": "^10.9.2",
-		"tsx": "^3.12.7",
+		"tsx": "^4.19.0",
 		"typescript": "^5.3.3"
 	},
 	"pnpm": {
@@ -37,6 +39,10 @@
 			"better-sqlite3",
 			"esbuild"
 		],
-		"ignoredBuiltDependencies": []
+		"ignoredBuiltDependencies": [],
+		"overrides": {
+			"@esbuild-kit/core-utils": "^3.2.2",
+			"@esbuild-kit/esm-loader": "^2.6.5"
+		}
 	}
 }

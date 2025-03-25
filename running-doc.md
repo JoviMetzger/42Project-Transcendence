@@ -58,3 +58,127 @@ Frontend will be developed with tailwind css and using typescript additionally o
 Status: Currently I have set up the frontend container to connect to localhost 5173 and it loads the index.html at the root. Might be better to remove public and serve all pages from /frontend/src/pages. Will have to look at what is standard practise for tailwind+vite+typescripts. 
 
 source: https://tailwindcss.com/docs/installation/using-vite
+
+
+# TypeScript API Documentation Overview
+
+## User Options Schemas and Type Definitions
+
+### UserOptions Schemas (in `users.ts`)
+These schemas (such as `getUserOptions`, `postUserOptions`, etc.) serve multiple purposes:
+
+- **Define the API contract** for each endpoint.
+- **Enable automatic request/response validation** in Fastify.
+- **Automatically generate Swagger/OpenAPI documentation**.
+
+#### Example: `postUserOptions`
+Defines:
+- Required request headers
+- Expected request body format
+- Possible response status codes and their formats
+- Data type validations
+- Required vs optional fields
+
+---
+
+### Type Models (in `models/users.ts`)
+TypeScript types and interfaces serve as:
+
+- **Type definitions** for the application's data structures.
+- **Runtime validation rules**.
+- **Business logic constraints**.
+
+Key types include:
+- User models
+- API request/response types
+- Validation schemas
+
+---
+
+## Swagger Documentation Generation
+
+When these schemas are used in Fastify routes, they automatically generate Swagger documentation that includes:
+
+- **Required request headers** (from security schemas).
+- **Expected request body format**.
+- **Response status codes and their formats**.
+- **Data type validations**.
+- **Required vs optional fields**.
+
+#### Example: `postUserOptions` in Swagger
+- **POST endpoint requires** a Bearer token.
+- **Request body must include:**
+  - `username` (min 3 chars)
+  - `password` (min 6 chars)
+  - `alias`
+- **Successful responses return:**
+  - `201` status with user properties.
+- **Error responses return:**
+  - `400` status with an error message.
+
+This approach ensures that:
+- Requests are **validated automatically**.
+- **Type safety** is maintained during development.
+- **Accurate API documentation** is generated.
+- Consistent response formats are enforced.
+
+The benefit is that you only need to define these schemas once, and they provide **validation, typing, and documentation** all in one.
+
+---
+
+## Swagger UI Endpoint
+
+### Human-readable Interface
+If Swagger UI is enabled in your Fastify server, you can access it at:
+- **`/documentation`** (default path) in your browser.
+
+### Machine-readable OpenAPI JSON Specification
+To get the raw OpenAPI/Swagger specification as JSON, make a **GET request** to:
+- **`/documentation/json`** (default path).
+
+This JSON file contains all API specifications in a structured format.
+
+#### Enabling Swagger in Fastify
+To enable Swagger in your Fastify server, ensure the Swagger plugin is configured properly. Typically, you set it up in your main server file.
+
+---
+
+## Utilizing Swagger from the Frontend
+
+From your frontend, you can:
+- Redirect users to **`/documentation`** for the UI.
+- Fetch the API spec programmatically.
+
+### Why Fetch the Spec?
+Fetching the OpenAPI spec allows you to:
+- **Generate TypeScript types** from the API spec.
+- **Create API clients automatically**.
+- **Build custom documentation viewers**.
+- **Validate API responses** against the spec.
+
+---
+
+## Security Considerations
+
+Make sure to secure these endpoints in production. Options include:
+- **Disabling Swagger** in production.
+- **Protecting documentation endpoints** with authentication.
+- **Restricting access** to specific IP addresses.
+
+By following these best practices, you can ensure your API documentation remains secure while still providing valuable development and testing tools.
+
+
+--- frontend sending new user:
+const formData = new FormData();
+formData.append('username', username);
+formData.append('password', password);
+formData.append('alias', alias);
+formData.append('profile_pic', fileInput.files[0]);
+
+await fetch('/users/new', {
+    method: 'POST',
+    body: formData,
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+});

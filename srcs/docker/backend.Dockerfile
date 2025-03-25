@@ -1,5 +1,5 @@
 # Use Node.js LTS version
-FROM node:20-alpine
+FROM node:23-alpine
 
 # Set working directory
 # Set working directory
@@ -13,7 +13,7 @@ RUN apk add --no-cache sqlite sqlite-dev python3 make g++ gcc musl-dev
 # Install pnpm
 RUN npm install -g pnpm
 
-# Copy all files
+# Copy all
 COPY . .
 
 # Install dependencies
