@@ -1,5 +1,5 @@
 import { setupUserHome } from './home';
-import { setupAdmin} from './admin';
+import { setupAdmin } from './admin';
 import { getLanguage } from '../script/language';
 import { connectFunc, requestBody, inputToContent } from '../script/connections';
 
@@ -30,10 +30,10 @@ export function setupLogIn() {
 			<h1 class="header" data-i18n="LogIn_Header"></h1>
 			
 			<p class="p1" data-i18n="LogIn_Name"></p>
-			<input type="Login_Name" class="input-field" data-i18n-placeholder="LogIn_placeholder1">
+			<input type="Login_Name" id="username" class="input-field" data-i18n-placeholder="LogIn_placeholder1">
 
 			<p class="p1" data-i18n="Password"></p>
-			<input type="Password" class="input-field">
+			<input type="Password" id="password" class="input-field">
 			
 			<div class="buttons">
 				<button class="btn" id="Home" data-i18n="btn_LogIn"></button>
@@ -46,14 +46,25 @@ export function setupLogIn() {
 
 		getLanguage();
 		document.getElementById('Home')?.addEventListener('click', () => {
-			const content:string = inputToContent(["username", "alias", "password"])
+			const content: string = inputToContent(["username", "password"])
 			const body = requestBody("POST", content)
 			const response = connectFunc("http://localhost:3000/user/login", body);
 			response.then((response) => {
-				console.log(response);
+				if (response.ok) {
+					window.history.pushState({}, '', '/home'); // can be moved into the response.then section for proper usage
+					setupUserHome();
+				}
+				else {
+					// css
+					console.log("User & Password Do Not Match");
+					console.log(response.statusText);
+					// response.json().then((data) => {
+					// 	console.log("Payload from response:", data);
+					// }).catch((error) => {
+					// 	console.log("Error parsing JSON response:", error);
+					// });
+				}
 			})
-			window.history.pushState({}, '', '/home'); // can be moved into the response.then section for proper usage
-			setupUserHome();
 		});
 
 		document.getElementById('Admin')?.addEventListener('click', () => {
