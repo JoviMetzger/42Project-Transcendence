@@ -12,7 +12,7 @@ export function  setupMatchHistory () {
 		<link rel="stylesheet" href="src/styles/userMain.css"> <!-- Link to the CSS file -->
 		<link rel="stylesheet" href="src/styles/history.css"> <!-- Link to the CSS file -->
 		<div class="overlay"></div>
-		<div class="leftBar">
+		<div class="topBar">
 			<div class="dropdown">
 				<button class="dropdown-btn">
 					<img class="settingIcon" src="src/component/Pictures/setting-btn.png"/></img>
@@ -40,9 +40,6 @@ export function  setupMatchHistory () {
 					<div class="dropdown-item" id="LogOut" data-i18n="LogOut"></div>
 				</div>
 			</div>
-		</div>
-
-		<div class="topBar">
 			<div class="topBarFrame">
 				<div class="aliasName">cool alias</div>
 				<div class="profile-picture">
@@ -55,39 +52,43 @@ export function  setupMatchHistory () {
 			<!-- BODY CHANGE -->
 
 			<div class="container">
-				<h class="header">Pong Match History</h>
+				<h class="header" data-i18n="History"></h>
+				<p class="p1" data-i18n="History_P"></p>
+				<p class="p1"> --$ALIASNAME-- </p>
 				
-				<table>
-					<thead>			<p style="color: white; font-size: 20px; font-family: Arial, sans-serif;">HIstory</p>
+				<table class="userTable">
+					<thead>
 						<tr>
-							<th><p>Date</p></th>
-							<th><p>1v1 Game</p></th>
-							<th><p>Winner</p></th>
-							<th><p>Score</p></th>
+							<th data-i18n="Date"></th>
+							<th data-i18n="1v1_Game"></th>
+							<th data-i18n="Winner"</th>
+							<th data-i18n="Score"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td><p class="p1">2025-03-01</p></td>
-							<td><p class="p1">Player 1 vs Player 2</p></td>
-							<td><p class="p1">Player 1</p></td>
-							<td><p class="p1">11-7</p></td>
+							<td>01-03-2025</td>
+							<td>coolalias vs NOTcoolalias</td>
+							<td>coolalias</td>
+							<td>11-7</td>
+						</tr>
+						<!-- REMOVE - only for testing -->
+						<tr>
+							<td>2025-03-01</td>
+							<td>Player 1 vs Player 2</td>
+							<td>Player 1</td>
+							<td>11-7</td>
 						</tr>
 						<tr>
-							<td><p class="p1">2025-03-03</p></td>
-							<td><p class="p1">Player 1 vs Player 2</p></td>
-							<td><p class="p1">Player 2</p></td>
-							<td><p class="p1">11-9</p></td>
+							<td>2025-03-01</td>
+							<td>Player 1 vs Player 2</td>
+							<td>Player 1</td>
+							<td>11-7</td>
 						</tr>
-						<tr>
-						<<td><p class="p1">2025-03-05</p></td>
-							<td><p class="p1">Player 1 vs Player 3</p></td>
-							<td><p class="p1">Player 1</p></td>
-							<td><p class="p1">11-5</p></td>
-						</tr>
+						<!--- ^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 					</tbody>
 				</table>
-
+				
 			</div>
 			<!-- ^^^ -->
 		</div>
