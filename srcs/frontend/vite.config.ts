@@ -8,7 +8,7 @@ export default defineConfig({
 	],
 	server: {
 		historyApiFallback: true, // Ensures SPA routing works
-		port: 5173,
+		port: process.env.VITE_FRONTEND_PORT ? parseInt(process.env.VITE_FRONTEND_PORT) : 5173,
 		host: '0.0.0.0',
 		strictPort: true
 	},

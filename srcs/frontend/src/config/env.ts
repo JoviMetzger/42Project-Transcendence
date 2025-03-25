@@ -6,8 +6,7 @@
  * - 'process.env' does NOT work in Vite because it runs in the browser.
  */
 const envConfig = {
-    userApi: import.meta.env.VITE_API_USER_KEY,
-    postApi: import.meta.env.VITE_API_POST_KEY,
+    privateKey: import.meta.env.VITE_PRIVATE_KEY,
 };
 
 export default envConfig;

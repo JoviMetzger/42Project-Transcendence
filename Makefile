@@ -79,6 +79,9 @@ prod-down:
 volume:
 	mkdir -p ${HOME}/ft_transcendence/data
 
+clean-volume:
+	rm -rf ${HOME}/ft_transcendence/data/*
+
 # since we cant send the env file to the git repository. store the env on your local machine in file ~/.transcendence.env - will share on slack
 copy-env:
 	cp ~/.transcendence.env ./srcs/.env
@@ -101,5 +104,5 @@ deepclean: clean
 	@docker network rm $$(docker network ls -q) 2>/dev/null || true
 	@echo "$(GREEN)All Docker resources have been cleaned.$(RESET)"
 
-.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down volume copy-env studio deepclean
+.PHONY: help dev dev-build down build dev-rebuild logs clean install prod prod-down volume clean-volume copy-env studio deepclean
 
