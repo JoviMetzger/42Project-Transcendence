@@ -58,26 +58,29 @@ export function setupSignUp() {
 				if ((document.getElementById("password") as HTMLInputElement).value != (document.getElementById("password_confirm") as HTMLInputElement).value)
 					console.log("Passwords Don't Match"); // Replace this with actual response to user.
 			}
-			const content:string = inputToContent(["username", "alias", "password", "password_confirm", "profilePic"])
-				const body = requestBody("POST", content) // Used for requests where the frontend has to send info to the backend (like making a new user). Will return null in case of GET
-				const response = connectFunc("http://localhost:3000/users/new", body); // saves the response.json. this can be changed to response.text in connections.ts (automatically does so if a response.json cannot be generated)
-				response.then((response) => {
-					if (response.ok) {
-						console.log("User signed up successfully");
+			const content: string = inputToContent(["username", "alias", "password", "password_confirm", "profilePic"])
+			const body = requestBody("POST", content) // Used for requests where the frontend has to send info to the backend (like making a new user). Will return null in case of GET
+			const response = connectFunc("http://localhost:3000/users/new", body); // saves the response.json. this can be changed to response.text in connections.ts (automatically does so if a response.json cannot be generated)
+			response.then((response) => {
+				if (response.ok) {
+					console.log("User signed up successfully");
+					// // ----- If successfull go to home page --------
+					window.history.pushState({}, '', '/home');
+					setupUserHome();
+				} else {
+					console.log("Sign-up failed")
+					console.log(response)
 
-						// // ----- If successfull go to home page --------
-						// window.history.pushState({}, '', '/home');
-						// setupUserHome();
-					} else {
-						console.log("Sign-up failed: " + response + " -- " + response.statusText)
 
-						// // ----- Rm later --------
-					}
-				}).catch(() => {
-					// Server/ Network error
-					window.history.pushState({}, '', '/error404');
-					setupError404();
-				});
+
+
+					// // ----- Rm later --------
+				}
+			}).catch(() => {
+				// Server/ Network error
+				window.history.pushState({}, '', '/error404');
+				setupError404();
+			});
 
 			// window.history.pushState({}, '', '/home');
 			// setupUserHome();
