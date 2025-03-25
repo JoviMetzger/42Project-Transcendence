@@ -1,4 +1,4 @@
-import { int, sqliteTable, text, blob } from "drizzle-orm/sqlite-core";
+import { int, sqliteTable, text, blob, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
 
 
@@ -62,7 +62,10 @@ export enum friendStatus {
 
 // friends-relations table
 export const friendsTable = sqliteTable("friends", {
-	requester: text("requester", { length: 264 }).references(() => usersTable.uuid),
-	recipient: text("recipient", { length: 264 }).references(() => usersTable.uuid),
-	status: int("status").$type<friendStatus>().default(friendStatus.PENDING)
-})
+	id: int("id").primaryKey({ autoIncrement: true }),
+	requester: text("requester", { length: 264 }).references(() => usersTable.uuid).notNull(),
+	recipient: text("recipient", { length: 264 }).references(() => usersTable.uuid).notNull(),
+	status: int("status").$type<friendStatus>().default(friendStatus.PENDING).notNull()
+}, (table) => [
+	uniqueIndex("unique_req_rec").on(table.requester, table.recipient),
+]);
