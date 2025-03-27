@@ -18,16 +18,9 @@ export function createRelation(requestUUid: string, recepientUUid: string): base
 	}
 }
 
-export function toPublicRelation(databaseRelation: friend | friend[]): publicRelation | publicRelation[] {
-	if (Array.isArray(databaseRelation)) {
-		return databaseRelation.map(relation => ({
-			...relation,
-			status: friendStatus[relation.status]
-		}));
-	}
-
+export function toPublicRelation(databaseRelation: friend): publicRelation {
 	return {
 		...databaseRelation,
-		status: friendStatus[databaseRelation.status]
+		status: friendStatus[databaseRelation.status] // Convert enum number to string
 	}
 }
