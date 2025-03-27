@@ -58,3 +58,6 @@ export const addFriend = async (request: FastifyRequest<{
 	}
 }
 
+/**
+ * write function to accept friend request;
+ */

@@ -10,7 +10,15 @@ import fastifyCors from '@fastify/cors'
 console.log("reading from index.ts backend");
 
 const fastify = Fastify({
-	logger: true
+	logger: true,
+	ajv: {
+		customOptions: {
+			removeAdditional: true,
+			useDefaults: true,
+			coerceTypes: true,
+			allErrors: true
+		}
+	}
 })
 
 

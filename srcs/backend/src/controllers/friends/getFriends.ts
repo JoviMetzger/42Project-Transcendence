@@ -11,17 +11,15 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 	try {
 		const { uuid } = request.params;
 
-		let returnData = {
-			friendsData: [] as PublicUser[],
-			sentRequestData: [] as PublicUser[],
-			receivedRequestData: [] as PublicUser[],
-			deniedRequestData: [] as PublicUser[],
-			blockedUserData: [] as PublicUser[]
-		};
-
-
-		sqlite = new Database('./ data / data.db', { verbose: console.log })
+		sqlite = new Database('./data/data.db', { verbose: console.log })
 		const db = drizzle(sqlite);
+
+		const userExist = await db.select().from(usersTable).where(eq(usersTable.uuid, uuid)).limit(1);
+		if (userExist.length === 0) {
+			reply.code(400).send({ error: 'user does not exist' });
+			return;
+		}
+
 		const RelationArray = await db.select().from(friendsTable).where(
 			or(
 				eq(friendsTable.reqUUid, uuid),
@@ -29,7 +27,7 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 			)
 		);
 		if (RelationArray.length == 0) {
-			reply.code(200).send(returnData)
+			reply.code(404).send("nothing to see here")
 		}
 		const reqRelation = RelationArray.filter(relation => relation.reqUUid === uuid);
 		const recRelation = RelationArray.filter(relation => relation.recUUid === uuid);
@@ -79,12 +77,18 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 			userMap[user.uuid] = user;
 		});
 		// assign the data to different fields
-		returnData.friendsData = friends.map(id => toPublicUser(userMap[id]));
-		returnData.sentRequestData = sentRequests.map(id => toPublicUser(userMap[id]));
-		returnData.receivedRequestData = receivedRequests.map(id => toPublicUser(userMap[id]));
-		returnData.deniedRequestData = denied.map(id => toPublicUser(userMap[id]));
-		returnData.blockedUserData = blockedUsers.map(id => toPublicUser(userMap[id]));
-		reply.code(200).send(returnData)
+		const friendsData = friends.map(id => toPublicUser(userMap[id]));
+		const sentRequestData = sentRequests.map(id => toPublicUser(userMap[id]));
+		const receivedRequestData = receivedRequests.map(id => toPublicUser(userMap[id]));
+		const deniedRequestData = denied.map(id => toPublicUser(userMap[id]));
+		const blockedUserData = blockedUsers.map(id => toPublicUser(userMap[id]));
+		reply.code(200).send({
+			friends: friendsData,
+			sentRequests: sentRequestData,
+			receivedRequests: receivedRequestData,
+			deniedRequests: deniedRequestData,
+			blocked: blockedUserData
+		})
 
 	}
 	catch (error) {
@@ -94,7 +98,12 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 	finally {
 		if (sqlite) sqlite.close();
 	}
-
-
 }
+
+/*
+
+	add function to accept friend request, function to block user
+
+
+*/
 

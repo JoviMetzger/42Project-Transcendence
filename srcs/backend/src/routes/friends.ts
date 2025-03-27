@@ -29,28 +29,63 @@ const friendListProperties = {
 	properties: {
 		friends: {
 			type: 'array',
-			items: publicUserProperties
+			items: {
+				type: 'object',
+				properties: publicUserProperties
+			}
 		},
 		sentRequests: {
 			type: 'array',
-			items: publicUserProperties
+			items: {
+				type: 'object',
+				properties: publicUserProperties
+			}
 		},
 		receivedRequests: {
 			type: 'array',
-			items: publicUserProperties
+			items: {
+				type: 'object',
+				properties: publicUserProperties
+			}
 		},
 		deniedRequests: {
 			type: 'array',
-			items: publicUserProperties
+			items: {
+				type: 'object',
+				properties: publicUserProperties
+			}
 		},
 		blocked: {
 			type: 'array',
-			items: publicUserProperties
+			items: {
+				type: 'object',
+				properties: publicUserProperties
+			}
 		}
 	}
 }
 
-export const createFriendOptions = {
+const FriendListOptions = {
+	schema: {
+		security: [{ apiKey: [] }],
+		summary: 'gets all relations of the user',
+		tags: ['friends'],
+		params: {
+			type: 'object',
+			required: ['uuid'],
+			properties: {
+				uuid: { type: 'string' }
+			}
+		},
+		response: {
+			200: friendListProperties,
+			404: errorResponseSchema,
+			500: errorResponseSchema
+		}
+	}
+}
+
+const createFriendOptions = {
 	schema: {
 		security: [{ apiKey: [] }],
 		summary: 'adds a new friend relation',
@@ -103,7 +138,7 @@ function friendsRoutes(fastify: FastifyInstance, options: any, done: () => void)
 
 	// get all Relations
 	fastify.get<{ Params: { uuid: string } }>
-		('/friends/:uuid', { preHandler: [authenticatePrivateToken], ...friendListProperties },
+		('/friends/:uuid', { preHandler: [authenticatePrivateToken], ...FriendListOptions },
 			getFriends)
 
 	done();
