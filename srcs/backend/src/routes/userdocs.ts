@@ -38,7 +38,7 @@ const userProperties = {
 	loss: { type: 'number' }
 };
 
-const publicUserProperties = {
+export const publicUserProperties = {
 	alias: { type: 'string' },
 	profile_pic: {
 		type: 'object',

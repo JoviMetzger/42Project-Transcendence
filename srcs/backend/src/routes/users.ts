@@ -26,14 +26,11 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 
 	// User routes
 	// for testing:
-	fastify.get<{
-		Params: { uuid: string }
-	}>('/user/:uuid/profile-pic', { preHandler: [authenticatePrivateToken], ...imageOptions }, getUserImage);
+	fastify.get<{ Params: { uuid: string } }>
+		('/user/:uuid/profile-pic', { preHandler: [authenticatePrivateToken], ...imageOptions }, getUserImage);
 
 	fastify.get('/users', { preHandler: [authenticatePrivateToken], ...getUsersOptions }, getAllUsers);
-	fastify.get<{
-		Params: { uuid: string }
-	}>('/user/:uuid', { preHandler: [authenticatePrivateToken], ...getUserOptions }, getUser);
+	fastify.get<{ Params: { uuid: string } }>('/user/:uuid', { preHandler: [authenticatePrivateToken], ...getUserOptions }, getUser);
 	fastify.get('/public/users', { preHandler: [authenticatePublicToken], ...getPublicUsersOptions }, getAllUsers);
 
 	// Create user with JSON data
@@ -48,18 +45,15 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 	}>('/users/new', { preHandler: [authenticatePrivateToken], ...createUserOptions }, addUser);
 
 	// Update profile picture with multipart/form-data
-	fastify.post<{
-		Params: { uuid: string }
-	}>('/users/:uuid/profile-pic', { preHandler: [authenticatePrivateToken], ...updateProfilePicOptions }, updateUserProfilePic);
+	fastify.post<{ Params: { uuid: string } }>
+		('/users/:uuid/profile-pic', { preHandler: [authenticatePrivateToken], ...updateProfilePicOptions }, updateUserProfilePic);
 
 	// Log in
 	fastify.post('/user/login', { preHandler: [authenticatePrivateToken], ...loginUserOptions }, loginUser);
 	fastify.post('/user/updatepw', { preHandler: [authenticatePrivateToken], ...updatePasswordProperties }, updatePassword);
 
 	// delete user
-	fastify.delete<{
-		Params: { uuid: string }
-	}>('/user.:uuid/delete', { preHandler: [authenticatePrivateToken], ...deleteUserOptions }, deleteUser);
+	fastify.delete<{ Params: { uuid: string } }>('/user.:uuid/delete', { preHandler: [authenticatePrivateToken], ...deleteUserOptions }, deleteUser);
 	done();
 }
 
