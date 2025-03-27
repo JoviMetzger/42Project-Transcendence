@@ -73,7 +73,8 @@ export const imageOptions = {
 						description: 'Error message if image not found'
 					}
 				}
-			}
+			},
+			500: errorResponseSchema
 		}
 	}
 };
@@ -97,7 +98,8 @@ export const getUserOptions = {
 				properties: userProperties
 			},
 			403: errorResponseSchema,
-			404: errorResponseSchema
+			404: errorResponseSchema,
+			500: errorResponseSchema
 		}
 	}
 };
@@ -116,7 +118,8 @@ export const getUsersOptions = {
 				}
 			},
 			403: errorResponseSchema,
-			404: errorResponseSchema
+			404: errorResponseSchema,
+			500: errorResponseSchema
 		}
 	}
 };
@@ -135,7 +138,8 @@ export const getPublicUsersOptions = {
 				}
 			},
 			403: errorResponseSchema,
-			404: errorResponseSchema
+			404: errorResponseSchema,
+			500: errorResponseSchema
 		}
 	}
 };
@@ -162,7 +166,8 @@ export const createUserOptions = {
 				type: 'object',
 				properties: userProperties
 			},
-			400: errorResponseSchema
+			400: errorResponseSchema,
+			500: errorResponseSchema
 		}
 	}
 };
@@ -188,7 +193,8 @@ export const updateProfilePicOptions = {
 			properties: userProperties
 		},
 		400: errorResponseSchema,
-		404: errorResponseSchema
+		404: errorResponseSchema,
+		500: errorResponseSchema
 	}
 };
 
