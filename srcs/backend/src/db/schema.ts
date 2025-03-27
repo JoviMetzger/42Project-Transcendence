@@ -63,9 +63,7 @@ export enum friendStatus {
 // friends-relations table
 export const friendsTable = sqliteTable("friends", {
 	id: int("id").primaryKey({ autoIncrement: true }),
-	requester: text("requester", { length: 264 }).references(() => usersTable.uuid).notNull(),
-	recipient: text("recipient", { length: 264 }).references(() => usersTable.uuid).notNull(),
+	reqUUid: text("requester", { length: 264 }).references(() => usersTable.uuid).notNull(),
+	recUUid: text("recipient", { length: 264 }).references(() => usersTable.uuid).notNull(),
 	status: int("status").$type<friendStatus>().default(friendStatus.PENDING).notNull()
-}, (table) => [
-	uniqueIndex("unique_req_rec").on(table.requester, table.recipient),
-]);
+});

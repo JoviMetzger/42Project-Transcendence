@@ -1,11 +1,19 @@
 import { FastifyInstance, } from 'fastify';
-import { userStatus, eLanguage } from '../db/schema.ts';
+import { friendStatus } from '../db/schema.ts';
 import { authenticatePrivateToken } from './authentication.ts';
 import { addFriend } from '../controllers/friends/addFriends.ts';
 import { securitySchemes, errorResponseSchema } from './userdocs.ts';
 
 
-
+const relationProperties = {
+	type: 'object',
+	properties: {
+		id: { type: 'number' },
+		reqUUid: { type: 'string' },
+		recUUid: { type: 'string' },
+		status: { type: 'string' }
+	}
+}
 
 export const createFriendOptions = {
 	schema: {
@@ -15,22 +23,29 @@ export const createFriendOptions = {
 		consumes: ['application/json'],
 		body: {
 			type: 'object',
-			required: ['requester', 'recepient'],
+			required: ['reqUUid', 'recUUid'],
 			properties: {
-				requester: { type: 'string' },
-				recepient: { type: 'string' }
+				reqUUid: { type: 'string' },
+				recUUid: { type: 'string' }
 			}
 		},
 		response: {
 			201: {
 				type: 'object',
 				properties: {
-					error: { type: 'string' },
-					id: { type: 'number' }
+					msg: { type: 'string' },
+					relation: relationProperties
 				}
 			},
 			400: errorResponseSchema,
 			404: errorResponseSchema,
+			409: {
+				type: 'object',
+				properties: {
+					error: { type: 'string' },
+					relation: relationProperties
+				}
+			},
 			500: errorResponseSchema
 		}
 	}
@@ -46,8 +61,8 @@ function friendsRoutes(fastify: FastifyInstance, options: any, done: () => void)
 	// addRelation
 	fastify.post<{
 		Body: {
-			requester: string;
-			recepient: string;
+			reqUUid: string;
+			recUUid: string;
 		}
 	}>('/friends/new', { preHandler: [authenticatePrivateToken], ...createFriendOptions }, addFriend);
 
