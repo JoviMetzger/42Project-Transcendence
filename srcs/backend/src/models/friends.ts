@@ -21,6 +21,6 @@ export function createRelation(requestUUid: string, recepientUUid: string): base
 export function toPublicRelation(databaseRelation: friend): publicRelation {
 	return {
 		...databaseRelation,
-		status: friendStatus[databaseRelation.status] // Convert enum number to string
+		status: (friendStatus[databaseRelation.status].toLowerCase())
 	}
 }
