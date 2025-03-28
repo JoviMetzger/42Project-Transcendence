@@ -45,10 +45,10 @@ export const loginUser = async (request: FastifyRequest, reply: FastifyReply) =>
 
 		const updatedUser = await db.select().from(usersTable).where(eq(usersTable.username, username));
 		const pubUser = toPublicUser(updatedUser[0]);
-		reply.code(200).send(pubUser);
+		return reply.code(200).send(pubUser);
 	} catch (error) {
 		request.log.error('getAllUsers failed:', error);
-		reply.code(500).send({ error: 'Failed to retrieve users' });
+		return reply.code(500).send({ error: 'Failed to retrieve users' });
 	} finally {
 		if (sqlite) sqlite.close();
 	}
@@ -63,7 +63,7 @@ export const updatePassword = async (request: FastifyRequest, reply: FastifyRepl
 			return;
 		}
 		if (newPassword.length < 6) {
-			reply.code(400).send({ error: 'New Password length should be at least 6 characters' })
+			return reply.code(400).send({ error: 'New Password length should be at least 6 characters' })
 		}
 		// for time consistency 
 		let userFound = false;
@@ -91,10 +91,10 @@ export const updatePassword = async (request: FastifyRequest, reply: FastifyRepl
 		await db.update(usersTable)
 			.set({ password: hashedPassword })
 			.where(eq(usersTable.username, username));
-		reply.code(200).send();
+		return reply.code(200).send();
 	} catch (error) {
 		request.log.error('getAllUsers failed:', error);
-		reply.code(500).send({ error: 'Failed to retrieve users' });
+		return reply.code(500).send({ error: 'Failed to retrieve users' });
 	} finally {
 		if (sqlite) sqlite.close();
 	}

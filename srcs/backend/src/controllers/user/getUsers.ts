@@ -25,7 +25,7 @@ export const getAllUsers = async (request: FastifyRequest, reply: FastifyReply) 
 		// Use the toPublicUser helper to map users to public format
 		const publicUsers = userArray.map(toPublicUser);
 
-		reply.send(publicUsers);
+		return reply.send(publicUsers);
 	} catch (error) {
 		request.log.error('getAllUsers failed:', error);
 		reply.code(500).send({ error: 'Failed to retrieve users' });

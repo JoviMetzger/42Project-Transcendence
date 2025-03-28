@@ -16,8 +16,7 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 
 		const userExist = await db.select().from(usersTable).where(eq(usersTable.uuid, uuid)).limit(1);
 		if (userExist.length === 0) {
-			reply.code(400).send({ error: 'user does not exist' });
-			return;
+			return reply.code(400).send({ error: 'user does not exist' });
 		}
 
 		const RelationArray = await db.select().from(friendsTable).where(
@@ -27,7 +26,7 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 			)
 		);
 		if (RelationArray.length == 0) {
-			reply.code(404).send("nothing to see here")
+			return reply.code(404).send("nothing to see here")
 		}
 		const reqRelation = RelationArray.filter(relation => relation.reqUUid === uuid);
 		const recRelation = RelationArray.filter(relation => relation.recUUid === uuid);
@@ -82,7 +81,7 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 		const receivedRequestData = receivedRequests.map(id => toPublicUser(userMap[id]));
 		const deniedRequestData = denied.map(id => toPublicUser(userMap[id]));
 		const blockedUserData = blockedUsers.map(id => toPublicUser(userMap[id]));
-		reply.code(200).send({
+		return reply.code(200).send({
 			friends: friendsData,
 			sentRequests: sentRequestData,
 			receivedRequests: receivedRequestData,
@@ -93,7 +92,7 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 	}
 	catch (error) {
 		const errorMessage = error instanceof Error ? error.message : 'getFriends errorr';
-		reply.status(500).send({ error: errorMessage })
+		return reply.status(500).send({ error: errorMessage })
 	}
 	finally {
 		if (sqlite) sqlite.close();

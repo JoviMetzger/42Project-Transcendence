@@ -45,13 +45,13 @@ export const addUser = async (request: FastifyRequest<{
 		const createdUser = await db.insert(usersTable).values(userData).returning();
 
 		// Use the helper function to create the public user object
-		reply.code(201).send(toPublicUser(createdUser[0]));
+		return reply.code(201).send(toPublicUser(createdUser[0]));
 	}
 	catch (error) {
 		const errorMessage = error instanceof Error ? error.message : 'addUser error';
 		if (error instanceof Error && error.message.startsWith("Validation failed:"))
 			reply.status(400).send({ error: errorMessage })
-		reply.status(500).send({ error: errorMessage });
+		return reply.status(500).send({ error: errorMessage });
 	}
 	finally {
 		if (sqlite) sqlite.close();
@@ -96,12 +96,12 @@ export const updateUserProfilePic = async (
 			.where(eq(usersTable.uuid, uuid))
 			.returning();
 
-		reply.code(200).send(toPublicUser(updatedUser[0]));
+		return reply.code(200).send(toPublicUser(updatedUser[0]));
 	}
 	catch (error) {
 		const errorMessage = error instanceof Error ? error.message : 'Update profile picture error';
 		request.log.error('Profile picture update failed:', error);
-		reply.status(400).send({ error: errorMessage });
+		return reply.status(400).send({ error: errorMessage });
 	}
 	finally {
 		if (sqlite) sqlite.close();

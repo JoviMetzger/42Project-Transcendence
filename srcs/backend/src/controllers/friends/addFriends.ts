@@ -26,7 +26,7 @@ export const addFriend = async (request: FastifyRequest<{
 		const reqUserArray = await db.select().from(usersTable).where(eq(usersTable.uuid, reqUUid))
 		const recUserArray = await db.select().from(usersTable).where(eq(usersTable.uuid, recUUid))
 		if (reqUserArray.length == 0 || recUserArray.length == 0)
-			reply.code(404).send("requester or recepient do not exist in db");
+			return reply.code(404).send("requester or recepient do not exist in db");
 		// check if they already have a relation in friends database
 		const existingRelationArray = await db.select().from(friendsTable).where(
 			or(
@@ -46,12 +46,11 @@ export const addFriend = async (request: FastifyRequest<{
 
 		const relation = createRelation(reqUUid, recUUid)
 		const result = await db.insert(friendsTable).values(relation).returning()
-		reply.code(201).send({ msg: "created relation", relation: toPublicRelation(result[0]) })
-		// @todo do something to send a friend request, can backend do this or frontend?
+		return reply.code(201).send({ msg: "created relation", relation: toPublicRelation(result[0]) })
 	}
 	catch (error) {
 		const errorMessage = error instanceof Error ? error.message : 'addFriend errorr';
-		reply.status(500).send({ error: errorMessage })
+		return reply.status(500).send({ error: errorMessage })
 	}
 	finally {
 		if (sqlite) sqlite.close();
