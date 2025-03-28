@@ -80,25 +80,25 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 			userMap[user.uuid] = user;
 		});
 		// assign the data to different fields
-		const friendsData = friends.map(f => ({
-			friendid: f.id,
-			friend: userMap[f.uuid]
+		const friendsData = friends.map(friend => ({
+			friendid: friend.id,
+			friend: userMap[friend.uuid]
 		}));
-		const sentRequestData = sentRequests.map(f => ({
-			friendid: f.id,
-			friend: userMap[f.uuid]
+		const sentRequestData = sentRequests.map(friend => ({
+			friendid: friend.id,
+			friend: userMap[friend.uuid]
 		}));
-		const receivedRequestData = receivedRequests.map(f => ({
-			friendid: f.id,
-			friend: userMap[f.uuid]
+		const receivedRequestData = receivedRequests.map(friend => ({
+			friendid: friend.id,
+			friend: userMap[friend.uuid]
 		}));
-		const deniedRequestData = denied.map(f => ({
-			friendid: f.id,
-			friend: userMap[f.uuid]
+		const deniedRequestData = denied.map(friend => ({
+			friendid: friend.id,
+			friend: userMap[friend.uuid]
 		}));
-		const blockedUserData = blockedUsers.map(f => ({
-			friendid: f.id,
-			friend: userMap[f.uuid]
+		const blockedUserData = blockedUsers.map(friend => ({
+			friendid: friend.id,
+			friend: userMap[friend.uuid]
 		}));
 		return reply.code(200).send({
 			friends: friendsData,
