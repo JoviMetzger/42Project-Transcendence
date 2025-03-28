@@ -26,14 +26,14 @@ export function toPublicRelation(databaseRelation: friend): publicRelation {
 	}
 }
 
-type FriendUser = PublicUser & {
-	friendId: number
-}
+// type FriendUser = PublicUser & {
+// 	friendId: number
+// }
 
-export function toFriendUser(user: User | null | undefined, friendId: number): FriendUser {
-	const publicUser = toPublicUser(user);
-	return {
-		...publicUser,
-		friendId
-	};
-}
+// export function toFriendUser(user: User | null | undefined, friendId: number): FriendUser {
+// 	const publicUser = toPublicUser(user);
+// 	return {
+// 		...publicUser,
+// 		friendId
+// 	};
+// }

@@ -4,8 +4,7 @@ import { or, inArray, eq } from 'drizzle-orm';
 import Database from 'better-sqlite3';
 //files
 import { friendsTable, usersTable, friendStatus } from '../../db/schema.ts'
-import { User } from '../../models/users.ts'
-import { toFriendUser } from '../../models/friends.ts'
+import { User, toPublicUser } from '../../models/users.ts'
 
 export const getFriends = async (request: FastifyRequest<{ Params: { uuid: string } }>, reply: FastifyReply) => {
 	let sqlite = null;
@@ -82,23 +81,23 @@ export const getFriends = async (request: FastifyRequest<{ Params: { uuid: strin
 		// assign the data to different fields
 		const friendsData = friends.map(friend => ({
 			friendid: friend.id,
-			friend: userMap[friend.uuid]
+			friend: toPublicUser(userMap[friend.uuid])
 		}));
 		const sentRequestData = sentRequests.map(friend => ({
 			friendid: friend.id,
-			friend: userMap[friend.uuid]
+			friend: toPublicUser(userMap[friend.uuid])
 		}));
 		const receivedRequestData = receivedRequests.map(friend => ({
 			friendid: friend.id,
-			friend: userMap[friend.uuid]
+			friend: toPublicUser(userMap[friend.uuid])
 		}));
 		const deniedRequestData = denied.map(friend => ({
 			friendid: friend.id,
-			friend: userMap[friend.uuid]
+			friend: toPublicUser(userMap[friend.uuid])
 		}));
 		const blockedUserData = blockedUsers.map(friend => ({
 			friendid: friend.id,
-			friend: userMap[friend.uuid]
+			friend: toPublicUser(userMap[friend.uuid])
 		}));
 		return reply.code(200).send({
 			friends: friendsData,
