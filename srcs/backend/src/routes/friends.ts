@@ -15,6 +15,17 @@ const relationProperties = {
 	}
 }
 
+const friendProperties = {
+	type: 'object',
+	properties: {
+		friendid: { type: 'number' },
+		friend: {
+			type: 'object',
+			properties: publicUserProperties
+		}
+	}
+}
+
 /*
 
 	friends: [...]
@@ -29,38 +40,23 @@ const friendListProperties = {
 	properties: {
 		friends: {
 			type: 'array',
-			items: {
-				type: 'object',
-				properties: publicUserProperties
-			}
+			items: friendProperties
 		},
 		sentRequests: {
 			type: 'array',
-			items: {
-				type: 'object',
-				properties: publicUserProperties
-			}
+			items: friendProperties
 		},
 		receivedRequests: {
 			type: 'array',
-			items: {
-				type: 'object',
-				properties: publicUserProperties
-			}
+			items: friendProperties
 		},
 		deniedRequests: {
 			type: 'array',
-			items: {
-				type: 'object',
-				properties: publicUserProperties
-			}
+			items: friendProperties
 		},
 		blocked: {
 			type: 'array',
-			items: {
-				type: 'object',
-				properties: publicUserProperties
-			}
+			items: friendProperties
 		}
 	}
 }

@@ -5,7 +5,6 @@ import { eq } from 'drizzle-orm';
 import Database from 'better-sqlite3';
 //files
 import { friendsTable, friendStatus } from '../../db/schema.ts'
-import { createRelation, toPublicRelation } from '../../models/friends.ts'
 
 
 
