@@ -50,6 +50,8 @@ export const addFriend = async (request: FastifyRequest<{
 	}
 	catch (error) {
 		const errorMessage = error instanceof Error ? error.message : 'addFriend errorr';
+		if (errorMessage.includes("FOREIGN KEY constraint failed"))
+			return reply.code(404).send({ error: "requester or recepient do not exist in db" });
 		return reply.status(500).send({ error: errorMessage })
 	}
 	finally {
