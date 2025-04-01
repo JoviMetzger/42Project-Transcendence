@@ -9,14 +9,17 @@ import { setupAdmin } from './admin';
 import { setupAdminSetting } from './adminSetting';
 import { setupError404 } from './error404';
 import { getLanguage } from '../script/language';
+import { loadTopBar } from '../script/topBar.ts';
 
 document.addEventListener('DOMContentLoaded', () => {
-	renderPage();	
+	renderPage();
 });
 
 export function renderPage() {
 	const root = document.getElementById('app');
 	if (root) {
+
+
 		if (window.location.pathname === '/logIn') {
 			setupLogIn();
 		} else if (window.location.pathname === '/signUp') {
@@ -46,34 +49,34 @@ export function renderPage() {
 		} else {
 			root.innerHTML = "";
 			root.insertAdjacentHTML("beforeend", `
-			<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->
-			<div class="overlay"></div>
-			<div class="btn-container">
+				<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->
+				<div class="overlay"></div>
+				<div class="btn-container">
 				<button class="language-btn">
-					<span data-i18n="Language"></span> <img id="selected-flag" src="src/component/Pictures/flagIcon-en.png">
+				<span data-i18n="Language"></span> <img id="selected-flag" src="src/component/Pictures/flagIcon-en.png">
 				</button>
 				<div class="language-content">
-					<div class="language-option" id="gb">
-						<img src="src/component/Pictures/flagIcon-en.png"> <span data-i18n="English"></span>
-					</div>
-					<div class="language-option" id="de">
-						<img src="src/component/Pictures/flagIcon-de.png"> <span data-i18n="German"></span>
-					</div>
-					<div class="language-option" id="nl">
-						<img src="src/component/Pictures/flagIcon-nl.png"> <span data-i18n="Dutch"></span>
-					</div>
+				<div class="language-option" id="gb">
+				<img src="src/component/Pictures/flagIcon-en.png"> <span data-i18n="English"></span>
 				</div>
-			</div>
-			<div class="container">
+				<div class="language-option" id="de">
+				<img src="src/component/Pictures/flagIcon-de.png"> <span data-i18n="German"></span>
+				</div>
+				<div class="language-option" id="nl">
+				<img src="src/component/Pictures/flagIcon-nl.png"> <span data-i18n="Dutch"></span>
+				</div>
+				</div>
+				</div>
+				<div class="container">
 				<h1 class="header" data-i18n="Index_Header"></h1>
 				<p data-i18n="Index_P"></p>
 				<div class="buttons">
-					<button class="btn" id="LogIn" data-i18n="btn_LogIn"></button>
-					<button class="btn" id="SignUp" data-i18n="btn_SignUp"></button>
-					<!-- <button class="btn" id="Connect" data-i18n="Connect"> ConneCt </button> -->
+				<button class="btn" id="LogIn" data-i18n="btn_LogIn"></button>
+				<button class="btn" id="SignUp" data-i18n="btn_SignUp"></button>
+				<!-- <button class="btn" id="Connect" data-i18n="Connect"> ConneCt </button> -->
 				</div>
-			</div>
-			`);
+				</div>
+				`);
 
 			getLanguage();
 			document.getElementById('LogIn')?.addEventListener('click', () => {

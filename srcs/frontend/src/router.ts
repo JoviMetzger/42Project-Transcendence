@@ -1,9 +1,21 @@
-import { Home } from './pages/Home';
-import { About } from './pages/About';
 
-const routes: { [key: string]: () => string } = {
-	'/': Home,
-	'/about': About
+import { About } from './pages/About';
+import { loadTopBar } from './script/topBar';
+import { setupUserHome } from './pages/home';
+import { setupFriends } from './pages/friends';
+import { setupSetting } from './pages/setting';
+import { setupMatchHistory } from './pages/history';
+
+
+type PageFunction = () => void;
+
+const routes: { [key: string]: PageFunction } = {
+	'/': setupUserHome,
+	'/about': About,
+	'/home': setupUserHome,
+	'/friends': setupFriends,
+	'/setting': setupSetting,
+	'/history': setupMatchHistory
 };
 
 export function initRouter() {
@@ -22,9 +34,17 @@ export function initRouter() {
 	renderContent();
 }
 
+function pageFunction(path: string): void {
+	const handler = routes[path] || routes['/'];
+	const appElement = document.getElementById('app');
+	if (appElement) {
+		appElement.innerHTML = '';
+	}
+	handler();
+	loadTopBar();
+}
+
 function renderContent() {
 	const path = window.location.pathname;
-	const page = routes[path] || routes['/'];
-	const content = page();
-	document.getElementById('app')!.innerHTML = content;
-} 
+	pageFunction(path);
+}
