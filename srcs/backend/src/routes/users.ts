@@ -1,5 +1,5 @@
 import { FastifyInstance, } from 'fastify';
-import { getAllUsers, getUser, getUserImage } from '../controllers/user/getUsers.ts';
+import { getAllUsers, getUser, getUserAlias, getUserImage } from '../controllers/user/getUsers.ts';
 import { addUser, updateUserProfilePic } from '../controllers/user/setUsers.ts';
 import { loginUser, updatePassword } from '../controllers/user/login.ts'
 import { deleteUser } from '../controllers/user/deleteUser.ts'
@@ -9,6 +9,7 @@ import {
 	securitySchemes,
 	imageOptions,
 	getUserOptions,
+	getUserAliasOptions,
 	getUsersOptions,
 	getPublicUsersOptions,
 	createUserOptions,
@@ -31,6 +32,9 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 
 	fastify.get('/users', { preHandler: [authenticatePrivateToken], ...getUsersOptions }, getAllUsers);
 	fastify.get<{ Params: { uuid: string } }>('/user/:uuid', { preHandler: [authenticatePrivateToken], ...getUserOptions }, getUser);
+	fastify.get<{ Params: { alias: string } }>('/useralias/:alias/', { preHandler: [authenticatePrivateToken], ...getUserAliasOptions }, getUserAlias);
+
+	//public data
 	fastify.get('/public/users', { preHandler: [authenticatePublicToken], ...getPublicUsersOptions }, getAllUsers);
 
 	// Create user with JSON data

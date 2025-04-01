@@ -97,7 +97,29 @@ export const getUserOptions = {
 				type: 'object',
 				properties: userProperties
 			},
-			403: errorResponseSchema,
+			404: errorResponseSchema,
+			500: errorResponseSchema
+		}
+	}
+};
+
+export const getUserAliasOptions = {
+	schema: {
+		security: [{ apiKey: [] }],
+		summary: 'Get user by UUID',
+		tags: ['users'],
+		params: {
+			type: 'object',
+			required: ['alias'],
+			properties: {
+				alias: { type: 'string' }
+			}
+		},
+		response: {
+			200: {
+				type: 'object',
+				properties: userProperties
+			},
 			404: errorResponseSchema,
 			500: errorResponseSchema
 		}
