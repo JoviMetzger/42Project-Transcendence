@@ -18,34 +18,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 export function renderPage() {
 	const root = document.getElementById('app');
+	const routes: { [key: string]: () => void } = {
+		'/': setupUserHome,
+		'/home': setupUserHome,
+		'/logIn': setupLogIn,
+		'/signUp': setupSignUp,
+		'/startGame': setupStartGame,
+		'/setting': setupSetting,
+		'/history': setupMatchHistory,
+		'/friends': setupFriends,
+		'/error404': setupError404,
+		'/admin': setupAdmin,
+		'/adminSetting': setupAdminSetting
+	};
 	if (root) {
-		if (window.location.pathname === '/logIn') {
-			setupLogIn();
-		} else if (window.location.pathname === '/signUp') {
-			setupSignUp();
-		} else if (window.location.pathname === '/home') {
-			setupUserHome();
-		} else if (window.location.pathname === '/signUp') {
-			setupSignUp();
-		} else if (window.location.pathname === '/home') {
-			setupUserHome();
-		} else if (window.location.pathname === '/signUp') {
-			setupSignUp();
-		} else if (window.location.pathname === '/startGame') {
-			setupStartGame();
-		} else if (window.location.pathname === '/setting') {
-			setupSetting();
-		} else if (window.location.pathname === '/history') {
-			setupMatchHistory();
-		} else if (window.location.pathname === '/friends') {
-			setupFriends();
-		} else if (window.location.pathname === '/error404') {
-			setupError404();
-		} else if (window.location.pathname === '/admin') {
-			setupAdmin();
-		} else if (window.location.pathname === '/adminSetting') {
-			setupAdminSetting();
-		} else {
+		const funct = routes[window.location.pathname]
+		if (funct) {
+			funct();
+		}	else {
 			root.innerHTML = "";
 			root.insertAdjacentHTML("beforeend", `
 			<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->

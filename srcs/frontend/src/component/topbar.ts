@@ -16,6 +16,8 @@ class DropdownMenu extends HTMLElement {
     // }
 	
 	render() {
+		const currentPage = window.location.pathname
+		// const currentPage = window.history
 		this.innerHTML = "";
 		this.insertAdjacentHTML("beforeend", `
 		<div class="topBar">
@@ -38,10 +40,10 @@ class DropdownMenu extends HTMLElement {
 							<img src="src/component/Pictures/flagIcon-nl.png"> <span data-i18n="Dutch"></span>
 						</div>
 					</div>
-					<div class="dropdown-item" id="Home" data-i18n="Home"></div>
-					<div class="dropdown-item" id="Settings" data-i18n="Settings"></div>
-					<div class="dropdown-item" id="Friends" data-i18n="Friends"></div>
-					<div class="dropdown-item" id="History" data-i18n="History"></div>
+					<div class="dropdown-item ${currentPage === '/home' ? 'currentPage' : ''}" id="Home" data-i18n="Home"></div>
+					<div class="dropdown-item ${currentPage === '/setting' ? 'currentPage' : ''}" id="Settings" data-i18n="Settings"></div>
+					<div class="dropdown-item ${currentPage === '/friends' ? 'currentPage' : ''}" id="Friends" data-i18n="Friends"></div>
+					<div class="dropdown-item ${currentPage === '/history' ? 'currentPage' : ''}" id="History" data-i18n="History"></div>
 					<div class="dropdown-item" id="LogOut" data-i18n="LogOut"></div>
 				</div>
 			</div>
