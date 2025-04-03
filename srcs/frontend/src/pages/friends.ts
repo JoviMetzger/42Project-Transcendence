@@ -3,7 +3,7 @@ import { setupUserHome } from './home';
 import { setupSetting } from './setting';
 import { setupMatchHistory } from './history';
 import { getLanguage } from '../script/language';
-import { loadTopBar } from '../script/topBar';
+import { searchBar } from '../script/searchFriends';
 
 export function setupFriends() {
 	const root = document.getElementById('app');
@@ -18,13 +18,21 @@ export function setupFriends() {
 
 			<div class="container">
 				<div class="search-container">
-					<input type="text" class="userSearch" data-i18n-placeholder="Friends_placeholder1" onkeyup="searchBar()">
+					<input type="text" class="userSearch" data-i18n-placeholder="Friends_placeholder1">
 					<button class="search-btn">
 						<img class="searchIcon" src="src/component/Pictures/searchIcon.png"/>
 					</button>
+					<div class="dropdown">
+					<div id="search-results" class="dropdown-content">
+						<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+					</div>
+					button class="btn" data-i18n="btn_Add_Friend"></button>
+				</div>
 				</div>
 				
-				<!-- Should Be A DROPDOWN -->
+				
+				<!-- Should Be A DROPDOWN
+
 				<div class="search-results">
 					<div class="friend">
 						<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
@@ -33,7 +41,7 @@ export function setupFriends() {
 						<button class="btn" id="UserHistory" data-i18n="History"></button>
 					</div>
 				</div>
-				<!-- ^^^^^^^^^^^^^^^^^^^ -->
+				^^^^^^^^^^^^^^^^^^^ -->
 
 				<h1 class="header" data-i18n="Request_Header"></h1>
 				<div class="friend-requests">
@@ -105,6 +113,9 @@ export function setupFriends() {
 		document.getElementById('FriendsHistory')?.addEventListener('click', () => {
 			window.history.pushState({}, '', '/history');
 			setupMatchHistory();
+		});
+		document.querySelector('.userSearch')?.addEventListener('keyup', () => {
+			searchBar();
 		});
 
 	}
