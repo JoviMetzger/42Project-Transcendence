@@ -23,7 +23,8 @@ export function setupFriends() {
 		})
 		.then(() => {
 			if (root) {
-				// console.log(publicUsers[1].profile_pic)
+				const x:number = 1
+				// console.log(publicUsers[x].profile_pic)
 				root.innerHTML = "";
 				root.insertAdjacentHTML("beforeend", `
 				<link rel="stylesheet" href="src/styles/userMain.css">
@@ -74,7 +75,7 @@ export function setupFriends() {
 
 						<h1 class="header" data-i18n="Friends_Header"></h1>
 						<div class="friends-list">
-						<public-user type="friend" alias=${publicUsers[2].alias} profilePicData=${publicUsers[2].profile_pic.data} profilePicMimeType=${publicUsers[2].profile_pic.mimeType} > </public-user>
+						<public-user type="friend" alias=${publicUsers[x].alias} profilePicData=${publicUsers[x].profile_pic.data} profilePicMimeType=${publicUsers[x].profile_pic.mimeType} > </public-user>
 						<public-user type="friend" alias="Friend 2"> </public-user>
 						<public-user type="friend" alias="Friend 3"> </public-user>
 						</div>
