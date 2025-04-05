@@ -11,6 +11,7 @@ import { setupError404 } from './error404';
 import { getLanguage } from '../script/language';
 import '../component/topbar'
 import '../component/languageMenu'
+import '../component/publicUser'
 
 document.addEventListener('DOMContentLoaded', () => {
 	renderPage();
