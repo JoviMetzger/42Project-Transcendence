@@ -251,7 +251,7 @@ export const updatePasswordProperties = {
 		consumes: ['application/json'],
 		body: {
 			type: 'object',
-			required: ['username', 'password', 'newPassword'],
+			required: ['uuid', 'password', 'newPassword'],
 			properties: {
 				...loginProperties,
 				newPassword: { type: 'string', minLength: 6 }

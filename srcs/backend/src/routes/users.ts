@@ -1,7 +1,8 @@
 import { FastifyInstance, } from 'fastify';
 import { getAllUsers, getUser, getUserAlias, getUserImage } from '../controllers/user/getUsers.ts';
 import { addUser, updateUserProfilePic } from '../controllers/user/setUsers.ts';
-import { loginUser, updatePassword } from '../controllers/user/login.ts'
+import { loginUser } from '../controllers/user/login.ts'
+import { updatePassword } from '../controllers/user/updateUser.ts'
 import { deleteUser } from '../controllers/user/deleteUser.ts'
 import { userStatus, eLanguage } from '../db/schema.ts';
 import { authenticatePrivateToken, authenticatePublicToken } from './authentication.ts';
@@ -54,10 +55,25 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 
 	// Log in
 	fastify.post('/user/login', { preHandler: [authenticatePrivateToken], ...loginUserOptions }, loginUser);
-	fastify.post('/user/updatepw', { preHandler: [authenticatePrivateToken], ...updatePasswordProperties }, updatePassword);
+
+	// update data
+	fastify.put<{
+		Body: {
+			uuid: string;
+			password: string;
+			newPassword: string;
+		}
+	}>('/user/updatepw', { preHandler: [authenticatePrivateToken], ...updatePasswordProperties }, updatePassword);
+	// fastify.put<{
+	// 	Body: {
+	// 		uuid: string;
+	// 		password: string;
+	// 		newPassword: string;
+	// 	}
+	// }>('/user/updatepw', { preHandler: [authenticatePrivateToken], ...updatePasswordProperties }, updatePassword);
 
 	// delete user
-	fastify.delete<{ Params: { uuid: string } }>('/user.:uuid/delete', { preHandler: [authenticatePrivateToken], ...deleteUserOptions }, deleteUser);
+	fastify.delete<{ Params: { uuid: string } }>('/user/:uuid/delete', { preHandler: [authenticatePrivateToken], ...deleteUserOptions }, deleteUser);
 	done();
 }
 
