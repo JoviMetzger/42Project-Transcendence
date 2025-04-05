@@ -13,6 +13,8 @@ export function setupFriends() {
 		<link rel="stylesheet" href="src/styles/userMain.css">
 		<link rel="stylesheet" href="src/styles/friends.css">
 		<div class="overlay"></div>
+		<dropdown-menu></dropdown-menu>
+		
 		<div class="middle">
 			<!-- BODY CHANGE -->
 
