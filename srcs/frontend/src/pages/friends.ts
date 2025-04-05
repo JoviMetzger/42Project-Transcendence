@@ -40,7 +40,11 @@ export function setupFriends() {
 		if (root) {
 			const x:number = 0
 			// console.log(publicUsers[x].profile_pic)
-			console.log(friendRelations.friends[0].friend.alias)
+			// console.log(friendRelations.receivedRequests)
+		// 	const html = publicUsers.map((element:any) => `
+		// 		<public-user type="unfriend" alias=${element.alias} profilePicData=${element.profile_pic.data} profilePicMimeType=${element.profile_pic.mimeType}></public-user>
+		// 	`).join('')
+		//   console.log(html);
 			root.innerHTML = "";
 			root.insertAdjacentHTML("beforeend", `
 			<link rel="stylesheet" href="src/styles/userMain.css">
@@ -58,41 +62,37 @@ export function setupFriends() {
 							<img class="searchIcon" src="src/component/Pictures/searchIcon.png"/>
 						</button>
 						<div class="dropdown">
-						<div id="search-results" class="dropdown-content">
-							<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+							<div id="search-results" class="dropdown-content">
+								<input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+							</div>
+							button class="btn" data-i18n="btn_Add_Friend"></button>
 						</div>
-						button class="btn" data-i18n="btn_Add_Friend"></button>
-					</div>
 					</div>
 					
 					
 					<!-- Should Be A DROPDOWN
-
-					<div class="search-results">
-						<div class="publicUser">
-							<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
-							<p> >$MaybeFriend< </p>
-							<button class="btn" data-i18n="btn_Add_Friend"></button>
-							<button class="btn" id="UserHistory" data-i18n="History"></button>
-						</div>
-					</div>
 					^^^^^^^^^^^^^^^^^^^ -->
+					
+					<div class="search-results">
+					  ${publicUsers.map((element:any) => `
+    					<public-user type="unfriend" alias=${element.alias} profilePicData=${element.profile_pic.data} profilePicMimeType=${element.profile_pic.mimeType}></public-user>
+					`).join('')}
+						<public-user type="unfriend" alias="Potential Friend X"> </public-user>
+					</div>
 
 					<h1 class="header" data-i18n="Request_Header"></h1>
 					<div class="friend-requests">
-						<div class="publicUser">
-							<img src="src/component/Pictures/defaultPP.avif" alt="Profile Picture">
-							<p> >$Someone wants to be your friend< </p>
-							<button class="btn accept" data-i18n="btn_Accept"></button>
-							<button class="btn decline" data-i18n="btn_Decline"></button>
-							<button class="btn blok" data-i18n="btn_Block"></button>
-						</div>
+					${friendRelations.receivedRequests.map((element:any) => `
+    					<public-user type="friend-request" alias=${element.friend.alias} profilePicData=${element.friend.profile_pic.data} profilePicMimeType=${element.friend.profile_pic.mimeType}></public-user>
+					`).join('')}
+					<public-user type="friend-request" alias="Wannabe Friend X"> </public-user>
 					</div>
 
 					<h1 class="header" data-i18n="Friends_Header"></h1>
 					<div class="friends-list">
-					<public-user type="friend" alias=${publicUsers[x].alias} profilePicData=${publicUsers[x].profile_pic.data} profilePicMimeType=${publicUsers[x].profile_pic.mimeType} > </public-user>
-					<public-user type="friend" alias=${friendRelations.friends[x].friend.alias} profilePicData=${friendRelations.friends[x].friend.profile_pic.data} profilePicMimeType=${friendRelations.friends[x].friend.profile_pic.mimeType} > </public-user>
+					${friendRelations.friends.map((element:any) => `
+    					<public-user type="friend" alias=${element.friend.alias} profilePicData=${element.friend.profile_pic.data} profilePicMimeType=${element.friend.profile_pic.mimeType}></public-user>
+					`).join('')}
 					<public-user type="friend" alias="Friend X"> </public-user>
 					</div>
 

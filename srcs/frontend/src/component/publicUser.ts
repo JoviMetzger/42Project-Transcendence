@@ -16,20 +16,19 @@ class PublicUser extends HTMLElement {
 		if (profilePicData != "null" && profilePicMimeType != "null")
 		{
 			image = `data:${profilePicMimeType};base64,${profilePicData}`;
-			console.log(image)
 		}
 		else
 		{
 			image = "src/component/Pictures/defaultPP.avif"
 		}
-
 		this.innerHTML = "";
 		this.insertAdjacentHTML("beforeend", `
 		<div class="publicUser">
 			<img src=${image} alt="Profile Picture">
 			<p> ${alias} </p>
 			
-			<button class="btn" ${type === 'friend' ? '' : 'hidden'} >Match History </button>
+			<button class="btn" ${type === 'friend' ? '' : 'hidden'} data-i18n="History"> </button>
+			<button class="btn" ${type === 'friend' ? '' : 'hidden'} data-i18n="btn_Remove_Friend"> </button>
 
 			<button class="btn accept" ${type === "friend-request" ? '' : 'hidden'} data-i18n="btn_Accept"> </button>
 			<button class="btn decline" ${type === "friend-request" ? '' : 'hidden'} data-i18n="btn_Decline"> </button>
