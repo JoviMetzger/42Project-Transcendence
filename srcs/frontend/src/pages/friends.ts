@@ -4,49 +4,63 @@ import { setupSetting } from './setting';
 import { setupMatchHistory } from './history';
 import { getLanguage } from '../script/language';
 import { searchBar } from '../script/searchFriends';
-import { connectFunc, inputToContent, requestBody } from "../script/connections"
+import { connectFunc, requestBody } from "../script/connections"
 
 export function setupFriends() {
 	const root = document.getElementById('app');
-	let publicUsers:any = [];
-	let friendRelations:any = [];
+	let publicUsers: any = [];
+	let friendRelations: any = {
+		friends: [],
+		receivedRequests: [],
+		sentRequests: [],
+		deniedRequests: [],
+		blocked: []
+	};
 	// const uuid = ""
-	const uuid = "4000c135-7509-438f-98a9-0c0577ed9584"
+	const uuid = "fedc3ec8-8392-4c63-ae8c-6c94ab836b60"
 	connectFunc(`/friends/${uuid}`, requestBody("GET", null))
-	.then((response) => {
-		if (response.ok) {
-			return response.json()
-		}
-		else {
-			// error, couldn't load users from database, check your connection or wait 5 minutes
-		}
-	})
-	.then((array) => {
-		friendRelations = array;
-		return connectFunc("/public/users", requestBody("GET", null))
-	})
-	.then((response) => {
-		if (response.ok) {
-			return response.json()
-		}
-		else {
-			console.log("Couldn't Retrieve Users From Database")
-		}
-	})
-	.then((array) => {
-		publicUsers = array;
-	})
-	.then(() => {
-		if (root) {
-			const x:number = 0
-			// console.log(publicUsers[x].profile_pic)
-			// console.log(friendRelations.receivedRequests)
-		// 	const html = publicUsers.map((element:any) => `
-		// 		<public-user type="unfriend" alias=${element.alias} profilePicData=${element.profile_pic.data} profilePicMimeType=${element.profile_pic.mimeType}></public-user>
-		// 	`).join('')
-		//   console.log(html);
-			root.innerHTML = "";
-			root.insertAdjacentHTML("beforeend", `
+		.then((response) => {
+			if (response.ok) {
+				return response.json()
+			}
+			else {
+				if (response.status === 400) {
+					console.log("User not found");
+				} else if (response.status === 404) {
+					console.log("No friends found for this user");
+				} else {
+					console.log(`Unexpected error: ${response.status}`);
+				}
+				return friendRelations;
+			}
+		})
+		.then((array) => {
+			friendRelations = array;
+			return connectFunc("/public/users", requestBody("GET", null))
+		})
+		.then((response) => {
+			if (response.ok) {
+				return response.json()
+			}
+			else {
+				console.log("Couldn't Retrieve Users From Database");
+				return [];
+			}
+		})
+		.then((array) => {
+			publicUsers = array;
+		})
+		.then(() => {
+			if (root) {
+				//const x: number = 0
+				// console.log(publicUsers[x].profile_pic)
+				// console.log(friendRelations.receivedRequests)
+				// 	const html = publicUsers.map((element:any) => `
+				// 		<public-user type="unfriend" alias=${element.alias} profilePicData=${element.profile_pic.data} profilePicMimeType=${element.profile_pic.mimeType}></public-user>
+				// 	`).join('')
+				//   console.log(html);
+				root.innerHTML = "";
+				root.insertAdjacentHTML("beforeend", `
 			<link rel="stylesheet" href="src/styles/userMain.css">
 			<link rel="stylesheet" href="src/styles/friends.css">
 			<div class="overlay"></div>
@@ -74,7 +88,7 @@ export function setupFriends() {
 					^^^^^^^^^^^^^^^^^^^ -->
 					
 					<div class="search-results">
-					  ${publicUsers.map((element:any) => `
+					  ${publicUsers.map((element: any) => `
     					<public-user type="unfriend" alias=${element.alias} profilePicData=${element.profile_pic.data} profilePicMimeType=${element.profile_pic.mimeType}></public-user>
 					`).join('')}
 						<public-user type="unfriend" alias="Potential Friend X"> </public-user>
@@ -82,7 +96,7 @@ export function setupFriends() {
 
 					<h1 class="header" data-i18n="Request_Header"></h1>
 					<div class="friend-requests">
-					${friendRelations.receivedRequests.map((element:any) => `
+					${friendRelations.receivedRequests.map((element: any) => `
     					<public-user type="friend-request" alias=${element.friend.alias} profilePicData=${element.friend.profile_pic.data} profilePicMimeType=${element.friend.profile_pic.mimeType}></public-user>
 					`).join('')}
 					<public-user type="friend-request" alias="Wannabe Friend X"> </public-user>
@@ -90,7 +104,7 @@ export function setupFriends() {
 
 					<h1 class="header" data-i18n="Friends_Header"></h1>
 					<div class="friends-list">
-					${friendRelations.friends.map((element:any) => `
+					${friendRelations.friends.map((element: any) => `
     					<public-user type="friend" alias=${element.friend.alias} profilePicData=${element.friend.profile_pic.data} profilePicMimeType=${element.friend.profile_pic.mimeType}></public-user>
 					`).join('')}
 					<public-user type="friend" alias="Friend X"> </public-user>
@@ -100,47 +114,47 @@ export function setupFriends() {
 				<!-- ^^^ -->
 			</div>
 			`);
-			getLanguage();
-			document.getElementById('LogOut')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/index');
-				renderPage();
-			});
+				getLanguage();
+				document.getElementById('LogOut')?.addEventListener('click', () => {
+					window.history.pushState({}, '', '/index');
+					renderPage();
+				});
 
-			document.getElementById('Home')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/home');
-				setupUserHome();
-			});
+				document.getElementById('Home')?.addEventListener('click', () => {
+					window.history.pushState({}, '', '/home');
+					setupUserHome();
+				});
 
-			document.getElementById('Settings')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/setting');
-				setupSetting();
-			});
+				document.getElementById('Settings')?.addEventListener('click', () => {
+					window.history.pushState({}, '', '/setting');
+					setupSetting();
+				});
 
-			document.getElementById('Friends')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/friends');
-				setupFriends();
-			});
+				document.getElementById('Friends')?.addEventListener('click', () => {
+					window.history.pushState({}, '', '/friends');
+					setupFriends();
+				});
 
-			document.getElementById('History')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/history');
-				setupMatchHistory();
-			});
-			document.getElementById('UserHistory')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/history');
-				setupMatchHistory();
-			});
-			document.getElementById('FriendsHistory')?.addEventListener('click', () => {
-				window.history.pushState({}, '', '/history');
-				setupMatchHistory();
-			});
-			document.querySelector('.userSearch')?.addEventListener('keyup', () => {
-				searchBar();
-			});
-		}
-	})
-	.catch((error) => {
-		console.log("ERROR (SetupFriends): ", error)
-	})
+				document.getElementById('History')?.addEventListener('click', () => {
+					window.history.pushState({}, '', '/history');
+					setupMatchHistory();
+				});
+				document.getElementById('UserHistory')?.addEventListener('click', () => {
+					window.history.pushState({}, '', '/history');
+					setupMatchHistory();
+				});
+				document.getElementById('FriendsHistory')?.addEventListener('click', () => {
+					window.history.pushState({}, '', '/history');
+					setupMatchHistory();
+				});
+				document.querySelector('.userSearch')?.addEventListener('keyup', () => {
+					searchBar();
+				});
+			}
+		})
+		.catch((error) => {
+			console.log("ERROR (SetupFriends): ", error)
+		})
 }
 
 
