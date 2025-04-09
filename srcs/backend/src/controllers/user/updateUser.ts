@@ -4,7 +4,7 @@ import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
 import { eq } from 'drizzle-orm'
 // files
-import { usersTable, eLanguage } from '../../db/schema.ts';
+import { usersTable, eLanguage, userStatus } from '../../db/schema.ts';
 import { verifyPassword, hashPassword, toPublicUser } from '../../models/users.ts';
 
 export const updatePassword = async (request: FastifyRequest<{
@@ -97,3 +97,55 @@ export const updateUser = async (request: FastifyRequest<{
 		if (sqlite) sqlite.close();
 	}
 }
+
+export const setOnline = async (
+	request: FastifyRequest<{ Params: { uuid: string } }>,
+	reply: FastifyReply) => {
+	let sqlite = null;
+	try {
+		const { uuid } = request.params;
+		sqlite = new Database('./data/data.db', { verbose: console.log });
+		const db = drizzle(sqlite);
+		const userArray = await db.update(usersTable)
+			.set({ status: userStatus.ONLINE })
+			.where(eq(usersTable.uuid, uuid)).returning();
+		if (userArray.length === 0) {
+			return reply.code(404).send({ msg: "User not found" });
+		}
+		return reply.code(200).send();
+	}
+	catch (error) {
+		const errorMessage = error instanceof Error ? error.message : 'Update profile picture error';
+		request.log.error('Profile picture update failed:', error);
+		return reply.status(500).send({ error: errorMessage });
+	}
+	finally {
+		if (sqlite) sqlite.close();
+	}
+};
+
+export const setOffline = async (
+	request: FastifyRequest<{ Params: { uuid: string } }>,
+	reply: FastifyReply) => {
+	let sqlite = null;
+	try {
+		const { uuid } = request.params;
+		sqlite = new Database('./data/data.db', { verbose: console.log });
+		const db = drizzle(sqlite);
+		const userArray = await db.update(usersTable)
+			.set({ status: userStatus.OFFLINE })
+			.where(eq(usersTable.uuid, uuid)).returning();
+		if (userArray.length === 0) {
+			return reply.code(404).send({ msg: "User not found" });
+		}
+		return reply.code(200).send();
+	}
+	catch (error) {
+		const errorMessage = error instanceof Error ? error.message : 'Update profile picture error';
+		request.log.error('Profile picture update failed:', error);
+		return reply.status(500).send({ error: errorMessage });
+	}
+	finally {
+		if (sqlite) sqlite.close();
+	}
+};

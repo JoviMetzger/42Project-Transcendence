@@ -266,6 +266,28 @@ export const updatePasswordProperties = {
 	}
 };
 
+export const updateUserStatusOptions = {
+	schema: {
+		security: [{ apiKey: [] }],
+		summary: 'Updates the user status',
+		tags: ['users'],
+		params: {
+			type: 'object',
+			properties: {
+				uuid: {
+					type: 'string',
+					description: 'user uuid'
+				}
+			}
+		},
+		response: {
+			200: {},
+			404: errorResponseSchema,
+			500: errorResponseSchema
+		}
+	}
+};
+
 export const updateUserProperties = {
 	schema: {
 		security: [{ apiKey: [] }],

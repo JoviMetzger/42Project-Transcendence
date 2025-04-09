@@ -2,8 +2,8 @@ import { FastifyInstance, } from 'fastify';
 import { getAllUsers, getUser, getUserAlias, getUserImage } from '../controllers/user/getUsers.ts';
 import { addUser, updateUserProfilePic } from '../controllers/user/setUsers.ts';
 import { loginUser } from '../controllers/user/login.ts'
-import { updatePassword, updateUser } from '../controllers/user/updateUser.ts'
 import { deleteUser, deleteProfilePic } from '../controllers/user/deleteUser.ts'
+import { updatePassword, updateUser, setOffline, setOnline } from '../controllers/user/updateUser.ts'
 import { userStatus, eLanguage } from '../db/schema.ts';
 import { authenticatePrivateToken, authenticatePublicToken } from './authentication.ts';
 import {
@@ -17,6 +17,7 @@ import {
 	updateProfilePicOptions,
 	loginUserOptions,
 	updatePasswordProperties,
+	updateUserStatusOptions,
 	updateUserProperties,
 	deleteProfilePicOptions,
 	deleteUserOptions
@@ -58,7 +59,7 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 	// Log in
 	fastify.post('/user/login', { preHandler: [authenticatePrivateToken], ...loginUserOptions }, loginUser);
 
-	// update data
+	// update password
 	fastify.put<{
 		Body: {
 			uuid: string;
@@ -66,6 +67,7 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 			newPassword: string;
 		}
 	}>('/user/updatepw', { preHandler: [authenticatePrivateToken], ...updatePasswordProperties }, updatePassword);
+	// update data
 	fastify.put<{
 		Body: {
 			uuid: string
@@ -74,11 +76,13 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 			language?: eLanguage;
 		}
 	}>('/user/data', { preHandler: [authenticatePrivateToken], ...updateUserProperties }, updateUser);
+	//update status
+	fastify.put<{ Params: { uuid: string } }>('/user/:uuid/setOnline', { preHandler: [authenticatePrivateToken], ...updateUserStatusOptions }, setOnline);
+	fastify.put<{ Params: { uuid: string } }>('/user/:uuid/setOffline', { preHandler: [authenticatePrivateToken], ...updateUserStatusOptions }, setOffline);
 
-	// delete user
+
 	fastify.delete<{ Params: { uuid: string } }>('/user/:uuid/profile-pic', { preHandler: [authenticatePrivateToken], ...deleteProfilePicOptions }, deleteProfilePic);
 	done();
-
 	fastify.delete<{ Params: { uuid: string } }>('/user/:uuid/delete', { preHandler: [authenticatePrivateToken], ...deleteUserOptions }, deleteUser);
 	done();
 }
