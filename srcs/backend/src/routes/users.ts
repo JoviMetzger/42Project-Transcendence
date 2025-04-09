@@ -16,6 +16,7 @@ import {
 	updateProfilePicOptions,
 	loginUserOptions,
 	updatePasswordProperties,
+	updateUserStatusOptions,
 	deleteUserOptions
 } from './userdocs.ts';
 
