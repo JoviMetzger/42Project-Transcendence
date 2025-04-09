@@ -272,9 +272,12 @@ export const updateUserStatusOptions = {
 		summary: 'Updates the user status',
 		tags: ['users'],
 		params: {
-			required: ['uuid'],
+			type: 'object',
 			properties: {
-				uuid: { type: 'string' }
+				uuid: {
+					type: 'string',
+					description: 'user uuid'
+				}
 			}
 		},
 		response: {
