@@ -26,24 +26,26 @@ const keyMap = {
 export class Snake {
   public container: Container = new Container();
   public body: Graphics[] = [];
-  private direction: Direction = 'right';
-  private nextDirection: Direction = 'right'; // Store the next direction to prevent 180° turns
+  private direction: Direction;
+  private nextDirection: Direction;
   private moveCounter = 0;
   private controls: 'Arrow' | 'WASD';
   private color: number;
   private borderColor: number;
   private score = 0;
 
-  constructor(color: number, x: number, y: number, controls: 'Arrow' | 'WASD') {
+  constructor(color: number, startX: number, startY: number, controls: 'Arrow' | 'WASD', startDirection: Direction) {
     this.controls = controls;
     this.color = color;
-    // Create a contrasting border color
     this.borderColor = this.invertColor(color);
     
     // Create initial head at starting position (aligned to grid)
-    const alignedX = Math.floor(x / GRID_SIZE) * GRID_SIZE;
-    const alignedY = Math.floor(y / GRID_SIZE) * GRID_SIZE;
+    const alignedX = Math.floor(startX / GRID_SIZE) * GRID_SIZE;
+    const alignedY = Math.floor(startY / GRID_SIZE) * GRID_SIZE;
     const head = this.createSegment(alignedX, alignedY, true);
+
+    this.direction = startDirection;
+    this.nextDirection = startDirection;
     
     this.container.addChild(head);
     this.body.push(head);

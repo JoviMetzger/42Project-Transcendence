@@ -3,11 +3,17 @@ import { Snake } from './snake';
 import { createMouse, randomPosition } from './mouse';
 import { GAME_WIDTH, GAME_HEIGHT } from './main';
 
+type gameData = {
+  winner: 0 | 1 | 2,
+  player1Score: number,
+  player2Score: number
+}
 
-export function setupGame(app: Application) {
-  const snake1 = new Snake(0xff0000, 100, 100, 'Arrow');
-  const snake2 = new Snake(0x00ff00, 700, 500, 'WASD');
-
+export function setupGame(app: Application, player1Alias: string, player2Alias: string): gameData {
+  const snake1 = new Snake(0xff0000, 100, 300, 'Arrow', 'right');
+  const snake2 = new Snake(0x00ff00, 700, 300, 'WASD',  'left');
+  let snake1Collision = false;
+  let snake2Collision = false;
   const [mx, my] = randomPosition(GAME_WIDTH, GAME_HEIGHT);
   let mouse = createMouse(mx, my);
   app.stage.addChild(mouse);
@@ -37,18 +43,29 @@ export function setupGame(app: Application) {
   }
 
   app.ticker.add(() => {
-    if (gameOver) return;
+    if (gameOver) return (0);
 
     snake1.update();
     snake2.update();
-
+    // ourobouros
     // Check for collisions
     if (snake1.checkWallCollision(GAME_WIDTH, GAME_HEIGHT) || snake1.checkSnakeCollision(snake2)) {
-      finishGame('Green Snake');
+      snake1Collision = true;
     }
-
     if (snake2.checkWallCollision(GAME_WIDTH, GAME_HEIGHT) || snake2.checkSnakeCollision(snake1)) {
-      finishGame('Red Snake');
+      snake2Collision = true;
+    }
+    if (snake1Collision || snake2Collision) {
+      if (snake1Collision && snake2Collision) {
+        finishGame('Both Snakes');
+        return (0);
+      } else if (snake1Collision) {
+        finishGame('Snake 2');
+        return (1);
+      } else {
+        finishGame('Snake 1');
+        return (2);
+      }
     }
 
     // Check if they eat the mouse
