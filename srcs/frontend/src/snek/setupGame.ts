@@ -1,9 +1,8 @@
 import { Application, Text, TextStyle } from 'pixi.js';
 import { Snake } from './snake';
 import { createMouse, randomPosition } from './mouse';
+import { GAME_WIDTH, GAME_HEIGHT } from './main';
 
-const GAME_WIDTH = 800;
-const GAME_HEIGHT = 600;
 
 export function setupGame(app: Application) {
   const snake1 = new Snake(0xff0000, 100, 100, 'Arrow');
@@ -24,9 +23,14 @@ export function setupGame(app: Application) {
       fill: '#ffffff',
       fontSize: 48,
       fontWeight: 'bold',
+      align: 'center'
     });
 
-    const message = new Text(`Game Over! Winner: ${winner}`, style);
+    const message = new Text({
+      text: `Game Over! Winner: ${winner}`,
+      style: style,
+    });
+  
     message.x = GAME_WIDTH / 2 - message.width / 2;
     message.y = GAME_HEIGHT / 2 - message.height / 2;
     app.stage.addChild(message);
