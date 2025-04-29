@@ -1,6 +1,10 @@
-import { Graphics } from 'pixi.js';
 import { Application } from 'pixi.js';
 import { setupGame } from './setupGame.ts';
+
+export type gameEndData = {
+  winner: string | null,
+  score: number;
+}
 
 export const GAME_WIDTH = 800;
 export const GAME_HEIGHT = 600;
@@ -19,5 +23,7 @@ export async function startSnek(snekContainer: HTMLElement) {
 
   snekContainer.appendChild(app.canvas); // use `canvas` instead of `view`
 
-  setupGame(app);
+  const winner = setupGame(app, "player1", "player2");
+  console.log("winner data:", winner);
+  // connection to backend to send winner data
 }
