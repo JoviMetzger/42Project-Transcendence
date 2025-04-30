@@ -25,5 +25,4 @@ export async function startSnek(snekContainer: HTMLElement) {
 
   const winner = setupGame(app, "player1", "player2");
   console.log("winner data:", winner);
-  // connection to backend to send winner data
 }
