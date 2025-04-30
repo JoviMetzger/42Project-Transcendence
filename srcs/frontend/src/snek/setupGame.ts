@@ -1,11 +1,12 @@
 import { Application, Text, TextStyle } from 'pixi.js';
 import { Snake } from './snake';
 import { createMouse, randomPosition } from './mouse';
-import { GAME_WIDTH, GAME_HEIGHT, gameEndData } from './main';
+import { GAME_WIDTH, GAME_HEIGHT, gameEndData, SNAKE1_COLOR, SNAKE2_COLOR } from './main';
 
-export function setupGame(app: Application, player1Alias: string, player2Alias: string) : gameEndData {
-  const snake1 = new Snake(0xff0000, 100, 300, 'WASD', 'right');
-  const snake2 = new Snake(0x00ff00, 700, 300, 'Arrow',  'left');
+export async function setupGame(app: Application, player1Alias: string, player2Alias: string) : Promise<gameEndData> {
+  return new Promise((resolve) => {
+  const snake1 = new Snake(SNAKE1_COLOR, 700, 300, 'Arrow',  'left');
+  const snake2 = new Snake(SNAKE2_COLOR, 100, 300, 'WASD', 'right');
   
   let gameData : gameEndData = {
     winner: null,
@@ -15,7 +16,7 @@ export function setupGame(app: Application, player1Alias: string, player2Alias: 
   function spawnMouse() {
     const [newX, newY] = randomPosition(GAME_WIDTH, GAME_HEIGHT);
     const mouse = createMouse(newX, newY);
-    app.stage.addChild(mouse); // This is fine inside the function
+    app.stage.addChild(mouse);
     return mouse;
   }
   
@@ -34,12 +35,12 @@ export function setupGame(app: Application, player1Alias: string, player2Alias: 
     app.stage.addChild(message);
     gameData.winner = tie ? null : winner;
     gameData.score = score;
+    resolve(gameData);
   }
 
   let gameOver = false;
   app.stage.addChild(snake1.container, snake2.container);
   let mouse = spawnMouse();
-  
   // game loop
   app.ticker.add(() => {
     if (gameOver) 
@@ -52,20 +53,21 @@ export function setupGame(app: Application, player1Alias: string, player2Alias: 
     let snake2Collision = false;
     // ourobouros
     // Check for collisions
-    if (snake1.checkWallCollision(GAME_WIDTH, GAME_HEIGHT) || snake1.checkSnakeCollision(snake2)) {
+    if (snake1.checkAnyCollision(snake2)) {
       snake1Collision = true;
     }
-    if (snake2.checkWallCollision(GAME_WIDTH, GAME_HEIGHT) || snake2.checkSnakeCollision(snake1)) {
+    if (snake2.checkAnyCollision(snake1)) {
       snake2Collision = true;
     }
     if (snake1Collision || snake2Collision) {
       if (snake1Collision && snake2Collision) {
-        return finishGame(true, 'none', 0);
+        finishGame(true, 'none', 0);
       } else if (snake1Collision) {
-        return finishGame(false, player2Alias, snake2.getScore());
+        finishGame(false, player2Alias, snake2.getScore());
       } else {
-        return finishGame(false, player1Alias, snake1.getScore());
+        finishGame(false, player1Alias, snake1.getScore());
       }
+      return;
     }
     const head1 = snake1.body[0];
     const head2 = snake2.body[0];
@@ -88,4 +90,5 @@ export function setupGame(app: Application, player1Alias: string, player2Alias: 
   });
   
   return gameData;
+  });
 }

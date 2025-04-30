@@ -1,12 +1,11 @@
 import { Container, Graphics } from 'pixi.js';
-import { GRID_SIZE } from './main';
+import { GAME_WIDTH, GAME_HEIGHT, GRID_SIZE } from './main';
+import { invertColor } from './main';
 
 
-const MOVE_DELAY = 5; // frames
+const MOVE_DELAY = 6;
 
 type Direction = 'up' | 'down' | 'left' | 'right';
-
-
 
 const keyMap = {
   Arrow: {
@@ -32,59 +31,47 @@ export class Snake {
   private controls: 'Arrow' | 'WASD';
   private color: number;
   private borderColor: number;
-  private score = 0;
+  private score = -2;
 
   constructor(color: number, startX: number, startY: number, controls: 'Arrow' | 'WASD', startDirection: Direction) {
     this.controls = controls;
     this.color = color;
-    this.borderColor = this.invertColor(color);
-    
-    // Create initial head at starting position (aligned to grid)
+    this.borderColor = invertColor(color);
+
     const alignedX = Math.floor(startX / GRID_SIZE) * GRID_SIZE;
     const alignedY = Math.floor(startY / GRID_SIZE) * GRID_SIZE;
-    const head = this.createSegment(alignedX, alignedY, true);
-
+    const head = this.createHead(alignedX, alignedY);
     this.direction = startDirection;
     this.nextDirection = startDirection;
-    
     this.container.addChild(head);
     this.body.push(head);
-    
-    // Add two initial segments to make snake visible
+
+    // start with 2 body segments
     this.grow();
     this.grow();
   }
 
-  private invertColor(color: number): number {
-    // Simple way to create contrasting color for border
-    return 0xFFFFFF - color;
-  }
-
-  private createSegment(x: number, y: number, isHead: boolean = false): Graphics {
+  createBody(x: number, y: number): Graphics {
     const segment = new Graphics();
-    
-    // Draw segment with border
-    segment.lineStyle(2, this.borderColor);
-    segment.beginFill(this.color);
-    
-    if (isHead) {
-      // Make head slightly different (rounded rectangle)
-      segment.drawRoundedRect(0, 0, GRID_SIZE, GRID_SIZE, 5);
-      
-      // Add eyes to head
-      segment.endFill();
-      segment.beginFill(this.borderColor);
-      
-      // Position eyes based on direction
-      const eyeSize = GRID_SIZE / 5;
-      segment.drawCircle(GRID_SIZE / 3, GRID_SIZE / 3, eyeSize);
-      segment.drawCircle(GRID_SIZE * 2 / 3, GRID_SIZE / 3, eyeSize);
-    } else {
-      // Regular body segment (square)
-      segment.drawRect(2, 2, GRID_SIZE - 4, GRID_SIZE - 4);
-    }
-    
-    segment.endFill();
+    segment.roundRect(0, 0, GRID_SIZE, GRID_SIZE, 5);
+    segment.fill(this.color);
+    segment.stroke({ width: GRID_SIZE/10, color: this.borderColor });
+    segment.x = x;
+    segment.y = y;
+    return segment;
+  }
+
+  createHead(x: number, y: number): Graphics {
+    const segment = new Graphics();
+    segment.roundRect(0, 0, GRID_SIZE, GRID_SIZE, 5);
+    segment.fill(this.color);
+    segment.stroke({ width: GRID_SIZE/10, color: this.borderColor });
+    // eyes
+    const eyeSize = GRID_SIZE / 5;
+    segment.circle(GRID_SIZE/4, GRID_SIZE/4, eyeSize);
+    segment.circle(GRID_SIZE*3/4, GRID_SIZE/4, eyeSize);
+    segment.fill(0xFFFFFF);
+
     segment.x = x;
     segment.y = y;
     return segment;
@@ -92,10 +79,10 @@ export class Snake {
 
   grow() {
     const last = this.body[this.body.length - 1];
-    const newSegment = this.createSegment(last.x, last.y);
+    const newSegment = this.createBody(last.x, last.y);
     this.container.addChild(newSegment);
     this.body.push(newSegment);
-    this.score += 10;
+    this.score += 1;
   }
 
   getScore(): number {
@@ -103,23 +90,18 @@ export class Snake {
   }
 
   update() {
-    // Use a counter to slow down movement to make game more playable
     this.moveCounter++;
     if (this.moveCounter < MOVE_DELAY) {
       return;
     }
     this.moveCounter = 0;
     
-    // Update direction from next direction
     this.direction = this.nextDirection;
     
-    // Move body segments (from tail to head)
     for (let i = this.body.length - 1; i > 0; i--) {
       this.body[i].x = this.body[i - 1].x;
       this.body[i].y = this.body[i - 1].y;
     }
-
-    // Move head according to direction (grid-based movement)
     const head = this.body[0];
     switch (this.direction) {
       case 'up': head.y -= GRID_SIZE; break;
@@ -135,8 +117,6 @@ export class Snake {
     
     if (!newDir) return;
     
-    // Prevent 180-degree turns by checking if the new direction
-    // would cause the snake to reverse
     const invalid = 
       (this.direction === 'up' && newDir === 'down') ||
       (this.direction === 'down' && newDir === 'up') ||
@@ -155,8 +135,6 @@ export class Snake {
 
   checkSelfCollision(): boolean {
     const head = this.body[0];
-    // Check if head collides with any segment (skip first few segments)
-    // Skip first 3 segments to avoid false collisions
     return this.body.slice(3).some(segment =>
       Math.abs(segment.x - head.x) < GRID_SIZE/2 && 
       Math.abs(segment.y - head.y) < GRID_SIZE/2
@@ -169,5 +147,11 @@ export class Snake {
       Math.abs(segment.x - head.x) < GRID_SIZE/2 && 
       Math.abs(segment.y - head.y) < GRID_SIZE/2
     );
+  }
+
+  checkAnyCollision(other: Snake): boolean {
+    return this.checkWallCollision(GAME_WIDTH, GAME_HEIGHT) || 
+           this.checkSelfCollision() || 
+           this.checkSnakeCollision(other);
   }
 }
