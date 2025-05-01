@@ -51,7 +51,6 @@ export function renderPage() {
 		} else {
 			root.innerHTML = "";
 			root.insertAdjacentHTML("beforeend", `
-			<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->
 			<div class="overlay"></div>
 			<language-menu></language-menu>
 			<div class="container">

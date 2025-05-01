@@ -5,8 +5,8 @@ import { GAME_WIDTH, GAME_HEIGHT, gameEndData, SNAKE1_COLOR, SNAKE2_COLOR } from
 
 export async function setupGame(app: Application, player1Alias: string, player2Alias: string) : Promise<gameEndData> {
   return new Promise((resolve) => {
-  const snake1 = new Snake(SNAKE1_COLOR, 700, 300, 'Arrow',  'left');
-  const snake2 = new Snake(SNAKE2_COLOR, 100, 300, 'WASD', 'right');
+  const snake2 = new Snake(SNAKE1_COLOR, 700, 300, 'Arrow',  'left');
+  const snake1 = new Snake(SNAKE2_COLOR, 100, 300, 'WASD', 'right');
   
   let gameData : gameEndData = {
     winner: null,
