@@ -9,13 +9,13 @@ export function setupTestGame() {
         root.innerHTML = "";
         root.insertAdjacentHTML("beforeend", /*html*/ `
         <div class="flex flex-col gap-4 items-center">
-            <div class="flex flex-row gap-20 bg-pink-500 text-white font-bold py-2 px-4 rounded">
-                <div class="flex flex-col gap-4 bg-red-500 py-2 px-4 rounded justify-items-center ">
+            <div class="flex flex-row w-full gap-20 bg-pink-500 text-white py-2 px-4 rounded justify-center">
+                <div class="flex flex-col flex-1 gap-4 bg-red-500 py-2 px-4 rounded justify-items-center ">
                     <p>Player1 info (WASD)</span>
                     <p class="text-center">${player1Alias}</span>
                 </div>
-                <div class="flex flex-col gap-4 bg-green-500 py-2 px-4 rounded justify-items-center ">
-                    <p>Player1 info (WASD)</span>
+                <div class="flex flex-col flex-1 gap-4 bg-green-500 py-2 px-4 rounded justify-items-center ">
+                    <p>Player2 info (ARROW)</span>
                     <p class="text-center">${player1Alias}</span>
                 </div>
             </div>
