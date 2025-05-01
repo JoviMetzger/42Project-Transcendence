@@ -2,6 +2,7 @@ import { startSnek, preGameScreen, restartSnek } from '../snek/main';
 import { Application } from 'pixi.js'
 
 export function setupTestGame() {
+    const player1Alias = "julius"
     console.log("testgame page");
     const root = document.getElementById('app');
     if (root) {
@@ -9,8 +10,14 @@ export function setupTestGame() {
         root.insertAdjacentHTML("beforeend", /*html*/ `
         <div class="flex flex-col gap-4 items-center">
             <div class="flex flex-row gap-20 bg-pink-500 text-white font-bold py-2 px-4 rounded">
-                <label class="bg-red-500  py-2 px-4 rounded">Player1 info (WASD)</label>
-                <label class="bg-green-500 py-2 px-4 rounded">Player2 info (ARROWs)</label>
+                <div class="flex flex-col gap-4 bg-red-500 py-2 px-4 rounded justify-items-center ">
+                    <p>Player1 info (WASD)</span>
+                    <p class="text-center">${player1Alias}</span>
+                </div>
+                <div class="flex flex-col gap-4 bg-green-500 py-2 px-4 rounded justify-items-center ">
+                    <p>Player1 info (WASD)</span>
+                    <p class="text-center">${player1Alias}</span>
+                </div>
             </div>
             <button class=btn id="startGame">Start Game</button>
             <div id="gameContainer" class="mb-4"></div>
