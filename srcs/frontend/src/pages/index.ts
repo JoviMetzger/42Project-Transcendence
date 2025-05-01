@@ -1,3 +1,4 @@
+import '../styles/index.css';
 import { setupLogIn } from './logIn';
 import { setupSignUp } from './signUp';
 import { setupUserHome } from './home';
