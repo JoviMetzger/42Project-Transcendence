@@ -3,7 +3,8 @@ import { setupGame } from './setupGame.ts';
 
 export type gameEndData = {
   winner: string | null,
-  score: number;
+  p1score: number;
+  p2score: number;
 }
 
 export const GAME_WIDTH = 800;
