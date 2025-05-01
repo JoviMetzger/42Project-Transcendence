@@ -9,8 +9,8 @@ export function setupTestGame() {
         root.insertAdjacentHTML("beforeend", /*html*/ `
         <div class="flex flex-col gap-4 items-center">
             <div class="flex flex-row gap-20 bg-pink-500 text-white font-bold py-2 px-4 rounded">
-                <label class="bg-red-500  py-2 px-4 rounded">Player1 info</label>
-                <label class="bg-green-500 py-2 px-4 rounded">Player2 info</label>
+                <label class="bg-red-500  py-2 px-4 rounded">Player1 info (WASD)</label>
+                <label class="bg-green-500 py-2 px-4 rounded">Player2 info (ARROWs)</label>
             </div>
             <button class=btn id="startGame">Start Game</button>
             <div id="gameContainer" class="mb-4"></div>
@@ -43,10 +43,10 @@ function startGameListeners(app: Application) {
         return;
     }
     startGameButton.addEventListener('click', () => {
-            startSnek(app);
+            startSnek(app, "player1", "player2");
         });
     restartGameButton.addEventListener('click', () => {
-        restartSnek(app);
+        restartSnek(app, "player1", "player2");
         console.log("Restarting game");
     });
 }

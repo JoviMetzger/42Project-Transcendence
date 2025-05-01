@@ -113,7 +113,5 @@ export async function setupGame(app: Application, player1Alias: string, player2A
     snake1.handleInput(e);
     snake2.handleInput(e);
   });
-  
-  return gameData;
   });
 }
