@@ -24,19 +24,40 @@ export async function setupGame(app: Application, player1Alias: string, player2A
   function finishGame(tie: boolean, winner: string){
     gameOver = true;
     
-    const style = new TextStyle({
+
+    const p1score=snake1.getScore();
+    const p2score=snake2.getScore();
+    const scoreStyle = new TextStyle({
       fill: '#ffffff',
-      fontSize: 48,
+      fontSize: 24,
       fontWeight: 'bold',
       align: 'center'
     });
-    const message = new Text({text: tie ? 'Both Snakes Lose' : `${winner} wins!`, style: style});
+    const message = new Text({
+      text: tie ? 'Both Snakes Lose' : `${winner} wins!`,
+      style:{
+        fill: '#ffffff',
+        fontSize: 48,
+        fontWeight: 'bold',
+        align: 'center'       
+      }
+    });
     message.x = GAME_WIDTH / 2 - message.width / 2;
     message.y = GAME_HEIGHT / 2 - message.height / 2;
     app.stage.addChild(message);
+
+    const p1scoreText = new Text({text: `${player1Alias} score: ${p1score}`, style: scoreStyle});
+    p1scoreText.x = GAME_WIDTH/6;
+    p1scoreText.y = GAME_HEIGHT / 2 + GAME_HEIGHT/4;
+    app.stage.addChild(p1scoreText);
+    const p2scoreText = new Text({text: `${player2Alias} score: ${p2score}`, style: scoreStyle});
+    p2scoreText.x = GAME_WIDTH/6 * 4;
+    p2scoreText.y = GAME_HEIGHT / 2 + GAME_HEIGHT/4;
+    app.stage.addChild(p2scoreText);
+
     gameData.winner = tie ? null : winner;
-    gameData.p1score = snake1.getScore();
-    gameData.p2score = snake2.getScore();
+    gameData.p1score = p1score;
+    gameData.p2score = p2score;
     resolve(gameData);
   }
 
