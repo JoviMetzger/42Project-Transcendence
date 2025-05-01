@@ -56,6 +56,7 @@ export async function startSnek(app: Application ): Promise<gameEndData> {
 }
 
 export async function restartSnek(app: Application): Promise<gameEndData> {
+  app.ticker.start();
   await countDownStart(app);
   const winner = await setupGame(app, "player1", "player2");
   console.log("winner data:", winner);

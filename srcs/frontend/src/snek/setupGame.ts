@@ -24,23 +24,24 @@ export async function setupGame(app: Application, player1Alias: string, player2A
   function finishGame(tie: boolean, winner: string){
     gameOver = true;
     
-
     const p1score=snake1.getScore();
     const p2score=snake2.getScore();
-    const scoreStyle = new TextStyle({
-      fill: '#ffffff',
-      fontSize: 24,
-      fontWeight: 'bold',
-      align: 'center'
-    });
-    const message = new Text({
-      text: tie ? 'Both Snakes Lose' : `${winner} wins!`,
-      style:{
+    const style = new TextStyle({
         fill: '#ffffff',
+        fontFamily: 'ChaChicle',
         fontSize: 48,
         fontWeight: 'bold',
-        align: 'center'       
+        align: 'center',
+        stroke: {color: '#000000', width: 2},
       }
+    );
+    const scoreStyle = style.clone();
+    scoreStyle.fontSize = 24;
+    scoreStyle.letterSpacing = 2;
+
+    const message = new Text({
+      text: tie ? 'Both Snakes Lose' : `${winner} wins!`,
+      style: style
     });
     message.x = GAME_WIDTH / 2 - message.width / 2;
     message.y = GAME_HEIGHT / 2 - message.height / 2;
@@ -58,6 +59,7 @@ export async function setupGame(app: Application, player1Alias: string, player2A
     gameData.winner = tie ? null : winner;
     gameData.p1score = p1score;
     gameData.p2score = p2score;
+    app.ticker.stop();
     resolve(gameData);
   }
 
