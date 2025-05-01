@@ -1,6 +1,5 @@
-import { Application, Assets, Sprite } from 'pixi.js';
-
 import { startSnek } from '../snek/main';
+import '../styles/snek.css';
 
 export function setupTestGame() {
     console.log("testgame page");
@@ -8,7 +7,14 @@ export function setupTestGame() {
     if (root) {
         root.innerHTML = "";
         root.insertAdjacentHTML("beforeend", /*html*/ `
-        <div id="testContainer"></div>`);
+        <div class="flex flex-col items-center">
+            <div id="testContainer" class="mb-4"></div>
+            <div class="flex flex-row gap-4">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Blue Button</button>
+                <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded" id="restartGame">Rematch!</button>
+            </div>
+        </div>
+        `);
     }
     const testContainer = document.getElementById('testContainer');
     if (testContainer) {
@@ -17,41 +23,3 @@ export function setupTestGame() {
         console.error("Test container not found!");
     }
 }
-
-// (async () => {
-//     // Create a new application
-//     const app = new Application();
-
-//     // Initialize the application
-//     await app.init({ background: '#1099bb', resizeTo: window });
-
-//     // Append the application canvas to the #testContainer div
-//     const container = document.getElementById('testContainer');
-//     if (container) {
-//         container.appendChild(app.canvas);
-//     } else {
-//         console.error("Container element not found!");
-//         return;
-//     }
-
-//     // Load the bunny texture
-//     const texture = await Assets.load('https://pixijs.com/assets/bunny.png');
-
-//     // Create a bunny Sprite
-//     const bunny = new Sprite(texture);
-
-//     // Center the sprite's anchor point
-//     bunny.anchor.set(0.5);
-
-//     // Move the sprite to the center of the screen
-//     bunny.x = app.screen.width / 2;
-//     bunny.y = app.screen.height / 2;
-
-//     app.stage.addChild(bunny);
-
-//     // Listen for animate update
-//     app.ticker.add((time) => {
-//         // Rotate the bunny sprite
-//         bunny.rotation += 0.1 * time.deltaTime;
-//     });
-// })();
