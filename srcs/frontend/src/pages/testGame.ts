@@ -1,4 +1,4 @@
-import { startSnek, preGameScreen } from '../snek/main';
+import { startSnek, preGameScreen, restartSnek } from '../snek/main';
 import { Application } from 'pixi.js'
 
 export function setupTestGame() {
@@ -10,7 +10,7 @@ export function setupTestGame() {
         <div class="flex flex-col gap-4 items-center">
             <div class="flex flex-row gap-20 bg-pink-500 text-white font-bold py-2 px-4 rounded">
                 <label class="bg-red-500  py-2 px-4 rounded">Player1 info</label>
-                <label class="bg-green-500 py-2 px-4 rounded" id="restartGame">Player2 info</label>
+                <label class="bg-green-500 py-2 px-4 rounded">Player2 info</label>
             </div>
             <button class=btn id="startGame">Start Game</button>
             <div id="gameContainer" class="mb-4"></div>
@@ -46,6 +46,7 @@ function startGameListeners(app: Application) {
             startSnek(app);
         });
     restartGameButton.addEventListener('click', () => {
-        startSnek(app);
+        restartSnek(app);
+        console.log("Restarting game");
     });
 }

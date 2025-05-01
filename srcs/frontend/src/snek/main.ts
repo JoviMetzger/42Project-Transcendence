@@ -25,27 +25,37 @@ export async function preGameScreen(snekContainer: HTMLElement): Promise<Applica
     background: PREGAME_COLOUR,
   });
 
+  app.start();
+
   snekContainer.appendChild(app.canvas);
 
-  // const textbox = new Graphics();
-  // textbox.fill(0xFFFFFF);
-    
   const text = new Text({
-      text : 'Press start game to play',
-      style: {
+    text: 'Press start game to play',
+    style: {
       fontFamily: 'Arial',
-      fontSize: 36,
-      fill: 0x000000,
+      fontSize: 60,
+      fontWeight: 'bold',
+      fill: 0xFFFFFF,
       align: 'center',
     }
   });
-  text.position.set(GAME_WIDTH / 2 - text.width / 2, GAME_HEIGHT / 2 - text.height / 2);
+
+  text.anchor.set(0.5);
+  text.position.set(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+
   app.stage.addChild(text);
   return app;
 }
 
 
 export async function startSnek(app: Application ): Promise<gameEndData> {
+  await countDownStart(app);
+  const winner = await setupGame(app, "player1", "player2");
+  console.log("winner data:", winner);
+  return winner;
+}
+
+export async function restartSnek(app: Application): Promise<gameEndData> {
   await countDownStart(app);
   const winner = await setupGame(app, "player1", "player2");
   console.log("winner data:", winner);
