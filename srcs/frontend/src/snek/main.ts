@@ -16,6 +16,17 @@ export const SNAKE2_COLOR = 0xff0000;
 const PREGAME_COLOUR = 0x000000;
 const BCKGRND_COLOR = 0X00B4D8;
 
+let gameActive = false;
+
+function setupKeyboardCapture() {
+  document.addEventListener('keydown', (event) => {
+    if (gameActive) {
+      if (['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.code)) {
+        event.preventDefault();
+      }
+    }
+  }, { passive: false });
+}
 
 export async function preGameScreen(snekContainer: HTMLElement): Promise<Application> {
   const app = new Application();
@@ -42,24 +53,30 @@ export async function preGameScreen(snekContainer: HTMLElement): Promise<Applica
 
   text.anchor.set(0.5);
   text.position.set(GAME_WIDTH / 2, GAME_HEIGHT / 2);
-
   app.stage.addChild(text);
+
+  setupKeyboardCapture();
+
   return app;
 }
 
 
-export async function startSnek(app: Application, p1alias: string, p2alias: string ): Promise<gameEndData> {
+export async function startSnek(app: Application, p1alias: string, p2alias: string): Promise<gameEndData> {
+  gameActive = true;
   await countDownStart(app);
   const winner = await setupGame(app, p1alias, p2alias);
   console.log("winner data:", winner);
+  gameActive = false;
   return winner;
 }
 
 export async function restartSnek(app: Application, p1alias: string, p2alias: string): Promise<gameEndData> {
   app.ticker.start();
+  gameActive = true;
   await countDownStart(app);
   const winner = await setupGame(app, p1alias, p2alias);
   console.log("winner data:", winner);
+  gameActive = false;
   return winner;
 }
 
@@ -113,6 +130,7 @@ export function invertColor(color: number): number {
 }
 
 export function resetGame(app: Application) {
+  gameActive = false;
   app.stage.removeChildren();
   app.renderer.background.color = PREGAME_COLOUR;
   const text = new Text({
