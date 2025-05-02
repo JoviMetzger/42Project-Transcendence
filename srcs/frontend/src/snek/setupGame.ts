@@ -33,6 +33,7 @@ export async function setupGame(app: Application, player1Alias: string, player2A
         fontWeight: 'bold',
         align: 'center',
         stroke: {color: '#000000', width: 2},
+        padding: 1
       }
     );
     const scoreStyle = style.clone();
