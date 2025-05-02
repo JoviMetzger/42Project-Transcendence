@@ -192,16 +192,17 @@ function setupGuestAliasLocking() {
         const rawInput = guestInputField.value.trim();
         const sanitizedInput = rawInput.replace(/[^a-zA-Z0-9]/g, '');
         const guestInput = DOMPurify.sanitize(sanitizedInput);
+        
         if (guestInput.length < 3) {
             alert("Guest alias must be at least 3 characters long.");
             return;
-        }
+        }    
         guestInputField.disabled = true;
         lockInButton.classList.add('hidden');
         changeButton.classList.remove('hidden');
         
         authState.isGuestLocked = true;
-        authState.guestAlias = "(guest)" + guestInput;
+        authState.guestAlias = guestInput;
         updateStartGameButton();
     });
     
