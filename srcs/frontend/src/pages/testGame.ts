@@ -1,8 +1,9 @@
-import { startSnek, preGameScreen, restartSnek } from '../snek/main';
+import { startSnek, preGameScreen, restartSnek, gameEndData } from '../snek/main';
 import { Application } from 'pixi.js'
 
 export function setupTestGame() {
     const player1Alias = "julius"
+    const firstMatch: Boolean = true;
     console.log("testgame page");
     const root = document.getElementById('app');
     if (root) {
@@ -19,9 +20,10 @@ export function setupTestGame() {
                     <div class="flex items-center gap-4">
                         <label class="flex items-center cursor-pointer">
                             <span class="mr-2">Guest</span>
-                            <input type="checkbox" id="authToggle" class="sr-only peer">
-                            <div class="w-14 h-7 bg-gray-300 rounded-full peer peer-checked:bg-blue-600 relative transition-all duration-300">
-                                <div class="absolute w-6 h-6 bg-white rounded-full left-1 top-0.5 peer-checked:left-7 transition-all duration-300"></div>
+                            <div class="relative inline-block w-16 h-8">
+                                <input type="checkbox" id="authToggle" class="absolute w-0 h-0 opacity-0">
+                                <div class="absolute inset-0 bg-gray-300 rounded-full transition-colors duration-300" id="toggleBackground"></div>
+                                <div class="absolute left-1 top-1 w-6 h-6 bg-white rounded-full shadow-md transition-all duration-300" id="toggleCircle"></div>
                             </div>
                             <span class="ml-2">Login</span>
                         </label>
@@ -31,7 +33,7 @@ export function setupTestGame() {
                     <form id="GuestAliasform" class="flex flex-col gap-2 text-black">
                         <input type="text" id="guestAliasInput" class="p-2 rounded" placeholder="Guest name" />
                         <div class="flex gap-2">
-                            <button id="lockInGuest" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Lock In</button>
+                            <button id="lockInGuest" type="button" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Lock In</button>
                             <button id="changeGuestAlias" type="button" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded hidden">Change</button>
                         </div>
                     </form>
@@ -47,7 +49,7 @@ export function setupTestGame() {
             </div>
             <button class=btn id="startGame">Start Game</button>
             <div id="gameContainer" class="mb-4"></div>
-            <div class="flex flex-row gap-4">
+            <div class="hidden flex-row gap-4" id="replayButtons">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="newGame">New Players</button>
                 <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded" id="restartGame">Rematch!</button>
             </div>
@@ -96,40 +98,52 @@ function setupAuthToggle() {
     const toggle = document.getElementById("authToggle") as HTMLInputElement;
     const guestForm = document.getElementById("GuestAliasform") as HTMLFormElement;
     const loginForm = document.getElementById("LoginForm") as HTMLFormElement;
+    const toggleBackground = document.getElementById("toggleBackground");
+    const toggleCircle = document.getElementById("toggleCircle");
 
-    if (!toggle || !guestForm || !loginForm) {
+    if (!toggle || !guestForm || !loginForm || !toggleBackground || !toggleCircle) {
         console.error("Auth toggle or forms not found");
         return;
     }
 
     toggle.addEventListener('change', () => {
         if (toggle.checked) {
+            toggleBackground.classList.add('bg-blue-600');
+            toggleBackground.classList.remove('bg-gray-300');
+            toggleCircle.style.transform = 'translateX(32px)';
+
             guestForm.classList.add('hidden');
             guestForm.classList.remove('flex');
-
             loginForm.classList.remove('hidden');
             loginForm.classList.add('flex');
         } else {
+            toggleBackground.classList.remove('bg-blue-600');
+            toggleBackground.classList.add('bg-gray-300');
+            toggleCircle.style.transform = 'translateX(0)';
+
             loginForm.classList.add('hidden');
             loginForm.classList.remove('flex');
-
             guestForm.classList.remove('hidden');
             guestForm.classList.add('flex');
         }
     });
 }
 
-function startGameListeners(app: Application) {
+async function startGameListeners(app: Application): Promise<void> {
     const startGameButton = document.getElementById('startGame');
     const restartGameButton = document.getElementById('restartGame');
     const gameContainer = document.getElementById('gameContainer');
-    if (!gameContainer || !startGameButton || !restartGameButton) {
+    const replayButtons = document.getElementById('replayButtons');
+    if (!gameContainer || !startGameButton || !restartGameButton || !replayButtons) {
         console.error("One or more elements not found");
         return;
     }
-    startGameButton.addEventListener('click', () => {
-            startSnek(app, "player1", "player2");
-        });
+    startGameButton.addEventListener('click', async () => {
+        const gameData: gameEndData = await startSnek(app, "player1", "player2");
+        console.log("gameData", gameData);
+        replayButtons.classList.remove('hidden');
+        replayButtons.classList.add('flex');
+    });
     restartGameButton.addEventListener('click', () => {
         restartSnek(app, "player1", "player2");
         console.log("Restarting game");
