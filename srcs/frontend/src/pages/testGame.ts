@@ -1,7 +1,6 @@
-import { startSnek, preGameScreen, restartSnek, gameEndData } from '../snek/main';
+import { startSnek, preGameScreen, restartSnek, gameEndData, resetGame } from '../snek/main';
 import { Application } from 'pixi.js'
 
-// Track authentication state
 interface AuthState {
     isAuthenticated: boolean;
     isGuestLocked: boolean;
@@ -77,7 +76,12 @@ export function setupTestGame() {
     const container = document.getElementById('gameContainer') as HTMLElement;
     if (container) {
         preGameScreen(container).then((app: Application) => {
+            setupGuestAliasLocking();
+            setupAuthToggle();
+            setupLoginValidation();
+            updateStartGameButton();
             startGameListeners(app);
+            newPlayersButton(app);
         }).catch((error) => {
             console.error("Error setting up the game:", error);
         });
@@ -85,13 +89,9 @@ export function setupTestGame() {
         console.error("Game container not found");
         return;
     }
-    setupGuestAliasLocking();
-    setupAuthToggle();
-    setupLoginValidation();
-    newPlayersButton();
-    updateStartGameButton();
 }
 
+// enables the start game button if user is logged in or guest is locked in
 function updateStartGameButton() {
     const startGameButton = document.getElementById('startGame') as HTMLButtonElement;
     const player2InfoElements = document.querySelectorAll('.player2-info');
@@ -123,6 +123,7 @@ function updateStartGameButton() {
     }
 }
 
+// allows the lockin of the guest alias
 function setupGuestAliasLocking() {
     const guestInput = document.getElementById("guestAliasInput") as HTMLInputElement;
     const lockInButton = document.getElementById("lockInGuest") as HTMLButtonElement;
@@ -171,6 +172,7 @@ function setupGuestAliasLocking() {
     });
 }
 
+// updates the start game button based on the authentication state
 function setupAuthToggle() {
     const toggle = document.getElementById("authToggle") as HTMLInputElement;
     const guestForm = document.getElementById("GuestAliasform") as HTMLFormElement;
@@ -240,6 +242,7 @@ function setupAuthToggle() {
     });
 }
 
+// logs the user in
 function setupLoginValidation() {
     const loginButton = document.getElementById('loginButton');
     const logoutButton = document.getElementById('logoutButton');
@@ -263,8 +266,7 @@ function setupLoginValidation() {
         }
         
         try {
-            // For testing, always return success
-            const success = true; // await validateLogin(username, password);
+            let success = await validateLogin(username, password);
             if (success) {
                 showLoginStatus(loginStatus, "Login successful!", true);
                 authState.isAuthenticated = true;
@@ -320,13 +322,14 @@ function setupLoginValidation() {
     });
 }
 
+// displays output of login attempt
 function showLoginStatus(statusElement: HTMLElement, message: string, isSuccess: boolean) {
     statusElement.textContent = message;
     statusElement.classList.remove('hidden', 'text-green-500', 'text-red-500');
     statusElement.classList.add(isSuccess ? 'text-green-500' : 'text-red-500');
 }
 
-// Skeleton for login validation function
+// calls login API
 async function validateLogin(username: string, password: string): Promise<boolean> {
     // This is a placeholder function for login validation
     // In a real application, you would make an API call to validate the credentials
@@ -344,6 +347,7 @@ async function validateLogin(username: string, password: string): Promise<boolea
     });
 }
 
+// starts the listeners for the game button
 async function startGameListeners(app: Application): Promise<void> {
     const startGameButton = document.getElementById('startGame');
     const restartGameButton = document.getElementById('restartGame');
@@ -376,7 +380,8 @@ async function startGameListeners(app: Application): Promise<void> {
     });
 }
 
-function newPlayersButton() {
+// logic for resetting the game ( newplayer button )
+function newPlayersButton(app: Application) {
     const newGameButton = document.getElementById('newGame');
     if (!newGameButton) {
         console.error("New game button not found");
@@ -423,6 +428,7 @@ function newPlayersButton() {
         }
         
         // Update start game button state
+        resetGame(app);
         updateStartGameButton();
         
         console.log("New players button clicked");

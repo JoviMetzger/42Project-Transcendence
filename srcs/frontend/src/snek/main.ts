@@ -111,3 +111,24 @@ async function countDownStart(app: Application): Promise<void> {
 export function invertColor(color: number): number {
     return 0xFFFFFF - color;
 }
+
+export function resetGame(app: Application) {
+  app.stage.removeChildren();
+  app.renderer.background.color = PREGAME_COLOUR;
+  const text = new Text({
+    text: 'Press start game to play',
+    style: {
+      fontFamily: 'Arial',
+      fontSize: 60,
+      fontWeight: 'bold',
+      fill: 0xFFFFFF,
+      align: 'center',
+    }
+  });
+
+  text.anchor.set(0.5);
+  text.position.set(GAME_WIDTH / 2, GAME_HEIGHT / 2);
+
+  app.stage.addChild(text);
+  app.ticker.start();
+}
