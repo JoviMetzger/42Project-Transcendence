@@ -202,7 +202,7 @@ function setupGuestAliasLocking() {
         changeButton.classList.remove('hidden');
         
         authState.isGuestLocked = true;
-        authState.guestAlias = guestInput;
+        authState.guestAlias = "(guest) " + guestInput;
         updateStartGameButton();
     });
     
@@ -313,7 +313,7 @@ async function validateLogin(username: string, password: string): Promise<boolea
 
 // starts the listeners for the game button
 async function startGameListeners(app: Application): Promise<void> {
-    const startGameButton = document.getElementById('startGame');
+    const startGameButton = document.getElementById('startGame') as HTMLButtonElement;
     const restartGameButton = document.getElementById('restartGame');
     const gameContainer = document.getElementById('gameContainer');
     const replayButtons = document.getElementById('replayButtons');
@@ -328,6 +328,9 @@ async function startGameListeners(app: Application): Promise<void> {
         const player2Name = authState.isAuthenticated ? authState.userAlias : authState.guestAlias;
         
         // Start the game with the appropriate player names
+        startGameButton.disabled = true;
+        startGameButton.classList.add('bg-gray-500', 'cursor-not-allowed', 'opacity-50');
+        startGameButton.classList.remove('bg-blue-500', 'hover:bg-blue-700', 'text-white');
         const gameData: gameEndData = await startSnek(app, "player1", player2Name);
         console.log("gameData", gameData);
         
