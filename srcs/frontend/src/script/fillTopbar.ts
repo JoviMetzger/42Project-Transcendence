@@ -1,11 +1,11 @@
 import { connectFunc, requestBody } from './connections';
-import { setupError404 } from '../pages/error404';
+import { setupErrorPages } from '../pages/errorPages';
 
 export function fillTopbar() {
 	// Retrieve user uuid
 	const userID = localStorage.getItem('userID');
 	if (userID) {
-		connectFunc(`/user/${userID}`, requestBody("GET", null, "application/json"))
+		connectFunc(`/user`, requestBody("GET", null, "application/json"))
 		.then((userInfoResponse) => {
 			if (userInfoResponse.ok) {
 				userInfoResponse.json().then((data) => {
@@ -23,18 +23,18 @@ export function fillTopbar() {
 
 				});
 			} else {
-				window.history.pushState({}, '', '/error404');
-				setupError404();
+				window.history.pushState({}, '', '/errorPages');
+				setupErrorPages(404, "Page Not Found");
 			}
 		}).catch(() => {
 			// Network or server error
-			window.history.pushState({}, '', '/error404');
-			setupError404();
+			window.history.pushState({}, '', '/errorPages');
+			setupErrorPages(500, "Internal Server Error");
 		});
 	} else {
 		// Network or server error
-		window.history.pushState({}, '', '/error404');
-		setupError404();
+		window.history.pushState({}, '', '/errorPages');
+		setupErrorPages(404, "Page Not Found");
 	}
 
 }
