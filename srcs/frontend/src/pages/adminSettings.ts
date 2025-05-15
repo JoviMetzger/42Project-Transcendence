@@ -59,7 +59,7 @@ export function setupAdminSetting() {
 				dropDownBar(["dropdown-btn", "language-btn", "language-content"]);
 				eyeIcon_Button(["show-password", "show-password_confirm", "avatar"]);
 				fillTopbar();
-				fillSetting();
+				// fillSetting();
 				
 				document.getElementById('Save')?.addEventListener('click', async () => {
 					const isValid = adminPasswordFields(["password", "password_confirm"]);

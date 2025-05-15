@@ -23,6 +23,7 @@ export const usersTable = sqliteTable("users_table", {
 	profile_pic: blob("profile_pic"),
 	language: text("language", { length: 264 }).$type<eLanguage>().default(eLanguage.ENGLISH),
 	status: int("status").$type<userStatus>().default(0),
+	// score: int("score").default(0),
 	win: int("wins").default(0),
 	loss: int("loss").default(0)
 });
@@ -49,7 +50,7 @@ export const matchesTable = sqliteTable("matches", {
 	winner_id: int("winner").$type<eWinner>().default(eWinner.NOWINNER),
 	start_time: text("start_time", { length: 264 }).default(sql`(current_timestamp)`),
 	end_time: text("end_time", { length: 264 }).default(sql`(current_timestamp)`),
-	duration: int("duration").default(0)
+	match_duration: int("match_duration").default(0)
 });
 
 export enum friendStatus {

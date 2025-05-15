@@ -69,7 +69,6 @@ function userRoutes(fastify: FastifyInstance, options: any, done: () => void) {
 	// update data
 	fastify.put<{
 		Body: {
-			uuid: string
 			username?: string;
 			alias?: string;
 			language?: eLanguage;

@@ -33,7 +33,7 @@ export function setupLogIn() {
 			</div>
 			<p>
 				<span data-i18n="LogIn_P"></span>
-				<a id="SignUp" style="color: rgb(209, 7, 128); margin-left: 5px; text-decoration: underline;" data-i18n="btn_SignUp"></a>
+				<a id="SignUp" style="color: rgb(209, 7, 128); margin-left: 0.5%; text-decoration: underline;" data-i18n="btn_SignUp"></a>
 			</p>
 
 		</div>
@@ -62,6 +62,8 @@ export function setupLogIn() {
 						
 						// Get user ID  -> user uuid
 						const userID = data.uuid;
+						console.log(data)
+						console.log(data.uuid)
 						if (!userID) {
 							// Network or server error
 							window.history.pushState({}, '', '/errorPages');
@@ -96,17 +98,9 @@ export function setupLogIn() {
 							const errorMsg = document.getElementById("login-name") as HTMLParagraphElement;
 							errorDisplay(elem, errorMsg, "LogIn_noUser");
 						}
-					}).catch(() => {
-						// Network or server error
-						window.history.pushState({}, '', '/errorPages');
-						setupErrorPages(response.status,  response.statusText);
-					});
+					})
 				}
-			}).catch(() => {
-				// Network or server error
-				window.history.pushState({}, '', '/errorPages');
-				setupErrorPages(500, "Internal Server Error");
-			});
+			})
 		});
 	}
 }

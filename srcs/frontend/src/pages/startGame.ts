@@ -1,11 +1,7 @@
-import { renderPage } from './index';
-import { setupUserHome } from './home';
-import { setupSetting } from './setting';
-import { setupFriends } from './friends';
-import { setupMatchHistory } from './history';
 import { getLanguage } from '../script/language';
 import { dropDownBar } from '../script/dropDownBar';
 import { fillTopbar } from '../script/fillTopbar';
+import { setupNavigation } from '../script/menuNavigation';
 
 export function setupStartGame () {
 	const root = document.getElementById('app');
@@ -39,31 +35,8 @@ export function setupStartGame () {
 
 		getLanguage();
 		fillTopbar();
-		dropDownBar(["dropdown-btn", "language-btn", "language-content"]);
+		dropDownBar(["dropdown-btn", "language-btn", "language-content", "game-btn", "game-content"]);
+		setupNavigation();
 
-		document.getElementById('LogOut')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/index');
-			renderPage();
-		});
-
-		document.getElementById('Home')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/home');
-			setupUserHome();
-		});
-
-		document.getElementById('Settings')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/setting');
-			setupSetting();
-		});
-
-		document.getElementById('Friends')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/friends');
-			setupFriends();
-		});
-
-		document.getElementById('History')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/history');
-			setupMatchHistory();
-		});
 	}
 }

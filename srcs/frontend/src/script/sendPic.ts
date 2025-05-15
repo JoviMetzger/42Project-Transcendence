@@ -2,7 +2,7 @@ import { setupErrorPages } from '../pages/errorPages';
 import { connectFunc, requestBody } from './connections';
 
 // Add Profile Pic
-export async function sendPicture(userID: any) {
+export async function sendPicture() {
 	
 	const avatarInput = document.getElementById('avatar') as HTMLInputElement;
 	let file: File | Blob | null = null;
@@ -21,7 +21,7 @@ export async function sendPicture(userID: any) {
 
 	const body = requestBody("POST", form);
 
-	connectFunc(`/users/${userID}/profile-pic`, body)
+	connectFunc(`/users/profile-pic`, body)
 		.then(response => {
 			if (!response.ok) {
 				window.history.pushState({}, '', '/errorPages');
@@ -29,15 +29,10 @@ export async function sendPicture(userID: any) {
 				return ;
 			}
 		})
-		.catch(() => {
-			// Network or server error
-			window.history.pushState({}, '', '/errorPages');
-			setupErrorPages(500, "Internal Server Error");
-		});
 }
 
 // Edit Profile Pic
-export function EditPicture(userID: any): boolean {
+export function EditPicture(): boolean {
 	
 	let isValid = true;
 	const avatarInput = document.getElementById('avatar') as HTMLInputElement;
@@ -49,7 +44,7 @@ export function EditPicture(userID: any): boolean {
 		const form = new FormData();
 		form.append("avatar", file);
 		const body = requestBody("POST", form);
-		connectFunc(`/users/${userID}/profile-pic`, body)
+		connectFunc(`/users/profile-pic`, body)
 		.then(response => {
 			if (!response.ok) {
 				isValid = false;

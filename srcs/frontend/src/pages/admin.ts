@@ -5,7 +5,7 @@ import { setupErrorPages } from './errorPages';
 import { setupAdminSetting } from './adminSettings';
 import { connectFunc, requestBody } from '../script/connections';
 import { fillTopbar } from '../script/fillTopbar';
-import { fillUserTable } from '../script/fillUsertabe_admin';
+import { fillUserTable } from '../script/fillTable';
 
 export function setupAdmin() {
 	const root = document.getElementById('app');
@@ -52,7 +52,7 @@ export function setupAdmin() {
 		// Retrieve user uuid
 		const userID = localStorage.getItem('userID');
 		if (userID) {
-			connectFunc(`/user/${userID}`, requestBody("GET", null))
+			connectFunc(`/user`, requestBody("GET", null))
 			.then((userInfoResponse) => {
 				if (userInfoResponse.ok) {
 					userInfoResponse.json().then((data) => {
@@ -64,11 +64,7 @@ export function setupAdmin() {
 						}
 					});
 				}
-			}).catch(() => {
-				// Network or server error
-				window.history.pushState({}, '', '/errorPages');
-				setupErrorPages(500, "Internal Server Error");
-			});
+			})
 		} else {
 			// Network or server error
 			window.history.pushState({}, '', '/errorPages');

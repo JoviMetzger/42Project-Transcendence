@@ -5,7 +5,7 @@ export function fillHome() {
 	// Retrieve user uuid
 	const userID = localStorage.getItem('userID');
 	if (userID) {
-		connectFunc(`/user/${userID}`, requestBody("GET", null))
+		connectFunc(`/user`, requestBody("GET", null))
 		.then((userInfoResponse) => {
 			if (userInfoResponse.ok) {
 				userInfoResponse.json().then((data) => {
@@ -13,7 +13,7 @@ export function fillHome() {
 					// // Best Score
 					// const bestScoreElem = document.getElementById("best-score");
 					// if (bestScoreElem)
-					// 	bestScoreElem.textContent = data.Score;
+					// 	bestScoreElem.textContent = data.score;
 					// // ^^^^^ NOT WORKING YET (NO data.Score) ^^^^^^^^^^^^^^^^
 
 					// Win
@@ -29,17 +29,13 @@ export function fillHome() {
 				});
 			} else {
 				window.history.pushState({}, '', '/errorPages');
-				setupErrorPages(404, "Page Not Found");
+				setupErrorPages(userInfoResponse.status, "Not Found");
 			}
-		}).catch(() => {
-			// Network or server error
-			window.history.pushState({}, '', '/errorPages');
-			setupErrorPages(500, "Internal Server Error");
-		});
+		})
 	} else {
 		// Network or server error
 		window.history.pushState({}, '', '/errorPages');
-		setupErrorPages(404, "Page Not Found");
+		setupErrorPages(404, "Not Found");
 	}
 
 	// LeaderBoard
@@ -54,13 +50,9 @@ export function fillHome() {
 			});
 		} else {
 			window.history.pushState({}, '', '/errorPages');
-			setupErrorPages(404, "Page Not Found");
+			setupErrorPages(404, "Not Found");
 		}
-	}).catch(() => {
-		// Network or server error
-		window.history.pushState({}, '', '/errorPages');
-		setupErrorPages(500, "Internal Server Error");
-	});
+	})
 }
 
 // Find the 3 best user scores (Leaderboard)
