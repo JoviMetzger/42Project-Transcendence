@@ -2,6 +2,7 @@
     "btn_LogIn": "Anmelden",
     "btn_SignUp": "Registrieren",
     "btn_PlayPong": "Spiel Pong",
+    "btn_PlaySnek": "Snek spielen",
     "btn_Save": "Speichern",
     "btn_Remove": "Entfernen",
     "btn_Admin": "Änderungen vornehmen",
@@ -27,8 +28,10 @@
     
     "Index_Header": "Willkommen bei Transcendence",
     "Header_Pong": "Willkommen bei Pong",
+    "Header_Snek": "Willkommen bei Snek",
     "LogIn_Header": "Anmelden",
     "SignUp_Header": "Konto erstellen",
+    "Setting_Header": "Einstellungen",
     "Admin_Header": "Benutzereinstellungen",
     "Game_Header": "Wähle dein Pong Spiel",
     "Friends_Header": "Deine Freunde",
@@ -99,6 +102,11 @@
     "Snek": "Snek",
     "SwitchGame": "Spiel wechseln",
     "Pong": "Pong",
+
+    "SPl-against": "Gespielt gegen",
+    "SWinner": "Gewinner",
+    "SMy-score": "Mein Punktestand",
+    "Spl-score": "Gegnerischer Punktestand",
 
     "EndOfFile": ""
 }

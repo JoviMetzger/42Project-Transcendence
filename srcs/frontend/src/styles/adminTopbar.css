@@ -1,4 +1,4 @@
-/* userMain.css */
+/* adminTopbar.css */
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
@@ -9,26 +9,27 @@
 	@apply fixed inset-0 bg-black/50 z-[-1];
 }
 
-/* Top Bar */
+/* All for the Middle */
+.middle {
+	@apply fixed flex items-center justify-center p-2 top-[200px] left-[200px] m-5 rounded-lg w-[80%] h-[70%] bg-black/80;
+}
+
+/* All for the Top Bar */
 .topBar {
 	@apply fixed w-full h-[120px] flex items-center px-7 bg-[#902063] top-0 left-0;
 }
 .topBarFrame {
-	@apply absolute flex items-center h-[90px] right-[90px] top-1/2 transform -translate-y-1/2 bg-[#902063];
+	@apply absolute flex items-center h-[90px] right-[90px] top-1/2 transform -translate-y-1/2 rounded-full p-2 gap-4 bg-[#902063] min-w-fit;
 }
-.aliasName {
-	@apply text-white text-[20px] font-sans whitespace-nowrap mr-[150px];
+.adminName {
+	@apply text-white text-[20px] font-sans whitespace-nowrap;
 }
-
-/* Profile Picture */
 .profile-picture {
-	@apply cursor-pointer rounded-full justify-center ml-[-120px];
+	@apply flex justify-center;
 }
 .profile-picture img {
-	@apply w-24 h-24 rounded-full justify-center items-center object-cover border-2 border-white;
+	@apply w-[90px] h-[90px] rounded-full object-cover border-2 border-white;
 }
-
-/* Setting icon */
 .settingIcon {
 	@apply bg-[#902063] w-[50px] h-[35px] ml-[50px] top-[50%] z-10;
 }
@@ -55,18 +56,18 @@
 .dropdown-item:hover {
 	@apply bg-[#b86a8a];
 }
-.dropdown-item.currentPage {
+.dropdown-item.adminCurrentPage {
 	@apply font-bold bg-[#ab2d78] relative;
 }
-.dropdown-item.currentPage:hover {
+.dropdown-item.adminCurrentPage:hover {
 	@apply bg-[#b86a8a];
 }
-.dropdown-item.currentPage::after {
+.dropdown-item.adminCurrentPage::after {
 	content: '▶';
-	@apply text-white text-[15px] absolute left-4 top-1/2 -translate-y-1/2;
+	@apply text-white text-[14px] absolute left-4 top-1/2 transform -translate-y-1/2;
 }
 
-/* Language */
+/* Language  */
 .language-btn {
 	@apply bg-[#902063] w-[220px] h-[50px] p-2 cursor-pointer text-white text-center text-[20px] font-sans border-none rounded-none;
 }
@@ -92,5 +93,5 @@
 	@apply p-2 cursor-pointer text-white text-center text-[20px] font-sans;
 }
 .language-btn img {
-	@apply w-[25px] h-[15px] ml-40 mt-[-20px];
+	@apply w-[25px] h-[15px] ml-40 mt-[-20px] ;
 }

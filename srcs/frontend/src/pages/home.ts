@@ -1,11 +1,12 @@
-import { setupStartGame } from './startGame';
+import { setupStartGame } from './startPGame';
 import { getLanguage } from '../script/language';
 import { dropDownBar } from '../script/dropDownBar';
 import { fillHome } from '../script/fillHome';
 import { fillTopbar } from '../script/fillTopbar';
 import { setupNavigation } from '../script/menuNavigation';
+import { setupSnek } from '../pages/snek';
 
-export function setupUserHome () {
+export function setupUserHome() {
 	const root = document.getElementById('app');
 	if (root) {
 		root.innerHTML = "";
@@ -14,11 +15,11 @@ export function setupUserHome () {
 		<div class="overlay"></div>
 		<dropdown-menu></dropdown-menu>
 		
-		<div class="middle">
-			<!-- BODY CHANGE -->
+		<div class="hmiddle">
 			<div class="line"></div>
-			<h1 data-i18n="Header_Pong"></h1>
-			<div class="container">
+			<h1 class="heder" data-i18n="Header_Pong"></h1>
+
+			<div class="hcontainer">
 				<div class="user-stats">
 					<div class="stat-box">
 						<div class="best-score">
@@ -29,7 +30,6 @@ export function setupUserHome () {
 							<div id="best-score" class="score-number"> >-1200-< </div>
 						</div>
 					</div>
-
 					<div class="smoll-stat-container">
 						<div class="smoll-stat-box">
 							<div class="win-losse">
@@ -40,7 +40,6 @@ export function setupUserHome () {
 								<div id="win" class="score-number"></div>
 							</div>
 						</div>
-
 						<div class="smoll-stat-box">
 							<div class="win-losse">
 								<img src="src/Pictures/losses.png">
@@ -55,10 +54,14 @@ export function setupUserHome () {
 					<div class="buttons">
 						<button class="btn" id="StartGame" data-i18n="btn_PlayPong"></button>
 					</div>
+					<!-- Switching between games -->
+					<button class="game-btn" id="Snek">
+						<span data-i18n="SwitchGame"></span> <img src="src/Pictures/game-snek.png">
+					</button>
 				</div>
 				
 				<div class="leaderboard">
-					<h2 data-i18n="LeaderBoard"></h2>
+					<h2 class="lboard" data-i18n="LeaderBoard"></h2>
 					<div class="leaderboard-entry">
 						<div class="img-container">
 							<img src="src/Pictures/1.jpg">
@@ -107,19 +110,23 @@ export function setupUserHome () {
 				</div>
 
 			</div>
-			<!-- ^^^ -->
 		</div>
 		`);
 
 		getLanguage();
 		dropDownBar(["dropdown-btn", "language-btn", "language-content", "game-btn", "game-content"]);
-		fillHome(); // Retrieve user uuid
+		fillHome();
 		fillTopbar();
 		setupNavigation();
 
 		document.getElementById('StartGame')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/startGame');
+			window.history.pushState({}, '', '/startPGame');
 			setupStartGame();
+		});
+		
+		document.getElementById('Snek')?.addEventListener('click', () => {
+			window.history.pushState({}, '', '/snek');
+			setupSnek();
 		});
 
 	}

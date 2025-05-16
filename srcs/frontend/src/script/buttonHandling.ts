@@ -10,9 +10,6 @@ export function eyeIcon_Button(input: string[]) {
 			elem.addEventListener('click', () => {
 				const passwordField = document.getElementById("password");
 				const eyeIcon = document.getElementById("eye-icon");
-				console.log(passwordField);
-				console.log(eyeIcon);
-
 				if (passwordField && eyeIcon) {
 					change_eyeIcon(passwordField, eyeIcon);
 				}
@@ -52,10 +49,8 @@ export function eyeIcon_Button(input: string[]) {
 						profilePic.src = e.target.result as string; // Set the profile picture to the selected image
 					}
 				};
-		
-				if (file) {
+				if (file)
 					reader.readAsDataURL(file); // Read the selected file as a data URL
-				}
 			});
 		}
 	});

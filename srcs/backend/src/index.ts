@@ -55,7 +55,7 @@ declare module '@fastify/secure-session' {
 }
 
 fastify.register(rateLimit, {
-	max: 42,
+	max: 128,
 	timeWindow: '1 minute'
 })
 

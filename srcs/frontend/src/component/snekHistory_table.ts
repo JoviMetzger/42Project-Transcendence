@@ -2,7 +2,7 @@ import { fillHistoryTable } from '../script/fillTable';
 import { connectFunc, requestBody } from '../script/connections';
 import { getLanguage } from '../script/language';
 
-class HistoryTable extends HTMLElement {
+class SnekHistoryTable extends HTMLElement {
 	constructor() {
 		super();
 	}
@@ -24,6 +24,7 @@ class HistoryTable extends HTMLElement {
 			}
 		}).then(() => {
 			if (aliasName) {
+				// fillSnekHistoryTable(aliasName).then((entryData: { date: string; player1: string; player2: string; winner: string; score: string }[] | null) => {
 				fillHistoryTable(aliasName).then((entryData: { date: string; player1: string; player2: string; winner: string; score: string }[] | null) => {
 					if (entryData) {
 						
@@ -46,16 +47,16 @@ class HistoryTable extends HTMLElement {
 								<table class="userTable">
 								<thead>
 									<tr>
-										<th data-i18n="Date"></th>
-										<th data-i18n="1v1_Game"></th>
-										<th data-i18n="Winner"></th>
-										<th data-i18n="Score"></th>
+										<th data-i18n="SPl-against"></th>
+										<th data-i18n="SWinner"></th>
+										<th data-i18n="SMy-score"></th>
+										<th data-i18n="Spl-score"></th>
 									</tr>
 								</thead>
 								<tbody>
 									${rowsHtml}
 								</tbody>
-								</table>
+						</table>
 							</div>
 						`);
 
@@ -68,4 +69,4 @@ class HistoryTable extends HTMLElement {
 }
 
 // Define the custom element
-customElements.define('history-table', HistoryTable);
+customElements.define('snek-history-table', SnekHistoryTable);

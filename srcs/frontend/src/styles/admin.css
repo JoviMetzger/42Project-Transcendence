@@ -1,372 +1,41 @@
 /* adminPage.css */
 
-/* Example -> need this for later. For tailwindcss */
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer components {
-  .overlay {
-    @apply fixed top-0 left-0 w-full h-screen bg-black/50 -z-10;
-  }
-
-  .middle {
-    @apply fixed flex items-center justify-center p-[10px] top-[200px] left-[200px] m-[20px] rounded-[15px] w-[80%] h-[70%] bg-black/80;
-  }
-
-} */
-
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
-/* Dark overlay -> for background */
-.overlay {
-	position: fixed; 
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	background: rgba(0, 0, 0, 0.5); 
-	z-index: -1;
+/* Container for forms */
+.acontainer {
+	@apply m-4 p-1 rounded-[15px] z-[1] w-full;
 }
 
 /* All for the Middle */
-.middle {
-	background: rgba(0, 0, 0, 0.8);
-	position: fixed;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 10px;
-	top: 200px;
-	left: 200px;
-	margin: 20px;
-	border-radius: 15px;
-	width: 80%;
-	height: 70%;
-}
-
-/* All for the Top Bar */
-.topBar {
-	background: #902063;
-	position: fixed;
-	width: 100%;
-	height: 120px;
-	display: flex;
-	top: 0px;
-	left: 0px;
-	align-items: center;
-	padding: 0 30px;
-}
-.topBarFrame {
-	background: #902063;
-	position: absolute;
-	display: flex;
-	height: 90px; 
-	right: 90px;
-	top: 50%;
-	transform: translateY(-50%);
-	border-radius: 50px;
-	padding: 10px;
-	align-items: center;
-	gap: 15px;
-	min-width: fit-content;
-}
-.adminName {
-	color: white;
-	font-size: 20px;
-	font-family: Arial, sans-serif;
-	white-space: nowrap;
-}
-.profile-picture {
-	display: flex;
-	justify-content: center;
-}
-.profile-picture img {
-	width: 90px;
-	height: 90px;
-	border-radius: 50%;
-	object-fit: cover;
-	border: 3px solid white;
-}
-.settingIcon {
-	background: #902063;
-	height: 35px;
-	width: 50px;
-	margin-left: 200px;
-	position: absolute;
-	margin-top: 35px;
-	margin-left: 150px;
-	transform: translateY(-50%);
-	z-index: 1;
-}
-.settingIcon:hover  {
-	display: block;
-	background-color: #b86a8a; 
-}
-/* Dropdown */
-.dropdown {
-	position: relative;
-	text-align: center;
-}
-.dropdown-btn {
-	background: none;
-	border: none;
-	padding: 0;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-}
-.dropdown-content {
-	display: none;
-	position: fixed;
-	top: 120px; 
-	left: 0px;
-	width: 220px; 
-	height: 100%;
-	background: #902063;
-	border-radius: 5px;
-}
-.dropdown-content.show {
-	display: block;
-}
-.dropdown-item {
-	padding: 10px;
-	cursor: pointer;
-	color: rgb(255, 255, 255);
-	text-align: center;
-	font-size: 20px;
-	font-family: Arial, sans-serif;
-}
-.dropdown-item:hover {
-	background: #b86a8a;
-}
-.dropdown-item.adminCurrentPage {
-    font-weight: bold;
-	background: #ab2d78;
-    position: relative;
-}
-.dropdown-item.adminCurrentPage:hover {
-	background: #b86a8a;
-}
-.dropdown-item.adminCurrentPage::after {
-    content: '▶';
-    font-size: 14px;
-    color: #ffffff;
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-.hidden {
-	display: none;
-}
-.dropdown-content.show .hidden {
-	display: inline-block;
-}
-.language-btn {
-	background-color: #902063;
-	width: 220px;
-	padding: 10px;
-	cursor: pointer;
-	color: rgb(255, 255, 255);
-	border: none;
-	text-align: center;
-	font-size: 20px;
-	font-family: Arial, sans-serif;
-}
-.language-btn:hover {
-	background: #b86a8a;
-}
-.language-content {
-	display: none;
-	position: absolute;
-	background-color: white;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	min-width: 100px;
-	z-index: 1;
-	left: 45px;
-}
-.language-content.showLang .hidden {
-	display: inline-block;
-}
-.language-content.showLang {
-	display: block;
-}
-.language-content div {
-	padding: 8px;
-	display: flex;
-	align-items: center;
-	font-size: 17px;
-	gap: 5px;
-	color: black;
-	cursor: pointer;
-}
-.language-content div:hover {
-	background-color: #beb0b6;
-}
-.language-content img {
-	width: 20px;
-	height: 15px;
-}
-.language-option {
-	padding: 10px;
-	cursor: pointer;
-	color: rgb(255, 255, 255);
-	text-align: center;
-	font-size: 20px;
-	font-family: Arial, sans-serif;
-}
-.language-btn img {
-	width: 25px;
-	height: 15px;
-}
-
-/* Container for forms */
-.container {
-	background: rgba(0, 0, 0, 0);
-	padding: 40px;
-	border-radius: 15px;
-	width: 77%;
-	top: 170px;
-	left: 160px;
-	margin: 50px;
-	position: fixed;
-	z-index: 1; 
-}
-
-/* Search Bar Styling */
-.userSearch {
-	width: 500px;
-	padding: 10px;
-	margin-bottom: 15px;
-	border-radius: 5px;
-	font-size: 16px;
-	top: 6.5px;
-	margin-left: 43px;
-	position: relative;
-	font-size: 15px;
-	font-family: Arial, sans-serif;
-}
-.search-container {
-	position: relative;
-	display: flex;
-	align-items: center;
-	width: fit-content;
-}
-.search-btn {
-	background: white;
-	border: none;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: absolute;
-	border-radius: 5px;
-	height: 40px;
-	width: 40px;
-}
-.searchIcon {
-	height: 40px;
-	width: 40px;
-	border-radius: 5px;
-	z-index: 1;
-}
-.search-btn:hover {
-	background-color: #902063;
+.amiddle {
+	@apply bg-black bg-opacity-80 fixed p-2 top-[200px] left-[220px] rounded-[15px] w-[85%] min-h-[20%] z-[1];
 }
 
 /* Table Styling */
 .userTable {
-	width: 100%;
-	border-collapse: collapse;
-	background-color: #ffffff;
+	@apply border-collapse bg-white table-fixed w-full;
 }
 .userTable td {
-	padding: 12px;
-	text-align: left;
-	color: rgb(0, 0, 0);
-	border-bottom: 1px solid #ddd;
-	font-size: 15px;
-	font-family: Arial, sans-serif;
+	@apply text-center text-black border-b border-gray-300 text-[15px] font-sans;
 }
 .userTable th {
-	color: rgb(0, 0, 0);
-	background-color: #d7d7d7;
-	font-weight: bold;
-	font-size: 17px;
-	font-family: Arial, sans-serif;
+	@apply border text-black bg-gray-300 p-4 font-bold text-[17px] font-sans sticky top-0 z-[2] shadow-md;
 }
 
 /* Button Styling */
 .btn {
-	padding: 8px 12px;
-	margin-right: 5px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 14px;
-	font-size: 15px;
-	font-family: Arial, sans-serif;
+	@apply py-2 border-none rounded cursor-pointer text-[15px] font-sans w-[170px];
 }
 .btn:first-child {
-	background-color: #ff4d4d;
-	color: white;
-}
-.btn:first-child:hover {
-	background-color: #b86a8a;
+	@apply bg-[#db4343] text-white mt-[5px];
 }
 .btn:last-child {
-	background-color: #4CAF50;
-	color: white;
+	@apply bg-[#4ea150] text-white mb-[5px] mt-[5px];
 }
-.btn:last-child:hover {
-	background-color: #b86a8a;
+.btn:hover {
+	@apply bg-[#b86a8a];
 }
 
-
-/* scroll */
+/* Scroll */
 .table-wrapper {
-	margin-top: 10px;
-	max-height: 60vh; 
-	overflow-y: auto;
-}
-/* .userTable {
-	width: 100%;
-	border-collapse: collapse;
-}
-.userTable th, .userTable td {
-	padding: 10px;
-	text-align: left;
-	border-bottom: 1px solid #c5c5c5;
-} */
-
-/* Eye icon for password */
-.field-icon {
-    cursor: pointer;
-    position: absolute;
-    margin-left: -35px; 
-    margin-top: 10px; 
-}
-.field-icon img {
-    width: 25px;
-    height: 20px;
-}
-
-/* Error Messages */
-.input-error {
-	border: 3px solid rgb(255, 0, 0);
-}
-.error-text {
-	color: rgb(228, 73, 73);
-	font-size: 1rem;
-	margin-bottom: 2px;
-	margin-top: 20px;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
-	text-align: left;
+	@apply  max-h-[800px] w-[98%] overflow-y-auto block;
 }

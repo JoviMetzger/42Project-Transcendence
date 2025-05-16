@@ -5,20 +5,21 @@ import { setupUserHome } from './home';
 import { setupSetting } from './setting';
 import { setupFriends } from './friends';
 import { setupMatchHistory } from './history';
-import { setupStartGame } from './startGame';
+import { setupStartGame } from './startPGame';
+import { setupSnekMatchHistory } from './snekHistory';
 import { setupSnek } from './snek';
 import { setupAdmin } from './admin';
-import { setupTestGame } from './testGame';
 import { setupAdminUserSetting } from './adminUserSetting';
-import { setupAdminSetting } from './adminSettings';
 import { setupErrorPages } from './errorPages';
 import { getLanguage } from '../script/language';
 import { dropDownBar } from '../script/dropDownBar';
+import { setupTestGame } from './startSGame';
 import '../component/topbar'
 import '../component/languageMenu'
 import '../component/publicUser'
 import '../component/adminTopbar'
 import '../component/admin_userTable'
+import '../component/history_table'
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (!document.getElementById('app')?.hasChildNodes()) {
@@ -33,16 +34,16 @@ export function renderPage() {
 		'/home': setupUserHome,
 		'/logIn': setupLogIn,
 		'/signUp': setupSignUp,
-		'/startGame': setupStartGame,
+		'/startPGame': setupStartGame,
 		'/setting': setupSetting,
 		'/history': setupMatchHistory,
 		'/friends': setupFriends,
 		'/snek': setupSnek,
-		'/errorPages': () => setupErrorPages(404, 'Page Not Found'),
+		'/snekHistory': setupSnekMatchHistory,
+		'/errorPages': () => setupErrorPages(404, "Not Found"),
 		'/admin': setupAdmin,
-		'/adminSettings': setupAdminSetting,
-		'/adminUserSetting': setupAdminUserSetting,
-		'/testgame': setupTestGame
+		'/adminUserSetting': () => setupAdminUserSetting({}),
+		'/testGame': setupTestGame,
 	};
 	if (root) {
 		const funct = routes[window.location.pathname]
@@ -50,22 +51,27 @@ export function renderPage() {
 			funct();
 		} else {
 			root.innerHTML = "";
-			root.insertAdjacentHTML("beforeend", `
+			root.insertAdjacentHTML("beforeend", /*html*/`
 			<link rel="stylesheet" href="src/styles/index.css"> <!-- Link to the CSS file -->
 			<div class="overlay"></div>
 			<language-menu></language-menu>
-			<div class="container">
-				<h1 class="header" data-i18n="Index_Header"></h1>
-				<p data-i18n="Index_P"></p>
-				<div class="buttons">
-					<button class="btn" id="LogIn" data-i18n="btn_LogIn"></button>
-					<button class="btn" id="SignUp" data-i18n="btn_SignUp"></button>
+
+			<div class="middle">
+				<div class="container">
+					<h1 class="header" data-i18n="Index_Header"></h1>
+					<p data-i18n="Index_P"></p>
+
+					<div class="buttons">
+						<button class="btn" id="LogIn" data-i18n="btn_LogIn"></button>
+						<button class="btn" id="SignUp" data-i18n="btn_SignUp"></button>
+					</div>
 				</div>
 			</div>
 				`);
 
 			getLanguage();
 			dropDownBar(["dropdown-btn", "language-btn", "language-content"]);
+
 			document.getElementById('LogIn')?.addEventListener('click', () => {
 				window.history.pushState({}, '', '/logIn');
 				renderPage();
@@ -76,10 +82,6 @@ export function renderPage() {
 				renderPage();
 			});
 		}
-	} else {
-		// If invalid route -> 404 page
-		window.history.pushState({}, '', '/errorPages');
-		setupErrorPages(404, "Page Not Found");
 	}
 }
 

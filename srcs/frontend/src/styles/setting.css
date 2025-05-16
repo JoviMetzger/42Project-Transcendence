@@ -1,164 +1,85 @@
 /* setting.css */
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
 /* Container for forms */
-.container {
-	padding: 20px;
-	margin-top: 50px;
-	border-radius: 15px;
-	border: solid, 3px, #902063;
-	align-items: center;
-	z-index: 1; 
+.scontainer {
+	@apply absolute top-[610px] pl-7 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-[20px] w-[450px] h-[820px] z-[1];
 }
 
 /* All for the Middle */
-.middle {
-	background: rgba(0, 0, 0, 0.8);
-	position: fixed;
-	padding: 10px;
-	top: 200px;
-	left: 200px;
-	border-radius: 15px;
-	width: 75%;
-	height: 70%; 
-	z-index: -1;
+.smiddle {
+	@apply absolute top-[610px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1] rounded-[15px] w-[550px] h-[75%] p-5 rounded-[15px] bg-[rgba(0,0,0,0.8)];
 }
-
 .box {
-	width: 100%;
-	padding-bottom: 20px;
-	margin-top: 15px;
-	margin-bottom: 15px;
-	border-radius: 15px;
-	border: solid, 2px, #902063;
-	align-items: center;
+	@apply pl-[40px] pr-[35px] pb-[20px] ml-[-45px] mt-4 mb-4 w-[120%] rounded-[15px] border-[2px] border-[#902063] flex flex-col items-center justify-center;
 }
 
 /* Title styling */
 .header {
-	font-size: 2.5rem;
-	margin-bottom: 15px;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
-	color: white;
-	text-align: center;
+	@apply w-full text-[2.5rem] mb-4 m-0 box-border font-sans text-white text-center;
 }
 
 /* Paragraph styling */
 p {
-	font-size: 1rem;
-	margin-bottom: 5px;
-	margin-top: 5px;
-	margin-left: 30px;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
-	color: white;
-	text-align: center;
+	@apply  w-full text-base my-1 ml-8 box-border font-sans text-white text-center;
 }
-
-/* Paragraph styling */
 .p1 {
-	font-size: 1rem;
-	margin-bottom: 2px;
-	margin-top: 20px;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
-	color: white;
-	text-align: left;
+	@apply  w-full text-base mb-0.5 mt-5 box-border font-sans text-white text-left;
 }
 
 /* Input fields */
 .input-field {
-	width: 90%;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-radius: 5px;
-	border: none;
-	box-sizing: border-box;
-	color: black;
-	background-color: white;
-	font-size: 1rem;
-	margin-left: 22px;
-}
-.input-field:focus {
-	outline: none;
-	border: 2px solid #fde7f4;
+	@apply w-full py-[8px] pl-1 rounded-[5px] border-none text-black bg-white text-[1rem] box-border;
 }
 
 /* Button styling */
 .buttons {
-	display: flex;
-	gap: 10px;
-	justify-content: center;
+	@apply flex gap-2 justify-center;
 }
 .btn {
-	margin-bottom: 9px;
-	width: 400px;
-	padding: 12px;
-	font-size: 1.1rem;
-	color: white;
-	background: #902063;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	margin-top: 10px;
-	transition: 0.3s;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
+	@apply mb-2.5 w-[400px] py-3 text-[1.1rem] text-white bg-[#902063] border-none rounded-[5px] cursor-pointer mt-2.5 transition duration-300 box-border font-sans;
 }
 .btn:hover {
-	background: #b86a8a;
+	@apply bg-[#b86a8a];
 }
 
 /* Edit picture */
 .edit-picture {
-	display: flex;
-	background: none;
-	border: none;
-	padding: 0;
-	cursor: pointer;
-	margin-top: 15px;
-	margin-bottom: 15px;
-	margin-left: 170px;
-
+	@apply flex bg-none border-none cursor-pointer ml-[150px];
 }
 .edit-picture img {
-	width: 100px; 
-	height: 100px;
-	border-radius: 50%;
-	object-fit: cover;
-	border: 3px solid white;
+	@apply w-[110px] h-[110px] rounded-full object-cover border-[3px] border-white;
 }
 .edit-picture img:hover {
-	border: 3px solid #b86a8a;
+	@apply border-[#b86a8a];
 }
 
 /* Eye icon for password */
 .field-icon {
-    cursor: pointer;
-    position: absolute;
-    margin-left: -35px; 
-    margin-top: 10px; 
+	@apply cursor-pointer absolute top-[463px] right-[40px];
 }
 .field-icon img {
-    width: 25px;
-    height: 20px;
+	@apply w-[25px] h-[20px];
+}
+.field-iconn {
+	@apply cursor-pointer absolute top-[546px] right-[40px];
+}
+.field-iconn img {
+	@apply w-[25px] h-[20px];
+}
+.field-iconnn {
+	@apply cursor-pointer absolute top-[633px] right-[40px];
+}
+.field-iconnn img {
+	@apply w-[25px] h-[20px];
 }
 
 /* Error Messages */
 .input-error {
-	border: 3px solid rgb(255, 0, 0);
+	@apply border-[3px] border-red-500;
 }
 .error-text {
-	color: rgb(228, 73, 73);
-	font-size: 1rem;
-	margin-bottom: 2px;
-	margin-top: 20px;
-	box-sizing: border-box;
-	font-family: Arial, sans-serif;
-	text-align: left;
+	@apply text-red-500 text-base my-0.5 mt-5 box-border font-sans text-left;
+}
+.error-message {
+	@apply text-red-600 mt-2.5 mb-5 text-[18px] font-sans text-center;
 }

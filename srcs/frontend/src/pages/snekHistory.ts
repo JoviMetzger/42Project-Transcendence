@@ -4,8 +4,9 @@ import { fillTopbar } from '../script/fillTopbar';
 import { setupNavigation } from '../script/menuNavigation';
 import { connectFunc, requestBody } from '../script/connections';
 import { setupErrorPages } from './errorPages';
+import { setupMatchHistory } from './history';
 
-export function  setupSnekMatchHistory () {
+export function  setupSnekMatchHistory() {
 	const root = document.getElementById('app');
 	if (root) {
 		root.innerHTML = "";
@@ -14,9 +15,12 @@ export function  setupSnekMatchHistory () {
 		<div class="overlay"></div>
 		<dropdown-menu></dropdown-menu>
 		
-			<!-- BODY CHANGE -->
-			<div class="middle">
-				<div class="container">
+			<!-- Switching between games -->
+			<button class="game-btn" id="PongHistory">
+				<span data-i18n="SwitchGame"></span> <img src="src/Pictures/game-pong.png">
+			</button>
+			<div class="imiddle">
+				<div class="hcontainer">
 					<h1 class="Pongheader" data-i18n="Snek"></h1>
 					<h1 class="header" data-i18n="History"></h1>
 					<p class="p1" data-i18n="History_P"></p>
@@ -26,38 +30,34 @@ export function  setupSnekMatchHistory () {
 					<!-- <snek-history-table></snek-history-table> -->
 					
 				</div>
-			<!-- ^^^ -->
 			</div>
 		`);
 
 		getLanguage();
-		dropDownBar(["dropdown-btn", "language-btn", "language-content", "game-btn", "game-content"]);
+		dropDownBar(["dropdown-btn", "language-btn", "language-content"]);
 		fillTopbar();
 		setupNavigation();
 
-		// Retrieve user uuid
-		const userID = localStorage.getItem('userID');
-		if (userID) {
-			connectFunc(`/user`, requestBody("GET", null))
-			.then((userInfoResponse) => {
-				if (userInfoResponse.ok) {
-					userInfoResponse.json().then((data) => {
-	
-						// Alias Name
-						const aliasElem = document.getElementById("historyAliasName");
-						if (aliasElem)
-							aliasElem.textContent = data.alias;
-	
-					});
-				} else {
-					window.history.pushState({}, '', '/errorPages');
-					setupErrorPages(404, "Not Found");
-				}
-			})
-		} else {
-			// Network or server error
-			window.history.pushState({}, '', '/errorPages');
-			setupErrorPages(404, "Not Found");
-		}
+		document.getElementById('PongHistory')?.addEventListener('click', () => {
+			window.history.pushState({}, '', '/history');
+			setupMatchHistory();
+		});
+
+		connectFunc(`/user`, requestBody("GET", null))
+		.then((userInfoResponse) => {
+			if (userInfoResponse.ok) {
+				userInfoResponse.json().then((data) => {
+
+					// Alias Name
+					const aliasElem = document.getElementById("historyAliasName");
+					if (aliasElem)
+						aliasElem.textContent = data.alias;
+
+				});
+			} else {
+				window.history.pushState({}, '', '/errorPages');
+				setupErrorPages(userInfoResponse.status, userInfoResponse.statusText);
+			}
+		})
 	}
 }
