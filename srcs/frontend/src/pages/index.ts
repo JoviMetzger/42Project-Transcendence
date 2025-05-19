@@ -14,6 +14,7 @@ import { setupErrorPages } from './errorPages';
 import { getLanguage } from '../script/language';
 import { dropDownBar } from '../script/dropDownBar';
 import { setupTestGame } from './startSGame';
+import { setupAdminLogIn } from './adminLogin';
 import { connectFunc, requestBody } from '../script/connections';
 import '../component/topbar'
 import '../component/languageMenu'
@@ -45,6 +46,7 @@ export function renderPage() {
 		'/admin': setupAdmin,
 		'/adminUserSetting': () => setupAdminUserSetting({}),
 		'/testGame': setupTestGame,
+		'/adminLogin': setupAdminLogIn,
 	};
 	if (root) {
 		const funct = routes[window.location.pathname]
