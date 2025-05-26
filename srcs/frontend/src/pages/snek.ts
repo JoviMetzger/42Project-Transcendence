@@ -139,7 +139,7 @@ export function setupSnek() {
 		setupNavigation();
 
 		document.getElementById('StartSnek')?.addEventListener('click', () => {
-			window.history.pushState({}, '', '/startSGame');  // change path !!!!!!!!
+			window.history.pushState({}, '', '/startSGame');
 			setupStartSGame();
 		});
 		

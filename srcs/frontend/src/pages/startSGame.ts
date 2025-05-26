@@ -46,8 +46,8 @@ const authState: AuthState = {
     userAlias: ""
 };
 
-export function setupStartSGame() {
 
+export function setupStartSGame() {
     const userDataPromise = connectFunc("/snek/stats/me", requestBody("GET", null, "application/json"))
         .then(response => {
             if (response.ok) {
@@ -155,7 +155,7 @@ export function setupStartSGame() {
                 
                 setupGuestAliasLocking();
                 FormToggleListener();
-                setupLoginValidation();
+                setupLoginValidation(app);
                 updateStartGameButton();
                 startGameListeners(app);
                 newPlayersButton(app);
@@ -347,7 +347,7 @@ async function fetchPlayer2Stats(alias: string): Promise<PlayerStats | null> {
 }
 
 // logs the user in
-function setupLoginValidation() {
+function setupLoginValidation(app: Application) {
     const loginButton = document.getElementById('loginButton');
     const logoutButton = document.getElementById('logoutButton');
     const usernameInput = document.getElementById('loginUsername') as HTMLInputElement;
@@ -421,6 +421,7 @@ function setupLoginValidation() {
         logoutButton.classList.add('hidden');
         loginStatus.classList.add('hidden');
 
+        resetGame(app);
         updateStartGameButton();
         updateFormToggle();
     });
