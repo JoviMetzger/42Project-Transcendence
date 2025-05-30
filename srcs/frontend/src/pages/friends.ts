@@ -6,6 +6,16 @@ import { fillTopbar } from '../script/fillTopbar';
 import { dropDownBar } from '../script/dropDownBar';
 import { setupNavigation } from '../script/menuNavigation';
 
+export type PubUserSchema = {
+	alias: string;
+	profile_pic: {
+		data: string;
+		mimeType: string;
+	};
+	win: number;
+	loss: number;
+};
+
 export type friendSchema = {
 	friendid: number;
 	friend: {
@@ -16,6 +26,7 @@ export type friendSchema = {
 		};
 		win: number;
 		loss: number;
+		status: number;
 	}
 }
 
@@ -24,6 +35,8 @@ type FriendRelations = {
 	receivedRequests: friendSchema[];
 	sentRequests: friendSchema[];
 };
+
+let publicUsers: PubUserSchema[] = [];
 
 export function setupFriends() {
 	const root = document.getElementById('app');
@@ -89,8 +102,8 @@ export function setupFriends() {
 						<div class="your-friends-list-wrapper">
 							<div class="friends-list" id="friends-container">
 								${friendRelations.friends.map((element: friendSchema) => `
-								<public-user type="friend" alias=${element.friend.alias} friendid=${element.friendid} profilePicData=${element.friend.profile_pic.data} profilePicMimeType=${element.friend.profile_pic.mimeType}></public-user>
-								`).join('')}
+                                <public-user type="friend" alias=${element.friend.alias} friendid=${element.friendid} profilePicData=${element.friend.profile_pic.data} profilePicMimeType=${element.friend.profile_pic.mimeType} status="${element.friend.status}"></public-user>
+                                `).join('')}
 							</div>
 						</div>
 
@@ -202,7 +215,6 @@ function refreshContainer(containerId: string) {
 			if (response.ok) {
 				return response.json();
 			} else {
-				console.log(`Error fetching friend data: ${response.status}`);
 				return { friends: [], receivedRequests: [], sentRequests: [] };
 			}
 		})
@@ -231,7 +243,8 @@ function refreshContainer(containerId: string) {
                     alias=${element.friend.alias} 
                     friendid=${element.friendid} 
                     profilePicData=${element.friend.profile_pic.data} 
-                    profilePicMimeType=${element.friend.profile_pic.mimeType}>
+                    profilePicMimeType=${element.friend.profile_pic.mimeType}
+                    status="${element.friend.status || 0}">
                 </public-user>
             `).join('');
 
@@ -277,11 +290,9 @@ function setupUserActionListeners() {
 
 	// Action handler functions
 	function acceptFriendRequest(friendid: number) {
-		console.log("acceptFriendRequest button, friend: ", friendid);
 		connectFunc(`/friends/${friendid}/accept`, requestBody("PUT"))
 			.then(response => {
 				if (response.ok) {
-					console.log(`Accepted friend request from user`);
 					refreshContainer('requests-container');
 					refreshContainer('friends-container');
 				} else {
@@ -291,11 +302,9 @@ function setupUserActionListeners() {
 	}
 
 	function declineFriendRequest(friendid: number) {
-		console.log("declineFriendRequest button, friend: ", friendid);
 		connectFunc(`/friends/${friendid}/delete`, requestBody("DELETE"))
 			.then(response => {
 				if (response.ok) {
-					console.log(`Declined friend request`);
 					refreshContainer('requests-container');
 				} else {
 					console.error(`Failed to delete friend relation: ${response.status}`);
@@ -304,23 +313,26 @@ function setupUserActionListeners() {
 	}
 
 	function viewUserHistory(alias: string) {
-		window.history.pushState({ userData: alias }, '', `/history?user=${alias}`);
-		setupMatchHistory(alias);
-		console.log("viewUserHistory button, alias: ", alias);
+		window.history.pushState({ userData: alias }, '', `/history?alias=${alias}`);
+		setupMatchHistory();
 	}
 
 	function viewOurHistory(alias: string) {
-		window.history.pushState({ userData: alias }, '', `/history?user=${alias}`);
-		setupMatchHistory(userAlias, alias);
-		console.log("viewUserHistory button, alias: ", alias);
+		const storedAlias = localStorage.getItem('myAlias');
+		if (!storedAlias) {
+			console.error("Can't find user alias");
+			fillTopbar(true);
+			window.location.reload();
+			return;
+		}
+		window.history.pushState({ userData: alias }, '', `/history?alias1=${storedAlias}&alias2=${alias}`);
+		setupMatchHistory();
 	}
 
 	function removeFriend(friendid: number) {
-		console.log("removeFriend button, friend: ", friendid);
 		connectFunc(`/friends/${friendid}/delete`, requestBody("DELETE"))
 			.then(response => {
 				if (response.ok) {
-					console.log(`Friend removed`);
 					refreshContainer('friends-container');
 				} else {
 					console.error(`Failed to delete friend relation: ${response.status}`);
@@ -329,11 +341,9 @@ function setupUserActionListeners() {
 	}
 
 	function addFriend(alias: string) {
-		console.log("addFriend button, to become friend: ", alias);
 		connectFunc(`/friends/new`, requestBody("POST", JSON.stringify({ alias: alias }), "application/json"))
 			.then(response => {
 				if (response.ok) {
-					console.log(`Friend request sent`);
 					refreshContainer('pending-container');
 					refreshNonFriends();
 				} else {
@@ -343,7 +353,6 @@ function setupUserActionListeners() {
 	}
 
 	function cancelRequest(friendid: number) {
-		console.log("cancelRequest button, friend: ", friendid);
 		connectFunc(`/friends/${friendid}/delete`, requestBody("DELETE"))
 			.then(response => {
 				if (response.ok) {

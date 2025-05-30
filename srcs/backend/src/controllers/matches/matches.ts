@@ -74,7 +74,7 @@ export const getMatchesByAlias = async (request: FastifyRequest<{ Params: { alia
 		const db = drizzle(sqlite);
 		const Matches = await db.select().from(matchesTable).where(or(eq(matchesTable.p1_alias, alias), eq(matchesTable.p2_alias, alias)))
 		if (Matches.length === 0) {
-			return reply.code(404).send({ error: "No Matches In The Database For This User" })
+			return reply.status(200).send(Matches);
 		}
 		return reply.status(200).send(Matches);
 	}
@@ -97,7 +97,7 @@ export const getMatchesByPair = async (request: FastifyRequest<{ Params: { p1_al
 			and(eq(matchesTable.p1_alias, p1_alias), eq(matchesTable.p2_alias, p2_alias)),
 			and(eq(matchesTable.p1_alias, p2_alias), eq(matchesTable.p2_alias, p1_alias))))
 		if (Matches.length === 0) {
-			return reply.code(404).send({ error: "No Matches In The Database For This Pair" })
+			reply.status(200).send(Matches);
 		}
 		return reply.status(200).send(Matches);
 	}

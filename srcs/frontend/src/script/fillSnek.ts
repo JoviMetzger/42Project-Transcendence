@@ -12,6 +12,11 @@ export function fillSnek() {
 					if (highestScoreElem)
 						highestScoreElem.textContent = data.highest_score;
 
+					// Win Rate
+					const winRateElem = document.getElementById("winRate");
+					if (winRateElem)
+						winRateElem.textContent = data.winrate + '%';
+
 					// Win
 					const winElem = document.getElementById("win");
 					if (winElem)
@@ -30,7 +35,7 @@ export function fillSnek() {
 		})
 
 	// LeaderBoard
-	const leaderboardResponse = connectFunc(`/snek/history/all`, requestBody("GET", null));
+	const leaderboardResponse = connectFunc(`/snekHistory/all`, requestBody("GET", null));
 	leaderboardResponse.then((leaderboardResponse) => {
 		if (leaderboardResponse.ok) {
 			leaderboardResponse.json().then((data) => {
@@ -90,6 +95,11 @@ function findBestSnekUsers(data: Match[]) {
 					const scoreElem = document.getElementById(`hScore${index + 1}`);
 					if (scoreElem)
 						scoreElem.textContent = topData.highest_score?.toString() || "0";
+
+					// Win Rate
+					const winRateElem = document.getElementById(`WRate${index + 1}`);
+					if (winRateElem)
+						winRateElem.textContent = topData.winrate?.toString() + "%" || "0";
 
 					// Win
 					const winElem = document.getElementById(`SWin${index + 1}`);
