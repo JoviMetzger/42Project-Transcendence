@@ -17,6 +17,8 @@
 		"@types/node": "^20.11.19"
 	},
 	"dependencies": {
+		"@babylonjs/core": "8.10.0",
+		"@babylonjs/gui": "8.10.0",
 		"@tailwindcss/vite": "^4.0.6",
 		"esbuild": ">=0.25.0",
 		"i18next": "^24.2.3",
