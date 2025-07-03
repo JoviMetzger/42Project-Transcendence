@@ -288,7 +288,7 @@ export function setupTournamentPong(playerCount:number) {
 										</div>
 									</form>
 										<!-- Login Form -->
-									<form id="p${playerNum}-LoginForm" class="form-fields text-black hidden flex flex-col">
+									<form id="p${playerNum}-LoginForm" class="form-fields text-black hidden flex-col">
 										<input type="text" id="p${playerNum}-loginUsername" class="form-input" placeholder="Username" />
 										<input type="password" id="p${playerNum}-loginPassword" class="form-input" placeholder="Password" />
 										<div class="form-row flex">
