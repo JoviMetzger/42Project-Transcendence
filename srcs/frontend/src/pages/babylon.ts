@@ -1,6 +1,7 @@
 import * as BABYLON from '@babylonjs/core'
 import * as GUI from '@babylonjs/gui'
 import { getTranslation } from '../script/language';
+import { createMouse } from '../game/snek/mouse';
 
 export interface SceneOptions {
 	p1_alias?: string;
@@ -9,8 +10,6 @@ export interface SceneOptions {
 	victoryMessage?: string;
 	// User Options
 	scoreToWin?: number;
-	// Ball Acceleration?
-	// Ball Speed?
 }
 
 export class Pong {
@@ -45,9 +44,6 @@ export class Pong {
 			});
 		});
     }
-
-
-
 }
 
 function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options: SceneOptions, setWinner: (winner:number) => void): BABYLON.Scene {
@@ -63,10 +59,11 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
     const ballSize          = 0.4;
     const ballMaxAngle      = Math.PI / 4;
     const ballBaseSpeed     = 0.2
-    const ballAcceleration  = 1.05;
-    const ballMaxSpeed      = 0.4;
+    const ballAcceleration  = 1.07;
+    const ballMaxSpeed      = 0.6;
     const ballStartAngle    = Math.PI / 6;
 	const ballDropSpeed		= 0.2
+	const zLimit			= groundHeight / 2 - ballSize / 2;
     // Colours
     const paddle1Colour     = new BABYLON.Color3(0, 0, 1);
     const paddle2Colour     = new BABYLON.Color3(1, 0, 0);
@@ -77,7 +74,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
 	const player2Alias		= options.p2_alias ?? "P2";
 	const scoreToWinString	= options.scoreToWinString ?? "Score To Win"
 	const victoryMessage	= options.victoryMessage ?? "Wins!\n(Press 'Enter' To Continue)"
-    const scoreToWin        = options.scoreToWin ?? 2;
+    const scoreToWin        = options.scoreToWin ?? 4;
     // Loop Variables
 	let	ballDropped			= false;
 	let	ballVector			= new BABYLON.Vector3(0,0,0);
@@ -93,19 +90,19 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
     // Camera: ArcRotate to get a good view of the pong field
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 4, 15, BABYLON.Vector3.Zero(), scene);
     camera.attachControl(canvas, true);
-    camera.inputs.removeByType("ArcRotateCameraKeyboardMoveInput");
+	camera.inputs.attached.keyboard.detachControl();
+	camera.inputs.attached.pointers.detachControl();
+	camera.inputs.attached.mousewheel.detachControl();
+    // camera.inputs.removeByType("ArcRotateCameraKeyboardMoveInput");
     camera.lowerBetaLimit = 1;
     camera.upperBetaLimit = Math.PI / 2;
     camera.lowerRadiusLimit = 12;
     camera.upperRadiusLimit = 18;
-// engine.onResizeObservable.add(() => {
-//   if (camera instanceof BABYLON.FreeCamera || camera instanceof BABYLON.ArcRotateCamera) {
-//     camera.aspectRatio = engine.getRenderingCanvasClientRect().width / engine.getRenderingCanvasClientRect().height;
-//     camera.getProjectionMatrix(true); // force recalculation
-//   }
-// });
-    // light
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    // Light
+	const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0.6), scene);
+	light.specular = new BABYLON.Color3(0.7, 0.6, 0.7);
+	light.groundColor = new BABYLON.Color3(0.2, 0.15, 0.1);
+	light.intensity = 0.7; 
 
     // Ground, Playing Field
     const ground = BABYLON.MeshBuilder.CreateGround("ground", {width: groundWidth, height: groundHeight}, scene);
@@ -165,7 +162,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
         if (paused >= 0)
         {
 			if (paused) {
-            // Surrender
+            // Surrender?
 			}
             return ;
         }
@@ -190,9 +187,13 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
 			ball.position.addInPlace(ballVector);
 		}
         // Ball Boundaries
-        if (ball.position.z > 1 * (groundHeight / 2) - .5 || ball.position.z < -1 * (groundHeight / 2) + .5) {
-            ballVector.z = -ballVector.z;
-        }
+		if (ball.position.z > zLimit) {
+			ball.position.z = zLimit;
+			ballVector.z = -ballVector.z;
+		} else if (ball.position.z < -zLimit) {
+			ball.position.z = -zLimit;
+			ballVector.z = -ballVector.z;
+		}
 
 
         // Paddle/Ball Collision
@@ -204,6 +205,10 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
             ballSpeed = Math.min(ballSpeed * ballAcceleration, ballMaxSpeed)
             ballVector.x = ballSpeed * Math.cos(bounceAngle) * direction;
             ballVector.z = ballSpeed * Math.sin(bounceAngle);
+			if (direction === 1)
+    			ball.position.x = paddle.position.x + (paddleWidth / 2) + (ballSize / 2);
+			else
+    			ball.position.x = paddle.position.x - (paddleWidth / 2) - (ballSize / 2);
         };
         const checkCollision = (paddle:BABYLON.Mesh) => {
             return Math.abs(ball.position.x - paddle.position.x) < ballSize / 2 + paddleWidth / 2 &&
@@ -243,13 +248,20 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
 			}
         }
     });
-
     // Controls
     window.addEventListener("keydown", (evt) => {
         const key = evt.key.toLowerCase();
 		switch(key) {
             case "p":
                 paused *= -1;
+    			if (paused >= 0) {
+					camera.inputs.attached.pointers.attachControl();
+					camera.inputs.attached.mousewheel.attachControl();
+				}
+				else {
+					camera.inputs.attached.pointers.detachControl();
+					camera.inputs.attached.mousewheel.detachControl();
+				}
                 break;
             case "w":
                 paddle1Direction = 1;
@@ -285,15 +297,26 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
                 break;
         }
     });
-
-    // GUI Setup
-	// TODO, Update GUI Based On resize
+	
+	// GUI Setup
+	window.addEventListener("resize", () => {
+		engine.resize();
+		gui.scaleTo(engine.getRenderWidth(), engine.getRenderHeight());
+		dynamicFontSize = Math.round(baseFontSize * (engine.getRenderWidth() / referenceWidth));
+		scoreToWinText.fontSize = dynamicFontSize;
+		player1Text.fontSize = dynamicFontSize;
+		player2Text.fontSize = dynamicFontSize;
+		winnerText.fontSize = dynamicFontSize * 2;
+	});
     const gui = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+	const baseFontSize = 36;
+	const referenceWidth = 1920;
+	let dynamicFontSize = Math.round(baseFontSize * (engine.getRenderWidth() / referenceWidth));
     //Score UI
     const scoreToWinText = new GUI.TextBlock();
     scoreToWinText.text = `${scoreToWinString}: ${scoreToWin}`;
     scoreToWinText.color = "white";
-    scoreToWinText.fontSize = 24;
+    scoreToWinText.fontSize = dynamicFontSize;
     scoreToWinText.top = "10px";
     scoreToWinText.textHorizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
     scoreToWinText.textVerticalAlignment = GUI.Control.VERTICAL_ALIGNMENT_TOP;
@@ -301,7 +324,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
     const player1Text = new GUI.TextBlock();
     player1Text.text = `${player1Alias}: ${player1Score}`;
     player1Text.color = "white";
-    player1Text.fontSize = 24;
+    player1Text.fontSize = dynamicFontSize;
     player1Text.top = "10px";
     player1Text.left = "10px";
     player1Text.textHorizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -310,7 +333,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
     const player2Text = new GUI.TextBlock();
     player2Text.text = `${player2Alias}: ${player2Score}`;
     player2Text.color = "white";
-    player2Text.fontSize = 24;
+    player2Text.fontSize = dynamicFontSize;
     player2Text.top = "10px";
     player2Text.left = "-10px";
     player2Text.textHorizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
@@ -319,7 +342,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
 	const winnerText = new GUI.TextBlock();
 	winnerText.text = "";
 	winnerText.color = "yellow";
-	winnerText.fontSize = 48;
+	winnerText.fontSize = dynamicFontSize * 2;
 	winnerText.fontStyle = "bold";
     winnerText.top = "50px";
 	winnerText.textHorizontalAlignment = GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
@@ -330,6 +353,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
     // Optional:
     // Add POV Change
     // Add Button Hints (Hide With h)
+	// Move Camera While Paused
 
 	function changeCameraTopDown() {
 		if (paused < 0)
@@ -350,9 +374,6 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement, options:
 	function declareWinner(name: string) {
 		winnerText.text = `${name} ${victoryMessage}`;
 		winnerText.isVisible = true;
-		// setTimeout(() => {
-			// winnerText.isVisible = false;
-		// }, 4000);
 	}
     return scene;
 };

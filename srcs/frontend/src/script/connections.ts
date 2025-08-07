@@ -1,6 +1,5 @@
 import envConfig from '../config/env';
 import DOMPurify from 'dompurify';
-// import { setupLogIn } from '../pages/logIn'
 import { renderPage } from '../pages';
 
 /* ---> These Functions handle the connection between frontend and backend <--- */
@@ -69,11 +68,9 @@ async function httpGet(url: string, request: RequestInit): Promise<Response> {
 }
 
 export async function connectFunc(url: string, request: RequestInit): Promise<Response> {
-	
 	const response = await httpGet("https://localhost:3000" + url, request);
 	if (response.status === 402) {
 		window.history.pushState({}, '', '/logIn');
-		// setupLogIn(); // Redirect to logIn
 		renderPage();
 	}
 	return response
