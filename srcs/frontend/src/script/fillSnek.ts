@@ -52,12 +52,8 @@ export function fillSnek() {
 
 // Match interface
 interface Match {
-	id: number;
 	p1_alias: string;
 	p1_score: number;
-	p2_alias: string;
-	p2_isGuest: boolean;
-	p2_score: number;
 }
 
 function findBestSnekUsers(data: Match[]) {
@@ -68,16 +64,14 @@ function findBestSnekUsers(data: Match[]) {
 		if (!aliasScores.has(match.p1_alias) || aliasScores.get(match.p1_alias)! < match.p1_score) {
 			aliasScores.set(match.p1_alias, match.p1_score);
 		}
-		if (!aliasScores.has(match.p2_alias) || aliasScores.get(match.p2_alias)! < match.p2_score) {
-			aliasScores.set(match.p2_alias, match.p2_score);
-		}
 	});
+
 	const sortedAliases = Array.from(aliasScores.entries())
 		.sort((a, b) => b[1] - a[1])
 		.map(entry => entry[0]);
 
-	// Get the top 3 unique aliases
-	const topThreeAliases = sortedAliases.slice(0, 3).map(alias => alias.replace("(guest) ", ""));
+	// Get the top 3 aliases
+	const topThreeAliases = sortedAliases.slice(0, 3);
 
 	topThreeAliases.forEach((alias, index) => {
 		const topResponse = connectFunc(`/snek/stats/${alias}`, requestBody("GET", null));
@@ -89,7 +83,7 @@ function findBestSnekUsers(data: Match[]) {
 					// Alias-name
 					const aliasElem = document.getElementById(`aliasName${index + 1}`);
 					if (aliasElem)
-						aliasElem.textContent = topData.alias;
+						aliasElem.textContent = alias;
 
 					// Highest Score
 					const scoreElem = document.getElementById(`hScore${index + 1}`);
