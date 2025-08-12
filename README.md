@@ -7,7 +7,7 @@ This project was developed in collaboration with [Julius]() and [Acco]() .<br>
 ## Table of Contents
 - [About](#About)
 - [Docker](#Docker)
-- [Swagger - Backend](#Swagger)
+- [Swagger - Backend](#Swagger-Backend)
 - [Drizzle - Backend](#Drizzle)
 - [HTTPS Certificate](#HTTPS-Certificate)
 - [dompurify - HTML](#dompurify)
@@ -239,7 +239,7 @@ const content = inputToContent(["username", "password"]);
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 -->
 
-## Installing
+## Installation
 **1. Step:**  Create a *.env*
 <details>
   <summary><strong>📝 My .env</strong></summary>
