@@ -12,7 +12,7 @@ This project was developed in collaboration with [Julius]() and [Acco]() .<br>
 - [HTTPS Certificate](#HTTPS-Certificate)
 - [dompurify - HTML](#dompurify-HTML)
 - [data-i18n - Language](#data-i18n-Language)
-- [Backend Call - Connection between frontend and backend](#Backend-Call)
+- [Backend Call](#Backend-Call)
 - [Installation](#Installation)
 
 
