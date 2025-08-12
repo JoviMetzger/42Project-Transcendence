@@ -1,10 +1,10 @@
-# Transcendence
+# 🧩 Transcendence 🏓🐍
 
 Transcendence is a full-stack web application where users can <br>
 create an account and play **3D Pong** or **2D Snake** games. <br>
-This project was developed in collaboration with [Julius]() and [Acco]() .<br> 
+This project was developed in collaboration with 📌[Julius]() and 📌[Acco]() .<br> 
 
-## Table of Contents
+## 🌱Table of Contents
 - [About](#About)
 - [Docker](#Docker)
 - [Swagger - Backend](#Swagger-Backend)
@@ -16,7 +16,7 @@ This project was developed in collaboration with [Julius]() and [Acco]() .<br>
 - [Installation](#Installation)
 
 
-## About
+## 🌱About
 Transcendence covers most things in full-stack webapplication. <br>
 **The application is simple.**  <br>
 User creates and acount, unless already created then just needs to loggin. <br>
@@ -86,7 +86,7 @@ The subject wants you to choose **7 Major modlues** *(two Minor modlues equal on
 <br><br>
 
 
-## Docker
+## 🌱Docker
 
 ### Docker Compose Files
 We used two different docker compose files.
@@ -145,7 +145,7 @@ We use two Docker volumes:
 <br>
 
 
-## Swagger (Backend)
+## 🌱Swagger (Backend)
 We used **Swagger UI** *(localhost:3000/docs)* <br>
 It’s useful for both backend and frontend teams <br>
 
@@ -175,7 +175,7 @@ Swagger UI is an open-source tool that reads an API’s OpenAPI **(Swagger)** sp
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-## Drizzle (Backend)
+## 🌱Drizzle (Backend)
 Drizzle will help you vizualy seeing whats happening inside your database.
 
 ### What is Drizzle?
@@ -186,10 +186,10 @@ Drizzle will help you vizualy seeing whats happening inside your database.
 
 
 
-## HTTPS Certificate
-## dompurify (HTML)
-## data-i18n (Language)
-## Backend Call
+## 🌱HTTPS Certificate
+## 🌱dompurify (HTML)
+## 🌱data-i18n (Language)
+## 🌱Backend Call
 -  Connection between frontend and backend
 - frontend
 The supject requireds you to use a single web application, wich means only one html page is being used. 
@@ -244,7 +244,7 @@ const content = inputToContent(["username", "password"]);
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 -->
 
-## Installation
+## 🌱Installation
 **1. Step:**  Create a *.env*
 <details>
   <summary><strong>📝 My .env</strong></summary>
