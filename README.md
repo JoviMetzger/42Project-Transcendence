@@ -159,9 +159,12 @@ Swagger UI is an open-source tool that reads an API’s OpenAPI **(Swagger)** sp
 
 ### Why it's useful
 - **Frontend** can see which routes to call, what parameters to send, and what responses to expect. <br>
-- **Backend** can test endpoints directly in the browser without writing extra code. <br> <br>
+- **Backend** can test endpoints directly in the browser without writing extra code. <br>
 
 ❗[Swagger Documentaion](https://swagger.io/docs/)❗
+
+<br>
+
 
 
 
