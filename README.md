@@ -8,10 +8,11 @@ This project was developed in collaboration with [Julius]() and [Acco]() .<br>
 - [About](#About)
 - [Docker](#Docker)
 - [Swagger - Backend](#Swagger-Backend)
-- [Drizzle - Backend](#Drizzle)
+- [Drizzle - Backend](#Drizzle-Backend)
 - [HTTPS Certificate](#HTTPS-Certificate)
-- [dompurify - HTML](#dompurify)
-- [data-i18n - Languages](#data-i18n)
+- [dompurify - HTML](#dompurify-HTML)
+- [data-i18n - Language](#data-i18n-Language)
+- [Backend Call - Connection between frontend and backend](#Backend-Call)
 - [Installation](#Installation)
 
 
@@ -183,9 +184,10 @@ Drizzle will help you vizualy seeing whats happening inside your database.
 
 
 ## HTTPS Certificate
-## dompurify - HTML
-## data-i18n - Languages
-## Backend Call -  Connection between frontend and backend
+## dompurify (HTML)
+## data-i18n (Language)
+## Backend Call
+-  Connection between frontend and backend
 - frontend
 The supject requireds you to use a single web application, wich means only one html page is being used. 
 We always reloaded the body of the html with the new content we needed.
