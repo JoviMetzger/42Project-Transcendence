@@ -31,7 +31,7 @@ The subject wants you to choose **7 Major modlues** *(two Minor modlues equal on
   <summary><strong>We choose:</strong></summary>
   <br>
 
-## We choose:
+## ♣️We choose:
 
 - **Major** : Use a framework to build the backend 	<br>
 &emsp;&emsp;&emsp;&ensp; - Required framework **->** **Typscript** <br>
