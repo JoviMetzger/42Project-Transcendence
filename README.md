@@ -88,7 +88,7 @@ The subject wants you to choose **7 Major modlues** *(two Minor modlues equal on
 
 ## 🌱Docker
 
-### Docker Compose Files
+### ♣️Docker Compose Files
 We used two different docker compose files.
 - `docker-compose-dev.yml` **->** used during **development**.
 - `docker-compose.yml` **->** Used for **production**.
@@ -127,14 +127,14 @@ command: [ "pnpm", "run", "dev" ]
 command: [ "pnpm", "run", "prod" ]
 ```
 
-### Containers
+### ♣️Containers
 - **Frontend Container** <br>
   Serves the user interface built with HTML, Tailwind CSS, and TypeScript.
 - **Backend Container** <br>
    Runs the TypeScript-based backend server that handles authentication, <br>
    matchmaking, and game logic.
 
-### Volumes
+### ♣️Volumes
 We use two Docker volumes:
 - **Database Volume**
   - Persists the SQLite database file.
