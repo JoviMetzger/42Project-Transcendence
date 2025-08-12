@@ -1,6 +1,5 @@
 # Transcendence
 
-<!--
 Transcendence is a full-stack web application where users can <br>
 create an account and play **3D Pong** or **2D Snake** games. <br>
 This project was developed in collaboration with [Julius]() and [Acco]() .<br> 
@@ -8,15 +7,12 @@ This project was developed in collaboration with [Julius]() and [Acco]() .<br>
 ## Table of Contents
 - [About](#About)
 - [Docker](#Docker)
-- [Backend](#Backend)
-- [Frontend](#Frontend)
-	- [Refresh Pages](#Refresh-Pages)
-	- [HTTPS](#HTTPS)
-	- [CSS Tailwind](#CSS-Tailwind)
-	- [HTML - dompurify](#HTML-dompurify)
-	- [Languages](#Languages)
-- [Installation](#Installation) 
-
+- [Swagger - Backend](#Swagger)
+- [Drizzle - Backend](#Drizzle)
+- [HTTPS Certificate](#HTTPS-Certificate)
+- [dompurify - HTML](#dompurify)
+- [data-i18n - Languages](#data-i18n)
+- [Installation](#Installation)
 
 
 ## About
@@ -119,10 +115,21 @@ environment:
     - NODE_ENV=production
 ```
 
+In the docker-compose look for **command** for both backend & frontend:
+
+- Development Option:
+```
+command: [ "pnpm", "run", "dev" ]
+```
+- Production Option:
+```
+command: [ "pnpm", "run", "prod" ]
+```
+
 ### Containers
 - **Frontend Container** <br>
   Serves the user interface built with HTML, Tailwind CSS, and TypeScript.
-- B**ackend Container** <br>
+- **Backend Container** <br>
    Runs the TypeScript-based backend server that handles authentication, <br>
    matchmaking, and game logic.
 
@@ -134,21 +141,51 @@ We use two Docker volumes:
 - **Cookie Volume**
   - Stores session and authentication cookies.
   - Keeps user login data across sessions.
+<br>
 
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+## Swagger (Backend)
+We used **Swagger UI** *(localhost:3000/docs)* <br>
+It’s useful for both backend and frontend teams <br>
 
-- backend
-I'm sorry don't know much about the backend.
+### What is Swagger?
+Swagger UI is an open-source tool that reads an API’s OpenAPI **(Swagger)** specification and turns it into a clean, interactive web page. <br> 
 
-besides we had Swagger UI (localhost:3000/docs)
-It was nice for the frontend to use, you could see what route you need to call and what you need to send to th ebackend and what you will recive back.
-Was also nice for the backend because you could test the route over the webside in a more visual way, without printing in the console everything.
+***It displays:*** <br>
+&emsp;&emsp;&emsp;&ensp; • All available endpoints <br>
+&emsp;&emsp;&emsp;&ensp; • The parameters they require <br>
+&emsp;&emsp;&emsp;&ensp; • The possible responses
+
+### Why it's useful
+- **Frontend** can see which routes to call, what parameters to send, and what responses to expect. <br>
+- **Backend** can test endpoints directly in the browser without writing extra code. <br> <br>
+
+❗[Swagger Documentaion](https://swagger.io/docs/)❗
 
 
 
 
 
+<!---
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+## Drizzle (Backend)
+Drizzle will help you vizualy seeing whats happening inside your database.
+
+### What is Drizzle?
+### How to use Drizzle
+ 
+
+
+
+
+
+## HTTPS Certificate
+## dompurify - HTML
+## data-i18n - Languages
+## Backend Call -  Connection between frontend and backend
 - frontend
 The supject requireds you to use a single web application, wich means only one html page is being used. 
 We always reloaded the body of the html with the new content we needed.
@@ -197,18 +234,10 @@ const content = inputToContent(["username", "password"]);
 
 
 
-html - dompurify
-languages
-https
-
-
-
-
-
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+-->
 
 ## Installing
 **1. Step:**  Create a *.env*
@@ -221,7 +250,7 @@ https
 ```
 # random
 ADMIN=admin
-PASSWORD=iamadmin
+PASSWORD=iamAdmin42
 
 # frontend
 FRONTEND_PORT=5173
@@ -253,11 +282,11 @@ https://localhost:5173
 
 
 **4. Extra Info:** <br>
-`make prod` **-> Start the Docker** <br>
+`make prod` **-> Start the Docker Production mode** <br>
+`make dev` **-> Start the Docker Development mode** <br>
 `make push` **-> Updates the database & applies any pending changes to the actual database structure** <br>
 `make clean` **-> Remove all containers and volumes** <br>
-`make deepclean` **-> Reset. Removes containers, volumes, network, certificates, directories**
+`make deepclean` **-> Reset - Removes containers, volumes, network, certificates, directories**
 <br>
 <br>
 <br>
--->
