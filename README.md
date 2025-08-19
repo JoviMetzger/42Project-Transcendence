@@ -491,7 +491,7 @@ Wrap them in `<span>` for safer placement. <br>
 
 ![Picture](https://github.com/user-attachments/assets/411e3702-928f-4158-a9af-a55b7a2efb7b)
 
-- The word **"Sart here"** should be a hyperlink with different styling.
+- The word **"Start here"** should be a hyperlink with different styling.
 - We split it into two translation keys: ***LoginParagraph*** *and* ***btn_LogIn.***
 ```html
 <p>
