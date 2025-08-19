@@ -241,7 +241,7 @@ A common way to do this is via `element.innerHTML`. <br>
 - Inline event attributes *(onclick, onmouseover, etc.)* can execute harmful code.
 - CSS tricks or malicious `<iframe>` tags can steal user data.
 
-#### Example <br>
+#### 🦠Example <br>
 **Input:** `<img src=x onerror=alert('Hacked!')>` <br>
 **Output:** `<img src="x">` <br> <br>
 The dangerous onerror attribute is removed, leaving only safe HTML. <br>
@@ -279,9 +279,8 @@ We looked at alternatives, but they didn’t quite work for us:
 - `element.insertAdjacentHTML()` → same risks as innerHTML.
 - `document.createElement() + appendChild()` → safe if you construct DOM nodes directly, but less convenient.
 
-***Best practice:*** Use DOMPurify when working with HTML strings and prefer *textContent* for plain text.
+❗Use DOMPurify when working with HTML strings and prefer *textContent* for plain text.
 
-<br>
 <br>
 
 
