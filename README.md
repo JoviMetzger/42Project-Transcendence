@@ -2,7 +2,7 @@
 
 Transcendence is a full-stack web application where users can <br>
 create an account and play **3D Pong** or **2D Snake** games. <br>
-This project was developed in collaboration with 📌[Julius]() and 📌[Acco]() .<br> 
+This project was developed in collaboration with 📌[Julius](https://github.com/Codam-jde-baai) and 📌[Acco](https://github.com/Solypsist) .<br> 
 
 ## 🌱Table of Contents
 - [About](#About)
