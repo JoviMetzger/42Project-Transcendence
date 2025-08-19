@@ -218,21 +218,70 @@ Run `npx drizzle-kit studio` <br> This will give you your web UI → *you copy-p
 
 
 
+-->
+
+
 
 
 
 ## 🌱dompurify (HTML)
 
+### What is dompurify?
+DOMPurify is a fast, client-side library for sanitizing HTML.
+- It removes malicious or dangerous code *(like scripts, event handlers, or inline JavaScript)* from user-provided HTML.
+- It ensures the HTML is safe to insert into the DOM, preventing vulnerabilities like Cross-Site Scripting *(XSS)*.
+- It works in browsers and even on server environments *(like Node.js)*.
 
+### Why use dompurify?
+When working with user input or dynamic HTML updates, we often need to insert content into the DOM. A common way to do this is via `element.innerHTML`. <br>
 
+⚠️ However, innerHTML is not safe because:
+- Attackers can inject `<script>` tags that execute malicious JavaScript.
+- Inline event attributes *(onclick, onmouseover, etc.)* can execute harmful code.
+- CSS tricks or malicious `<iframe>` tags can steal user data.
 
+#### Example <br>
+**Input:** `<img src=x onerror=alert('Hacked!')>` <br>
+**Output:** `<img src="x">` <br>
+The dangerous onerror attribute is removed, leaving only safe HTML. <br>
+If you directly set this into the DOM with innerHTML, it will execute `alert('Hacked!')`.
 
+DOMPurify solves this by stripping out unsafe attributes, tags, and scripts while keeping the safe HTML intact.
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+***Code Example***
+```html
+// User input fields (hardcoded for example)
+const inputIds = ["username", "email", "password"];
+const formData: Record<string, string> = {};
 
--->
+inputIds.forEach(id => {
+  const elem = document.getElementById(id) as HTMLInputElement | null;
+  if (elem) 
+  {
+    const rawInput = elem.value;
+    const sanitizedInput = DOMPurify.sanitize(rawInput); // Removes unsafe HTML
+    formData[elem.id] = sanitizedInput;
+  }
+});
 
+// for Testing
+console.log(formData);
+```
 
+### Alternatives
+We used a single-page application *(SPA)*. <br>
+The way we handle navigation is by replacing the entire `<body>` content dynamically. <br>The simplest way to do this is with **innerHTML**, which lets us insert new HTML directly.
+
+We looked at alternatives, but they didn’t quite work for us:
+- `element.innerHTML = ...` → unsafe unless sanitized with DOMPurify.
+- `element.textContent = ...` → safe for plain text (but strips HTML).
+- `element.insertAdjacentHTML()` → same risks as innerHTML.
+- `document.createElement() + appendChild()` → safe if you construct DOM nodes directly, but less convenient.
+
+***Best practice:*** Use DOMPurify when working with HTML strings and prefer *textContent* for plain text.
+
+<br>
+<br>
 
 
 ## 🌱data-i18n (Language)
