@@ -439,11 +439,10 @@ If you just put data-i18n on the whole `<p>`, you’ll lose the formatting or th
 
 Wrap them in `<span>` for safer placement. <br>
 **Example** <br>
+
 ![Picture](https://github.com/user-attachments/assets/411e3702-928f-4158-a9af-a55b7a2efb7b)
 
-<br>
-
-- The word **"Sign Up"** should be a hyperlink with different styling.
+- The word **"Sart here"** should be a hyperlink with different styling.
 - We split it into two translation keys: ***LoginParagraph*** *and* ***btn_LogIn.***
 ```html
 <p>
