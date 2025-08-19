@@ -166,19 +166,10 @@ Swagger UI is an open-source tool that reads an API’s OpenAPI **(Swagger)** sp
 <br>
 
 
-
-
-
-
-<!---
-
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 ## 🌱Drizzle (Backend)
 
 ### What is Drizzle?
-Drizzle is a type-safe Object-Relational Mapping tool for TypeScript and JavaScript. <br>
+Drizzle is a type-safe Object-Relational Mapping **(ORM)** tool for TypeScript and JavaScript. <br>
 
 **In other words:** <br>
 You can write database queries in TypeScript with full type safety—your database schema and queries are strongly typed, so mistakes are caught during development instead of breaking your app at runtime.
@@ -186,7 +177,7 @@ You can write database queries in TypeScript with full type safety—your databa
 
 ### What Drizzle Lets You Do
 1) ***Viewing the database*** <br>
-- Use Drizzle Studio (the included web UI) to explore tables, columns, and data.
+- Use Drizzle Studio *(the included web UI)* to explore tables, columns, and data.
 - Run queries, view schemas, and inspect results directly in the browser.
 
 2) ***Change Column Types Safely***
@@ -199,19 +190,22 @@ You can write database queries in TypeScript with full type safety—your databa
 
 ### How to Use Drizzle Studio
 1. Install drizzle-kit
-2. Open Studio
-Run `npx drizzle-kit studio`
-3. Use web UI to view and inspect your database
+2. Open Studio <br>
+Run `npx drizzle-kit studio` <br> This will give you your web UI → *you copy-paste the web UI into your browser*
+3. Use the web UI to view and inspect your database
+<br>
  
 
 ❗[Drizzle Documentaion](https://orm.drizzle.team/docs/get-started)❗
 
 <br>
- 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 
+
+
+
+<!---
 
 ## 🌱HTTPS Certificate
 
@@ -242,6 +236,76 @@ Run `npx drizzle-kit studio`
 
 
 ## 🌱data-i18n (Language)
+
+We decided we gonna use data-i18n. <br>
+data-i18n is just one common convention for handling translations, ***but*** *it’s not the only option*. <br> Depending on your needs, you can either roll your own approach or use well-established i18n libraries/toolkits that handle translations, pluralization, formatting, and even right-to-left languages. <br> 
+
+### ♣️What is data-i18n?
+data-i18n is not a built-in HTML attribute, but a custom data attribute.
+It’s part of the HTML5 **data-*** **attribute system**, which allows you to store extra information *(custom data)* on HTML elements.
+
+In the case of data-i18n, developers use it to mark elements that should be translated.
+
+### ♣️Why use data-i18n?
+Instead of hardcoding text into your HTML like this:
+```html
+<h1>Welcome!</h1>
+<p>This is the intro.</p>
+```
+You write:
+```html
+<h1 data-i18n="welcome_message"></h1>
+<p data-i18n="intro_text"></p>
+```
+This makes your page language-agnostic. The actual words will be filled in by JavaScript/TypeScript at runtime, depending on the selected language.
+
+### ♣️Alternatives to data-i18n
+
+#### 🌍 1. Inline text replacement markers <br>
+You can insert placeholders directly in your HTML. <br>
+A templating engine then replaces those placeholders with the correct translations at runtime.
+
+<br> 
+
+```html
+<h1>{{welcome_message}}</h1>
+```
+
+
+`{{welcome_message}}` is a placeholder *(a translation key).*
+
+A templating engine *(like Handlebars, Mustache, Vue, or React)* looks up the key in your translation files. <br>
+The engine automatically swaps the placeholder with the correct text for the active language. <br> <br>
+
+#### 🌍 2. Popular Toolkits for Internationalization
+
+General JavaScript / Web | Short explanation
+--- | ---
+i18next | Full-featured i18n library, works in plain JS and all major frameworks. 
+FormatJS / React Intl |  Powerful message formatting, best for React apps. 
+Polyglot.js |  Lightweight library, good for small projects. 
+
+Framework-Specific | Short explanation
+--- | ---
+React Intl / Next.js i18n | Built for React/Next.js, integrates with components and routing.
+Vue I18n | Official Vue plugin for translations.
+Angular i18n | Built-in Angular support for template translations.
+
+Server-Side *(Backend)* | Short explanation
+--- | ---
+Django i18n *(Python)* | Built-in translation system using .po files.
+Rails i18n *(Ruby)* | Built-in YAML-based translations.
+Spring i18n *(Java)* | Uses messages.properties for localization.
+
+<br>
+
+### ♣️How it works
+The attribute itself does nothing by default—it’s just metadata.
+What makes it work is JavaScript *(or a translation library)* that reads the data-i18n attributes, looks up the corresponding translations, and replaces the element’s text.
+
+#### 🌍 1. Create a json file:
+NOTE the json file will have a key and a value.
+The key is called in the HTML the value is the translted text.
 
 
 
