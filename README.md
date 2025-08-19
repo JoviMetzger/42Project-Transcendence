@@ -285,17 +285,23 @@ i18next | Full-featured i18n library, works in plain JS and all major frameworks
 FormatJS / React Intl |  Powerful message formatting, best for React apps. 
 Polyglot.js |  Lightweight library, good for small projects. 
 
+---
+
 Framework-Specific | Short explanation
 --- | ---
 React Intl / Next.js i18n | Built for React/Next.js, integrates with components and routing.
 Vue I18n | Official Vue plugin for translations.
 Angular i18n | Built-in Angular support for template translations.
 
+---
+
 Server-Side *(Backend)* | Short explanation
 --- | ---
 Django i18n *(Python)* | Built-in translation system using .po files.
 Rails i18n *(Ruby)* | Built-in YAML-based translations.
 Spring i18n *(Java)* | Uses messages.properties for localization.
+
+---
 
 <br>
 
@@ -433,7 +439,7 @@ If you just put data-i18n on the whole `<p>`, you’ll lose the formatting or th
 
 Wrap them in `<span>` for safer placement. <br>
 **Example** <br>
-![Picture]()
+![Picture](https://github.com/user-attachments/assets/411e3702-928f-4158-a9af-a55b7a2efb7b)
 
 <br>
 
