@@ -233,7 +233,8 @@ DOMPurify is a fast, client-side library for sanitizing HTML.
 - It works in browsers and even on server environments *(like Node.js)*.
 
 ### Why use dompurify?
-When working with user input or dynamic HTML updates, we often need to insert content into the DOM. A common way to do this is via `element.innerHTML`. <br>
+When working with user input or dynamic HTML updates, we often need to insert content into the DOM. <br>
+A common way to do this is via `element.innerHTML`. <br>
 
 ⚠️ However, innerHTML is not safe because:
 - Attackers can inject `<script>` tags that execute malicious JavaScript.
@@ -242,7 +243,7 @@ When working with user input or dynamic HTML updates, we often need to insert co
 
 #### Example <br>
 **Input:** `<img src=x onerror=alert('Hacked!')>` <br>
-**Output:** `<img src="x">` <br>
+**Output:** `<img src="x">` <br> <br>
 The dangerous onerror attribute is removed, leaving only safe HTML. <br>
 If you directly set this into the DOM with innerHTML, it will execute `alert('Hacked!')`.
 
