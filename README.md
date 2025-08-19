@@ -230,7 +230,7 @@ Run `npx drizzle-kit studio` <br> This will give you your web UI → *you copy-p
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
+-->
 
 
 
@@ -300,26 +300,156 @@ Spring i18n *(Java)* | Uses messages.properties for localization.
 <br>
 
 ### ♣️How it works
-The attribute itself does nothing by default—it’s just metadata.
+The attribute itself does nothing by default—it’s just metadata. <br>
 What makes it work is JavaScript *(or a translation library)* that reads the data-i18n attributes, looks up the corresponding translations, and replaces the element’s text.
 
+Here is a small overview how it will work in JavaScript.
+
 #### 🌍 1. Create a json file:
-NOTE the json file will have a key and a value.
-The key is called in the HTML the value is the translted text.
+You can store translations either as separate files per language or a single combined file.
+
+**Option1:** Separate JSON files *(recommended for larger projects)*
+`en.json`
+```json
+{
+    "welcome_message": "Welcome!",
+    "intro_text": "This is the intro."
+}
+```
+
+`de.json`
+```json
+{
+    "welcome_message": "Welkommen!",
+    "intro_text": "Dies ist das Intro"
+}
+```
+
+**Option2:** Single JSON file *(for small projects)*
+
+`language.json`
+```json
+{
+  "en": {
+    "welcome_message": "Welcome!",
+    "intro_text": "This is the intro."
+  },
+  "de": {
+    "welcome_message": "Welkommen!",
+    "intro_text": "Dies ist das Intro"
+  }
+}
+```
+
+The option depends on how much needs to be translated and ofcourse personal preference. <br>
+I preferd having every language sepreate. <br> <br>
 
 
+#### 🌍 2. Implement the data-i18n into your HTML
+**Before** *(hardcoded text):*
+```html
+<h1 class="header">Welcome!</h1>
+```
+**After** *(translation key only):*
+```html
+<h1 class="header" data-i18n="welcome_message"></h1>
+```
+**Don't forget to call at the function for the translation** <br> <br>
+
+#### 🌍 3. The function 
+**Example:**
+- Reads the user’s selected language from localStorage
+- Loads the correct JSON file
+- Updates all **[data-i18n]** elements with translated text
+```typescript
+// Import language files
+import en from '../languages/en.json';
+import de from '../languages/de.json';
+import nl from '../languages/nl.json';
+
+export function getLanguage()
+{
+	let langData: LangData;
+	let lang = localStorage.getItem('selectedLang') || 'en';
+
+	// Determine which language data to use
+	switch (lang) {
+		case 'de':
+			langData = de;
+			break;
+		case 'nl':
+			langData = nl;
+			break;
+		default: // Default to English
+            langData = en;
+			lang = "en";
+			break;
+	}
+
+	// Function for setting the language to the correct language
+	updateContent(langData);
+}
+
+// Function to update content based on selected language
+function updateContent(langData: LangData): void {
+	document.querySelectorAll('[data-i18n]').forEach((element) => {
+		const key = element.getAttribute('data-i18n');
+		if (key || langData[key]) 
+    		element.textContent = langData[key];
+	});
+
+    // Update here other elements if needed (like placeholders)
+    // Example: 4. Handle Placeholders
+}
+```
+For more details 
+**or** how a switch language buttons functionality works <br>
+**please look at:**
+`srcs/frontend/src/script/language.ts` <br> <br>
+
+#### 🌍 4. Handle Placeholders 
+You can also translate placeholders by using a separate attribute like `data-i18n-placeholder` <br>
+**Example:**
+```html
+<p class="login">Username</p>
+<input class="input-field" placeholder="Enter your username or email here">
+```
+<br>
+
+**Which turns into:**
+```htm
+<p class="login" data-i18n="LoginHeader"></p>
+<input class="input-field" data-i18n-placeholder="Login_placeholder">
+```
+Now you just need to extend the function `updateContent`.<br>
+Same logic as with the **data-i18n**, but it will be replaced with **data-i18n-placeholder** <br> <br>
+
+#### 🌍 5. Inline Translation
+Sometimes you don’t want the entire sentence translated as one block. <br> <br>
+***Common cases:***
+- A paragraph where only one word is styled differently *(colored, bold, etc.).*
+- A sentence where one word is a link *(“Click here to login”).*
+If you just put data-i18n on the whole `<p>`, you’ll lose the formatting or the link.
+
+Wrap them in `<span>` for safer placement. <br>
+**Example** <br>
+![Picture]()
+
+<br>
+
+- The word **"Sign Up"** should be a hyperlink with different styling.
+- We split it into two translation keys: ***LoginParagraph*** *and* ***btn_LogIn.***
+```html
+<p>
+    <span data-i18n="LoginParagraph"></span>
+    <a class="login" data-i18n="btn_LogIn"></a>
+</p>
+```
+<br>
+<br>
 
 
-
-
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-
-
-
-
+<!--
 
 
 ## 🌱Backend Call
