@@ -248,6 +248,8 @@ Therse certificates are for "real" world web applications/ full web server
     - **3.** Certbot also sets up automatic renewal every 90 days.
 - **Who it’s for:** Anyone running their own server *(VPS, cloud, etc.)* and wants free, hassle-free certificates.
 
+<br> <br>
+
 </details>
 
 <details>
@@ -266,6 +268,8 @@ DigiCert, Sectigo, GlobalSign, GoDaddy, Namecheap, etc.
     - `Wildcard` or `multi-domain` coverage.
     - `OV/EV` validation *(stronger business trust)*.
     - `Warranty/support` from the CA.
+ 
+<br> <br>
 
 </details>
 
@@ -277,6 +281,8 @@ DigiCert, Sectigo, GlobalSign, GoDaddy, Namecheap, etc.
 - Many hosting companies include SSL certificates for free *(often via Let’s Encrypt)*.
 - Some sell premium ones if you need OV/EV.
 - Usually, you just log into your hosting dashboard and click “Enable SSL”.
+
+<br> <br>
 
 </details>
 
@@ -792,7 +798,7 @@ make prod
 ```
 https://localhost:5173
 ```
-❗ If You using **FireFox**, Please [add the certificates]() to browser first. <br> <br>
+❗ If You using **FireFox**, Please [add the certificates](#Step-1:-(Import-the-Certificate)) to browser first. <br> <br>
 
 
 **4. Extra Info:** <br>
