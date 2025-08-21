@@ -201,27 +201,219 @@ Run `npx drizzle-kit studio` <br> This will give you your web UI → *you copy-p
 <br>
 
 
-
-
-
-
-<!---
-
 ## 🌱HTTPS Certificate
 
+**HTTPS** *(Hypertext Transfer Protocol Secure)* is a secure version of the HTTP protocol that uses the SSL/TLS protocol to encrypt data sent between a web browser and a website.
+
+In Transcendence, we used a **self-signed certificate** because our application runs on **Vite**, which is primarily a frontend development server rather than a full production web server like **Nginx** or **Apache**.
+
+### ♠️Types of SSL/TLS Certificates
+Certificates differ in validation level *(how thoroughly the CA checks you)* and scope *(what domains they cover)*.
+
+🔑 **By Validation Level** ***(Trust Level)***
+
+| Type                             | What It Validates                                              | How It’s Verified                                           | Trust Level                                                          | Typical Use                                 | Cost                       |
+| -------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------- | -------------------------- |
+| **DV (Domain Validation)**       | Only proves domain ownership                                   | Simple check (DNS record, file upload, or email link)       | 🔒 Basic encryption (padlock only)                                   | Blogs, personal sites, test projects        | Free (Let’s Encrypt) – Low |
+| **OV (Organization Validation)** | Domain + organization identity (business name, address, phone) | CA manually verifies company info in business registries    | 🔒 Higher trust (company details visible in cert info)               | Small–medium businesses, corporate sites    | Medium                     |
+| **EV (Extended Validation)**     | Domain + legal entity + strong proof of identity               | Rigorous CA checks (legal, physical, operational existence) | 🔒🔒 Highest trust (company legal name shown in certificate details) | Banks, e-commerce, fintech, big enterprises | High                       |
+
+---
+
+🌐 **By Scope of Coverage** ***(What Domains They Secure)***
+| Type                         | What It Covers                               | Example                                                               | Best For                         | Notes                                    |
+| ---------------------------- | -------------------------------------------- | --------------------------------------------------------------------- | -------------------------------- | ---------------------------------------- |
+| **Single-Domain**            | Exactly one fully qualified domain name      | `example.com` (does **not** cover `www.example.com` unless specified) | Simple websites                  | Cheapest, but limited                    |
+| **Wildcard**                 | One domain + **all subdomains** at one level | `*.example.com` → covers `blog.example.com`, `shop.example.com`       | Sites with many subdomains       | Does **not** cover `sub.sub.example.com` |
+| **Multi-Domain (SAN / UCC)** | Multiple unrelated domains under one cert    | `example.com`, `example.org`, `myshop.net`                            | Organizations running many sites | Flexible but can get complex             |
 
 
 
+### ♠️ How to get different Certificates
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Therse certificates are for "real" world web applications/ full web server
 
+<details>
+  <summary><strong>🔐 1. Free & Automatic</strong> (Let’s Encrypt — Recommended for Most Sites)</summary>
+  <br>
 
+### 🔐 1. Free & Automatic (Let’s Encrypt — Recommended for Most Sites)
+- **What it is:** Let’s Encrypt is a free, automated Certificate Authority *(CA)*.
+- **How it works:** 
+    - **1.** Install a tool like `Certbot` on your web server.
+    - **2.** Run a simple command `(certbot --nginx or certbot --apache)` and it will:
+        - Generate a CSR *(certificate signing request)*.
+        - Verify domain ownership automatically.
+        - Install the certificate on your web server.
+    - **3.** Certbot also sets up automatic renewal every 90 days.
+- **Who it’s for:** Anyone running their own server *(VPS, cloud, etc.)* and wants free, hassle-free certificates.
 
+</details>
 
--->
+<details>
+<summary><strong>💳 2. Paid Certificates</strong> (From a Commercial CA)</summary>
+<br>
 
+### 💳 2. Paid Certificates (From a Commercial CA)
+- **Where to buy:** 
+DigiCert, Sectigo, GlobalSign, GoDaddy, Namecheap, etc.
+- **Steps:**
+    - **1.** Generate a CSR on your server.
+    - **2.** Submit it to the CA when purchasing.
+    - **3.** The CA validates you *(DV/OV/EV level depending on what you bought)*.
+    - **4.** Download and install the issued certificate on your server.
+- **Pay if you need:**
+    - `Wildcard` or `multi-domain` coverage.
+    - `OV/EV` validation *(stronger business trust)*.
+    - `Warranty/support` from the CA.
 
+</details>
 
+<details>
+  <summary><strong>🌐 3. Through Your Hosting Provider</strong></summary>
+  <br>
+
+### 🌐 3. Through Your Hosting Provider
+- Many hosting companies include SSL certificates for free *(often via Let’s Encrypt)*.
+- Some sell premium ones if you need OV/EV.
+- Usually, you just log into your hosting dashboard and click “Enable SSL”.
+
+</details>
+
+<details>
+  <summary><strong>🛠️ 4. For Development / Internal Us</strong></summary>
+  <br>
+
+### 🛠️ 4. For Development / Internal Use
+- You can generate a **self-signed certificate** *(using openssl or similar).*
+- This will encrypt traffic but will not be trusted by browsers *(you’ll get a warning)*.
+- Useful for testing, intranet apps, or internal servers.
+
+</details>
+
+<br>
+<br>
+<br>
+
+### ♠️ How to Get Your Certificate for Transcendence
+If you just want HTTPS locally, you don’t need a real CA *(like Let’s Encrypt)*. 
+
+**Instead you can:**
+- Use **self-signed certificates** *(trusted only on your machine)*.
+- Or use a helper tool that creates dev-friendly SSL certs.
+
+<br> <br>
+
+**We used the self-signed certificates.** <br>
+You have `Option A` and `Option B` <br>
+*(I recommend **Option A**, We did **Option B**, which works but is not ideal and makes running the site on Firefox more complicated.)*
+
+**Option A: Vite’s Built-in HTTPS Support (Recommended)** 
+
+**1. Install [vite-plugin-mkcert](https://github.com/liuweiGL/vite-plugin-mkcert):**
+```bash
+npm install vite-plugin-mkcert -D
+```
+**2. Add it to `vite.config.js`:**
+```js
+import { defineConfig } from 'vite'
+import mkcert from 'vite-plugin-mkcert'
+
+export default defineConfig({
+  plugins: [mkcert()],
+  server: {
+    https: true
+  }
+})
+```
+**3. Run `vite`** → It auto-generates trusted local certificates *(via mkcert)* so you can use `https://localhost:5173` without browser warnings.
+
+<br>
+
+**Option B: Shell Script with Self-Signed Certificate**
+
+**1. Add an `entrypoint.sh`** <br>
+Add a entrypoint.sh script in your frontend container to generate a self-signed certificate. <br>
+**Don't forget to create a volume** `./frontend/certs:/app/certs`
+
+<details>
+  <summary><strong>📝 Example entrypoint.sh</strong></summary>
+  <br>
+
+### 📝 Example entrypoint.sh
+
+```shell
+#!/bin/sh
+
+echo "Starting entrypoint..."
+set -e
+
+CERT_PATH=/app/certs
+
+mkdir -p $CERT_PATH
+chmod 777 $CERT_PATH
+
+# Create certs if they don't exist
+if [ ! -f "$CERT_PATH/localhost.pem" ] || [ ! -s "$CERT_PATH/localhost.pem" ]; then
+  openssl req -x509 -newkey rsa:2048 -nodes \
+    -keyout "$CERT_PATH/localhost-key.pem" \
+    -out "$CERT_PATH/localhost.pem" \
+    -days 365 \
+    -subj "/CN=localhost"
+    
+    echo "Certificate generated."
+fi
+
+# Set env vars so Vite uses HTTPS
+export SSL_CRT_FILE=/app/certs/localhost.pem
+export SSL_KEY_FILE=/app/certs/localhost-key.pem
+export HTTPS=true
+
+# Start app
+pnpm dev
+```
+
+</details>
+<br>
+
+**2. A new `cert` directory will appear containing:**
+- `localhost-key.pem`
+- `localhost.pem`
+
+<br>
+
+**3. Add the certificates to your browser** <br>
+Because our backend and frontend run on different ports, the frontend itself works fine, but the connection to the backend is blocked in Firefox.
+
+**Why this happens:** <br>
+**Chrome** → Checks only the host *(localhost)*.As long as the host matches, frontend and backend can communicate, even if they’re on different ports. <br>
+**Firefox** → Checks both the host and the port.  Since the ports are different, Firefox treats the backend as a different origin and denies the connection. I guess this makes Firefox more secure, but also more annoying for local development.
+
+**The fix for that:** <br>
+**Chrome** → you don't need to do anything. <br>
+**Firefox** → you need to add manually the certificate to your browser.<br>
+
+#### Step 1: (Import the Certificate)
+- **1.** Click the three horizontal lines *(hamburger menu ☰)* in the upper right corner.
+- **2.** Click `Settings`.
+- **3.** In the sidebar, go to `Privacy & Security`.
+- **4.** Scroll down to the `Certificate` section.
+- **5.** Click `View Certificate...`
+- **6.** Switch to the `Authorities` tab → Click `Import`.
+- **7.** Select/find your `localhost.pem` file.
+- **8.** Check: ✅"Trust this CA to identify websites"
+- **9.** *(⚠️* ***ONLY*** *if your backend and frontend port are different.)*
+- **10**. Restart Firefox *(close and reopen Firefox)*
+
+#### Step 2: Add a Server Exception *(Only if Backend Uses a Different Port)*
+You only need to do this once unless your backend port changes.
+- **1.** In the `Certificates` window, switch to the `Servers` tab
+- **2.** Click `Add Exception...`
+- **3.** Add your backend URL → For us it is `https://localhost:3000`.
+- **4.** Once you confirmed, the server will appear in the table.
+
+<br>
+<br>
 
 
 ## 🌱dompurify (HTML)
