@@ -798,7 +798,7 @@ make prod
 ```
 https://localhost:5173
 ```
-❗ If You using **FireFox**, Please [add the certificates](#Step-1:-(Import-the-Certificate)) to browser first. <br> <br>
+❗ If You using **FireFox**, Please [add the certificates](#Step-1-import-the-certificate) to browser first. <br> <br>
 
 
 **4. Extra Info:** <br>
