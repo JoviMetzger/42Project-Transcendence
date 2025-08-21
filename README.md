@@ -421,8 +421,7 @@ You only need to do this once unless your backend port changes.
 <br> <br>
 
 ❗ **NOTE:** ❗ After installing HTTPS, this will appear;  → Click on `Advanced`
-![Picture]()
-<img width="693" height="432" alt="thread-293227291-6952914450710318984" src="https://github.com/user-attachments/assets/daa15b31-3fce-49b0-9cac-4a3a2165acfa" />
+![Picture]("https://github.com/user-attachments/assets/daa15b31-3fce-49b0-9cac-4a3a2165acfa")
 
 
 <br>
