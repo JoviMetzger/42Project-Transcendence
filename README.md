@@ -418,14 +418,14 @@ You only need to do this once unless your backend port changes.
 - **3.** Add your backend URL → For us it is `https://localhost:3000`.
 - **4.** Once you confirmed, the server will appear in the table.
 
-<br> <br>
+<br>
 
 ❗ **NOTE:** ❗ After installing HTTPS, this will appear;  → Click on `Advanced`
 
 <img width="593" height="332" alt="thread-293227291-6952914450710318984" src="https://github.com/user-attachments/assets/bfa79b3a-0a2b-4f06-94d1-2255f04d281e" />
 
 
-<br>
+<br> <br> <br>
 
 
 ## 🌱dompurify (HTML)
